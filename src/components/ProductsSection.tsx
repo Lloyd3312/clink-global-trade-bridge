@@ -1,0 +1,104 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { 
+  Wrench, 
+  Armchair, 
+  Zap, 
+  Building, 
+  Cog,
+  ArrowRight 
+} from "lucide-react";
+import { Link } from "react-router-dom";
+
+const ProductsSection = () => {
+  const products = [
+    {
+      icon: Building,
+      title: "Steel & Iron",
+      description: "High-grade steel bars, sheets, pipes, and structural steel products from leading Turkish mills.",
+      features: ["Construction Grade", "Industrial Quality", "Custom Specifications"]
+    },
+    {
+      icon: Cog,
+      title: "Industrial Machinery",
+      description: "Heavy equipment, manufacturing machinery, and precision tools from Turkish manufacturers.",
+      features: ["CE Certified", "Global Warranty", "Technical Support"]
+    },
+    {
+      icon: Armchair,
+      title: "Furniture & Fabrics",
+      description: "Premium furniture, home textiles, and high-quality fabrics from Turkish artisans.",
+      features: ["Export Quality", "Custom Designs", "Bulk Orders"]
+    },
+    {
+      icon: Wrench,
+      title: "Ceramics & POP",
+      description: "Decorative ceramics, tiles, and plaster of Paris materials for construction and design.",
+      features: ["Artistic Designs", "Durable Materials", "Various Sizes"]
+    },
+    {
+      icon: Zap,
+      title: "Solar Panels",
+      description: "High-efficiency solar panels and renewable energy equipment from Turkish manufacturers.",
+      features: ["EU Standards", "25-Year Warranty", "Installation Support"]
+    }
+  ];
+
+  return (
+    <section className="py-20 bg-secondary/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Premium Turkish Products
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Discover our comprehensive range of high-quality Turkish goods, 
+            carefully sourced from verified manufacturers and suppliers.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product, index) => (
+            <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-border/50">
+              <CardHeader>
+                <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <product.icon className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle className="text-xl text-foreground">{product.title}</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  {product.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 mb-6">
+                  {product.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
+                      <div className="h-1.5 w-1.5 bg-primary rounded-full mr-3" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  Learn More
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* View All Products CTA */}
+        <div className="text-center mt-12">
+          <Button variant="cta" size="lg" asChild>
+            <Link to="/products" className="inline-flex items-center gap-2">
+              View All Products
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ProductsSection;
