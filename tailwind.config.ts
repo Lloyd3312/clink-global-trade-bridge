@@ -60,6 +60,7 @@ export default {
 				'steel-gray': 'hsl(var(--steel-gray))',
 				'success-green': 'hsl(var(--success-green))',
 				'warning-orange': 'hsl(var(--warning-orange))',
+				'deep-green': 'hsl(var(--deep-green))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

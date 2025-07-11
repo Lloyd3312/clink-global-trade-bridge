@@ -14,7 +14,9 @@ import {
   Wrench, 
   Zap,
   CheckCircle,
-  Clock
+  Clock,
+  Shield,
+  Baby
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -27,6 +29,7 @@ const Quote = () => {
     phone: "",
     country: "",
     products: [] as string[],
+    customProduct: "",
     quantity: "",
     specifications: "",
     deliveryTimeline: "",
@@ -38,6 +41,8 @@ const Quote = () => {
     { id: "steel", label: "Steel & Iron", icon: Building },
     { id: "machinery", label: "Industrial Machinery", icon: Cog },
     { id: "furniture", label: "Furniture & Fabrics", icon: Armchair },
+    { id: "doors", label: "Doors (Bulletproof)", icon: Shield },
+    { id: "baby", label: "Baby Things & Wears", icon: Baby },
     { id: "ceramics", label: "Ceramics & POP", icon: Wrench },
     { id: "solar", label: "Solar Panels", icon: Zap }
   ];
@@ -55,10 +60,10 @@ const Quote = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name || !formData.email || !formData.company || formData.products.length === 0) {
+    if (!formData.name || !formData.email || !formData.company || (formData.products.length === 0 && !formData.customProduct)) {
       toast({
         title: "Please fill in all required fields",
-        description: "Name, email, company, and at least one product category are required.",
+        description: "Name, email, company, and at least one product category or custom product are required.",
         variant: "destructive"
       });
       return;
@@ -78,6 +83,7 @@ const Quote = () => {
       phone: "",
       country: "",
       products: [],
+      customProduct: "",
       quantity: "",
       specifications: "",
       deliveryTimeline: "",
@@ -183,7 +189,7 @@ const Quote = () => {
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-4">Product Categories *</h3>
                   <p className="text-sm text-muted-foreground mb-4">Select all product categories you're interested in:</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                     {productCategories.map((category) => (
                       <div key={category.id} className="flex items-center space-x-3">
                         <Checkbox
@@ -197,6 +203,20 @@ const Quote = () => {
                         </Label>
                       </div>
                     ))}
+                  </div>
+                  
+                  {/* Custom Product Field */}
+                  <div className="space-y-2">
+                    <Label htmlFor="customProduct">Or specify your custom product requirements:</Label>
+                    <Input
+                      id="customProduct"
+                      value={formData.customProduct}
+                      onChange={(e) => setFormData(prev => ({ ...prev, customProduct: e.target.value }))}
+                      placeholder="If your product is not listed above, please specify here..."
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      You can either select from the categories above OR specify a custom product requirement.
+                    </p>
                   </div>
                 </div>
 

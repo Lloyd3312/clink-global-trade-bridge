@@ -2,15 +2,38 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Shield, Truck, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Hero = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const backgroundImages = [
+    '/lovable-uploads/bf677d37-467e-40a8-9074-58b9ac0be463.png',
+    '/lovable-uploads/bac6ff00-3b61-4a84-b07c-31042dcf5684.png',
+    '/lovable-uploads/9e93a678-ad69-40d1-9f97-b4fc9e6a1e36.png',
+    '/lovable-uploads/38216ba6-7de2-4cd6-a498-aaec379242e0.png',
+    '/lovable-uploads/b81098cd-482f-499f-b723-468ab7d7bef3.png',
+    '/lovable-uploads/7834c249-e488-42b6-aa9a-421411f82576.png',
+    '/lovable-uploads/fde866d3-9681-4917-995f-6596ab25307b.png'
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % backgroundImages.length
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
+
   return (
-    <section className="relative min-h-[80vh] flex items-center bg-gradient-to-br from-primary/5 via-background to-ocean-blue/5">
-      {/* Background Image Overlay */}
+    <section className="relative min-h-[80vh] flex items-center bg-gradient-to-br from-primary/5 via-background to-steel-gray/5">
+      {/* Background Image Overlay with Rotation */}
       <div 
-        className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent"
+        className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent transition-all duration-1000"
         style={{
-          backgroundImage: "url('/lovable-uploads/bf677d37-467e-40a8-9074-58b9ac0be463.png')",
+          backgroundImage: `url('${backgroundImages[currentImageIndex]}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat"

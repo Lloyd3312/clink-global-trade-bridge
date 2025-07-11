@@ -97,6 +97,8 @@ const Footer = () => {
               <li className="text-background/80 text-sm">Steel & Iron</li>
               <li className="text-background/80 text-sm">Industrial Machinery</li>
               <li className="text-background/80 text-sm">Furniture & Fabrics</li>
+              <li className="text-background/80 text-sm">Doors (Bulletproof)</li>
+              <li className="text-background/80 text-sm">Baby Things & Wears</li>
               <li className="text-background/80 text-sm">Ceramics & POP</li>
               <li className="text-background/80 text-sm">Solar Panels</li>
             </ul>
@@ -117,10 +119,10 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-primary-light" />
                 <a 
-                  href="tel:+905555555555" 
+                  href="tel:+905395815283" 
                   className="text-background/80 hover:text-primary-light transition-colors text-sm"
                 >
-                  +90 555 555 5555
+                  +90 539 581 5283
                 </a>
               </div>
               
@@ -137,7 +139,7 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <MessageCircle className="h-4 w-4 text-primary-light" />
                 <a 
-                  href="https://wa.me/905555555555" 
+                  href="https://wa.me/905395815283" 
                   className="text-background/80 hover:text-primary-light transition-colors text-sm"
                   target="_blank"
                   rel="noopener noreferrer"

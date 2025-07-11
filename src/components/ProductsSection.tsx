@@ -6,7 +6,9 @@ import {
   Zap, 
   Building, 
   Cog,
-  ArrowRight 
+  ArrowRight,
+  Shield,
+  Baby
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -31,6 +33,18 @@ const ProductsSection = () => {
       features: ["Export Quality", "Custom Designs", "Bulk Orders"]
     },
     {
+      icon: Shield,
+      title: "Doors (Bulletproof)",
+      description: "High-security bulletproof doors and specialized security door systems from Turkish manufacturers.",
+      features: ["Ballistic Protection", "Fire Resistant", "Custom Security Levels"]
+    },
+    {
+      icon: Baby,
+      title: "Baby Things & Wears",
+      description: "Premium baby clothing, accessories, and childcare products from certified Turkish suppliers.",
+      features: ["Organic Materials", "Safety Certified", "European Standards"]
+    },
+    {
       icon: Wrench,
       title: "Ceramics & POP",
       description: "Decorative ceramics, tiles, and plaster of Paris materials for construction and design.",
@@ -45,7 +59,10 @@ const ProductsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-secondary/30">
+    <section className="py-20 bg-secondary/30 relative">
+      {/* Deep Green Lower Third */}
+      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-deep-green/10"></div>
+      <div className="relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -96,6 +113,7 @@ const ProductsSection = () => {
             </Link>
           </Button>
         </div>
+      </div>
       </div>
     </section>
   );
