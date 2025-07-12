@@ -15,8 +15,8 @@ const Contact = () => {
       icon: Phone,
       title: "Phone",
       description: "Speak directly with our export team",
-      contact: "+90 555 555 5555",
-      action: "tel:+905555555555",
+      contact: "+905395815283",
+      action: "tel:+905395815283",
       available: "Mon-Fri 9AM-6PM (Turkey Time)"
     },
     {
@@ -31,8 +31,8 @@ const Contact = () => {
       icon: MessageCircle,
       title: "WhatsApp",
       description: "Quick chat for instant responses",
-      contact: "+90 555 555 5555",
-      action: "https://wa.me/905555555555",
+      contact: "+905395815283",
+      action: "https://wa.me/905395815283",
       available: "Available for instant messaging"
     },
     {
@@ -225,13 +225,13 @@ const Contact = () => {
               </a>
             </Button>
             <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary" asChild>
-              <a href="tel:+905555555555">
-                Call Now: +90 555 555 5555
+              <a href="tel:+905395815283">
+                Call Now: +905395815283
               </a>
             </Button>
             <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary" asChild>
               <a 
-                href="https://wa.me/905555555555" 
+                href="https://wa.me/905395815283" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >

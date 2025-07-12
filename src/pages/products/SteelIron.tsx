@@ -65,13 +65,30 @@ const SteelIron = () => {
               </div>
             </div>
 
-            {/* Image */}
+            {/* Image Gallery */}
             <div className="relative">
-              <img 
-                src={steelIronImage} 
-                alt="Turkish Steel and Iron Products" 
-                className="rounded-lg shadow-xl w-full h-[400px] object-cover"
-              />
+              <div className="grid grid-cols-2 gap-4">
+                <img 
+                  src="/lovable-uploads/9d5cceed-00f6-4c42-8fee-e23702878296.png" 
+                  alt="Turkish Steel Coils" 
+                  className="rounded-lg shadow-xl w-full h-[190px] object-cover"
+                />
+                <img 
+                  src="/lovable-uploads/704c3595-cd19-4f18-8619-f61f51d232c3.png" 
+                  alt="Turkish Steel Bars and Rods" 
+                  className="rounded-lg shadow-xl w-full h-[190px] object-cover"
+                />
+                <img 
+                  src="/lovable-uploads/d98b2527-c629-4dea-a14a-73d94344a8ad.png" 
+                  alt="Turkish Steel Pipes" 
+                  className="rounded-lg shadow-xl w-full h-[190px] object-cover"
+                />
+                <img 
+                  src="/lovable-uploads/d631cef6-e297-4184-9668-d02b49daf9f5.png" 
+                  alt="Turkish Steel Sheets and Plates" 
+                  className="rounded-lg shadow-xl w-full h-[190px] object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
