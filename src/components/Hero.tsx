@@ -61,7 +61,7 @@ const Hero = () => {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight drop-shadow-lg">
                 <span className="drop-shadow-md">Your Reliable</span>
                 <span className="text-primary block drop-shadow-md">Turkish Export Partner</span>
-                <span className="text-steel-gray drop-shadow-md">for Steel, Machinery, Fabrics & More</span>
+                <span className="text-foreground drop-shadow-md">for Steel, Machinery, Fabrics & More</span>
               </h1>
               
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl drop-shadow-md bg-background/30 backdrop-blur-sm rounded-lg p-4">

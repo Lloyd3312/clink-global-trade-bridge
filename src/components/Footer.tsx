@@ -94,13 +94,62 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-background mb-4">Our Products</h3>
             <ul className="space-y-3">
-              <li className="text-background/80 text-sm">Steel & Iron</li>
-              <li className="text-background/80 text-sm">Industrial Machinery</li>
-              <li className="text-background/80 text-sm">Furniture & Fabrics</li>
-              <li className="text-background/80 text-sm">Doors (Bulletproof)</li>
-              <li className="text-background/80 text-sm">Baby Things & Wears</li>
-              <li className="text-background/80 text-sm">Ceramics & POP</li>
-              <li className="text-background/80 text-sm">Solar Panels</li>
+              <li>
+                <Link 
+                  to="/products/steel-iron" 
+                  className="text-background/80 hover:text-primary-light transition-colors text-sm"
+                >
+                  Steel & Iron
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/products/industrial-machinery" 
+                  className="text-background/80 hover:text-primary-light transition-colors text-sm"
+                >
+                  Industrial Machinery
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/products/furniture-fabrics" 
+                  className="text-background/80 hover:text-primary-light transition-colors text-sm"
+                >
+                  Furniture & Fabrics
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/products/security-doors" 
+                  className="text-background/80 hover:text-primary-light transition-colors text-sm"
+                >
+                  Security Doors
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/products/baby-products" 
+                  className="text-background/80 hover:text-primary-light transition-colors text-sm"
+                >
+                  Baby Products
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/products/ceramics-pop" 
+                  className="text-background/80 hover:text-primary-light transition-colors text-sm"
+                >
+                  Ceramics & POP
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/products/solar-panels" 
+                  className="text-background/80 hover:text-primary-light transition-colors text-sm"
+                >
+                  Solar Panels
+                </Link>
+              </li>
             </ul>
           </div>
 

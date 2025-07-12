@@ -95,9 +95,11 @@ const ProductsSection = () => {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  Learn More
-                  <ArrowRight className="h-4 w-4 ml-2" />
+                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors" asChild>
+                  <Link to={`/products/${product.title.toLowerCase().replace(/\s+/g, '-').replace('&', '').replace(/[()]/g, '')}`}>
+                    Learn More
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
