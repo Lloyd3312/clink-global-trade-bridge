@@ -21,6 +21,12 @@ import SecurityDoors from "./pages/products/SecurityDoors";
 import BabyProducts from "./pages/products/BabyProducts";
 import CeramicsPOP from "./pages/products/CeramicsPOP";
 import SolarPanels from "./pages/products/SolarPanels";
+import WhiteLabelFabrics from "./pages/products/WhiteLabelFabrics";
+import WhiteLabelCarpets from "./pages/products/WhiteLabelCarpets";
+import WhiteLabelCottons from "./pages/products/WhiteLabelCottons";
+import WhiteLabelCosmetics from "./pages/products/WhiteLabelCosmetics";
+import WhiteLabelTurkishCloths from "./pages/products/WhiteLabelTurkishCloths";
+import WhiteLabelTurkishOil from "./pages/products/WhiteLabelTurkishOil";
 
 const queryClient = new QueryClient();
 
@@ -43,13 +49,19 @@ const App = () => (
               <Route path="/products/security-doors" element={<SecurityDoors />} />
               <Route path="/products/baby-products" element={<BabyProducts />} />
               <Route path="/products/ceramics-pop" element={<CeramicsPOP />} />
-              <Route path="/products/solar-panels" element={<SolarPanels />} />
-              <Route path="/how-it-works" element={<HowItWorksPage />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/quote" element={<Quote />} />
-              <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
-              <Route path="/quote-tracking" element={<QuoteTracking />} />
-              <Route path="*" element={<NotFound />} />
+            <Route path="/products/solar-panels" element={<SolarPanels />} />
+            <Route path="/products/white-label-fabrics" element={<WhiteLabelFabrics />} />
+            <Route path="/products/white-label-carpets" element={<WhiteLabelCarpets />} />
+            <Route path="/products/white-label-cottons" element={<WhiteLabelCottons />} />
+            <Route path="/products/white-label-cosmetics" element={<WhiteLabelCosmetics />} />
+            <Route path="/products/white-label-turkish-cloths" element={<WhiteLabelTurkishCloths />} />
+            <Route path="/products/white-label-turkish-oil" element={<WhiteLabelTurkishOil />} />
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/quote" element={<Quote />} />
+            <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
+            <Route path="/quote-tracking" element={<QuoteTracking />} />
+            <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />

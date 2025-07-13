@@ -59,6 +59,20 @@ const About = () => {
                 Our experienced team is dedicated to providing seamless, end-to-end solutions, 
                 ensuring our clients find efficiency.
               </p>
+              
+              {/* Video Section */}
+              <div className="mt-8">
+                <video 
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline
+                  className="w-full h-64 object-cover rounded-lg shadow-lg"
+                >
+                  <source src="/src/assets/clink-shipping-video.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="h-5 w-5 text-success-green" />

@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { 
   Send, 
   Building, 
@@ -16,7 +18,12 @@ import {
   CheckCircle,
   Clock,
   Shield,
-  Baby
+  Baby,
+  ChevronsUpDown,
+  Check,
+  Shirt,
+  Palette,
+  Droplet
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -36,6 +43,20 @@ const Quote = () => {
     budget: "",
     additionalInfo: ""
   });
+  const [open, setOpen] = useState(false);
+  
+  const countries = [
+    "United States", "Canada", "United Kingdom", "Germany", "France", "Italy", "Spain", 
+    "Netherlands", "Belgium", "Sweden", "Norway", "Denmark", "Finland", "Switzerland", 
+    "Austria", "Poland", "Czech Republic", "Hungary", "Romania", "Bulgaria", "Greece", 
+    "Portugal", "Ireland", "Luxembourg", "Malta", "Cyprus", "Estonia", "Latvia", 
+    "Lithuania", "Slovenia", "Slovakia", "Croatia", "Australia", "New Zealand", 
+    "Japan", "South Korea", "Singapore", "Malaysia", "Thailand", "Indonesia", 
+    "Philippines", "Vietnam", "India", "China", "Brazil", "Mexico", "Argentina", 
+    "Chile", "Colombia", "Peru", "South Africa", "Egypt", "Morocco", "Nigeria", 
+    "Kenya", "Ghana", "United Arab Emirates", "Saudi Arabia", "Qatar", "Kuwait", 
+    "Oman", "Bahrain", "Jordan", "Lebanon", "Israel", "Russia", "Ukraine", "Belarus"
+  ];
 
   const productCategories = [
     { id: "steel", label: "Steel & Iron", icon: Building },
@@ -44,7 +65,13 @@ const Quote = () => {
     { id: "doors", label: "Doors (Bulletproof)", icon: Shield },
     { id: "baby", label: "Baby Things & Wears", icon: Baby },
     { id: "ceramics", label: "Ceramics & POP", icon: Wrench },
-    { id: "solar", label: "Solar Panels", icon: Zap }
+    { id: "solar", label: "Solar Panels", icon: Zap },
+    { id: "fabrics", label: "White Label Fabrics", icon: Shirt },
+    { id: "carpets", label: "White Label Carpets", icon: Armchair },
+    { id: "cottons", label: "White Label Cottons", icon: Shirt },
+    { id: "cosmetics", label: "White Label Cosmetics", icon: Palette },
+    { id: "turkish-cloths", label: "White Label Turkish Cloths", icon: Shirt },
+    { id: "turkish-oil", label: "White Label Turkish Oil", icon: Droplet }
   ];
 
   const handleProductToggle = (productId: string) => {
@@ -176,12 +203,48 @@ const Quote = () => {
                     </div>
                     <div className="space-y-2 md:col-span-2">
                       <Label htmlFor="country">Delivery Country/Region</Label>
-                      <Input
-                        id="country"
-                        value={formData.country}
-                        onChange={(e) => setFormData(prev => ({ ...prev, country: e.target.value }))}
-                        placeholder="Country/Region for delivery"
-                      />
+                      <Popover open={open} onOpenChange={setOpen}>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            aria-expanded={open}
+                            className="w-full justify-between"
+                          >
+                            {formData.country
+                              ? countries.find((country) => country === formData.country)
+                              : "Select country..."}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full p-0">
+                          <Command>
+                            <CommandInput placeholder="Search country..." />
+                            <CommandList>
+                              <CommandEmpty>No country found.</CommandEmpty>
+                              <CommandGroup>
+                                {countries.map((country) => (
+                                  <CommandItem
+                                    key={country}
+                                    value={country}
+                                    onSelect={(currentValue) => {
+                                      setFormData(prev => ({ ...prev, country: currentValue === formData.country ? "" : currentValue }));
+                                      setOpen(false);
+                                    }}
+                                  >
+                                    <Check
+                                      className={`mr-2 h-4 w-4 ${
+                                        formData.country === country ? "opacity-100" : "opacity-0"
+                                      }`}
+                                    />
+                                    {country}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
                     </div>
                   </div>
                 </div>

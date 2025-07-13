@@ -48,9 +48,6 @@ const QuoteTracking = () => {
   const [searchParams] = useSearchParams();
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [searchRef, setSearchRef] = useState(searchParams.get('ref') || '');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [newStatus, setNewStatus] = useState('');
-  const [statusNotes, setStatusNotes] = useState('');
   const { toast } = useToast();
 
   const statusSteps = [
@@ -238,55 +235,6 @@ const QuoteTracking = () => {
                   </CardContent>
                 </Card>
 
-                {/* Admin Panel (Hidden by default, can be shown with admin access) */}
-                <div className="text-center mb-4">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsAdmin(!isAdmin)}
-                    className="text-xs"
-                  >
-                    Admin Panel
-                  </Button>
-                </div>
-
-                {isAdmin && (
-                  <Card className="mb-8 border-orange-200 bg-orange-50">
-                    <CardHeader>
-                      <CardTitle className="text-orange-800">Admin: Update Quote Status</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div>
-                        <Label htmlFor="newStatus">New Status</Label>
-                        <Select onValueChange={setNewStatus}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select new status" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {statusSteps.map((step) => (
-                              <SelectItem key={step.id} value={step.id}>
-                                {step.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label htmlFor="statusNotes">Notes (Optional)</Label>
-                        <Textarea
-                          id="statusNotes"
-                          value={statusNotes}
-                          onChange={(e) => setStatusNotes(e.target.value)}
-                          placeholder="Add any notes about this status update..."
-                          rows={2}
-                        />
-                      </div>
-                      <Button onClick={updateQuoteStatus} disabled={!newStatus}>
-                        Update Status
-                      </Button>
-                    </CardContent>
-                  </Card>
-                )}
 
                 {/* Contact Options */}
                 <Card>
