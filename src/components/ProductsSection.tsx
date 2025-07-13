@@ -13,6 +13,19 @@ import {
 import { Link } from "react-router-dom";
 
 const ProductsSection = () => {
+  const getProductLink = (title: string) => {
+    switch(title) {
+      case "Steel & Iron": return "/products/steel-iron";
+      case "Industrial Machinery": return "/products/industrial-machinery";
+      case "Furniture & Fabrics": return "/products/furniture-fabrics";
+      case "Doors (Bulletproof)": return "/products/security-doors";
+      case "Baby Things & Wears": return "/products/baby-products";
+      case "Ceramics & POP": return "/products/ceramics-pop";
+      case "Solar Panels": return "/products/solar-panels";
+      default: return "/products";
+    }
+  };
+
   const products = [
     {
       icon: Building,
@@ -96,7 +109,7 @@ const ProductsSection = () => {
                   ))}
                 </ul>
                 <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors" asChild>
-                  <Link to={`/products/${product.title.toLowerCase().replace(/\s+/g, '-').replace('&', '').replace(/[()]/g, '')}`}>
+                  <Link to={getProductLink(product.title)}>
                     Learn More
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Link>

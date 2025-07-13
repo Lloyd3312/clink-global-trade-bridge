@@ -69,27 +69,28 @@ const Quote = () => {
       return;
     }
 
-    // Show success message
+    // Generate reference number
+    const refNumber = `CG${Date.now().toString().slice(-6)}${Math.random().toString(36).substr(2, 3).toUpperCase()}`;
+    
+    // Store quote data in localStorage (in a real app, this would be sent to a backend)
+    const quoteData = {
+      ...formData,
+      referenceNumber: refNumber,
+      status: 'enquiry',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    
+    localStorage.setItem(`quote_${refNumber}`, JSON.stringify(quoteData));
+    
+    // Show success message with reference number
     toast({
-      title: "Quote request submitted!",
-      description: "We'll get back to you within 24 hours with a detailed quote.",
+      title: "Quote request submitted successfully!",
+      description: `Reference Number: ${refNumber}. We'll get back to you within 24 hours.`,
     });
 
-    // Reset form
-    setFormData({
-      name: "",
-      company: "",
-      email: "",
-      phone: "",
-      country: "",
-      products: [],
-      customProduct: "",
-      quantity: "",
-      specifications: "",
-      deliveryTimeline: "",
-      budget: "",
-      additionalInfo: ""
-    });
+    // Redirect to quote confirmation page
+    window.location.href = `/quote-confirmation?ref=${refNumber}`;
   };
 
   return (
