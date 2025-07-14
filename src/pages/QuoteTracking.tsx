@@ -48,6 +48,8 @@ const QuoteTracking = () => {
   const [searchParams] = useSearchParams();
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [searchRef, setSearchRef] = useState(searchParams.get('ref') || '');
+  const [newStatus, setNewStatus] = useState('');
+  const [statusNotes, setStatusNotes] = useState('');
   const { toast } = useToast();
 
   const statusSteps = [
@@ -81,6 +83,34 @@ const QuoteTracking = () => {
   const getCurrentStepIndex = () => {
     if (!quoteData) return 0;
     return statusSteps.findIndex(step => step.id === quoteData.status);
+  };
+
+  const updateQuoteStatus = () => {
+    if (!quoteData || !newStatus) return;
+
+    const updatedQuote = {
+      ...quoteData,
+      status: newStatus,
+      updatedAt: new Date().toISOString(),
+      statusHistory: [
+        ...(quoteData.statusHistory || []),
+        {
+          status: newStatus,
+          timestamp: new Date().toISOString(),
+          notes: statusNotes
+        }
+      ]
+    };
+
+    localStorage.setItem(`quote_${quoteData.referenceNumber}`, JSON.stringify(updatedQuote));
+    setQuoteData(updatedQuote);
+    setNewStatus('');
+    setStatusNotes('');
+
+    toast({
+      title: "Status updated successfully",
+      description: `Quote status changed to ${statusSteps.find(s => s.id === newStatus)?.label}`,
+    });
   };
 
 
@@ -204,6 +234,46 @@ const QuoteTracking = () => {
                           </div>
                         );
                       })}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Admin Panel */}
+                <Card className="mb-8">
+                  <CardHeader>
+                    <CardTitle>Update Status (Admin)</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="status">New Status</Label>
+                        <Select value={newStatus} onValueChange={setNewStatus}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select new status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {statusSteps.map((step) => (
+                              <SelectItem key={step.id} value={step.id}>
+                                {step.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label htmlFor="notes">Status Notes (Optional)</Label>
+                        <Textarea
+                          id="notes"
+                          value={statusNotes}
+                          onChange={(e) => setStatusNotes(e.target.value)}
+                          placeholder="Add any notes about this status change..."
+                          className="mt-1"
+                        />
+                      </div>
+                      <Button onClick={updateQuoteStatus} disabled={!newStatus}>
+                        <ArrowRight className="h-4 w-4 mr-2" />
+                        Update Status
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
