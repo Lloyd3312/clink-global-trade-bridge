@@ -83,33 +83,6 @@ const QuoteTracking = () => {
     return statusSteps.findIndex(step => step.id === quoteData.status);
   };
 
-  const updateQuoteStatus = () => {
-    if (!quoteData || !newStatus) return;
-
-    const updatedQuote = {
-      ...quoteData,
-      status: newStatus,
-      updatedAt: new Date().toISOString(),
-      statusHistory: [
-        ...(quoteData.statusHistory || []),
-        {
-          status: newStatus,
-          timestamp: new Date().toISOString(),
-          notes: statusNotes
-        }
-      ]
-    };
-
-    localStorage.setItem(`quote_${quoteData.referenceNumber}`, JSON.stringify(updatedQuote));
-    setQuoteData(updatedQuote);
-    setNewStatus('');
-    setStatusNotes('');
-
-    toast({
-      title: "Status updated successfully",
-      description: `Quote status changed to ${statusSteps.find(s => s.id === newStatus)?.label}`,
-    });
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-ocean-blue/5">
