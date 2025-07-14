@@ -60,7 +60,7 @@ const About = () => {
                 ensuring our clients find efficiency.
               </p>
               
-              {/* Video Section */}
+              {/* Intro Video Section */}
               <div className="mt-8">
                 <video 
                   autoPlay 
@@ -69,7 +69,7 @@ const About = () => {
                   playsInline
                   className="w-full h-64 object-cover rounded-lg shadow-lg"
                 >
-                  <source src="/src/assets/clink-shipping-video.mp4" type="video/mp4" />
+                  <source src="/src/assets/clink-intro-video.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </div>
