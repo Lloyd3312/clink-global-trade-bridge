@@ -69,7 +69,7 @@ const About = () => {
                   playsInline
                   className="w-full h-64 object-cover rounded-lg shadow-lg"
                 >
-                  <source src="/lovable-uploads/clink-shipping-video.mp4" type="video/mp4" />
+                  <source src="/lovable-uploads/clink-intro-video.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </div>
