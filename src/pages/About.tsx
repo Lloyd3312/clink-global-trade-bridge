@@ -60,8 +60,9 @@ const About = () => {
                 ensuring our clients find efficiency.
               </p>
               
-              {/* Intro Video Section */}
+              {/* Company Intro Video Section */}
               <div className="mt-8">
+                <h3 className="text-xl font-semibold mb-4 text-foreground">Company Introduction</h3>
                 <video 
                   autoPlay 
                   muted 
@@ -72,6 +73,22 @@ const About = () => {
                   <source src="/lovable-uploads/clink-intro-video.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
+              </div>
+
+              {/* Shipping & Logistics Video Section */}
+              <div className="mt-8">
+                <h3 className="text-xl font-semibold mb-4 text-foreground">Our Shipping & Logistics Network</h3>
+                <div className="w-full h-64 bg-muted rounded-lg shadow-lg flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1m6-4a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <p className="text-foreground font-medium">Shipping & Logistics Video</p>
+                    <p className="text-muted-foreground text-sm mt-2">Coming Soon - Showcasing our global network</p>
+                  </div>
+                </div>
               </div>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
