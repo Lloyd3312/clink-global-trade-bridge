@@ -8,7 +8,7 @@ import {
   ArrowRight,
   CheckCircle
 } from "lucide-react";
-import shippingLogisticsImage from "@/assets/shipping-logistics-animated.jpg";
+import shippingLogisticsImage from "@/assets/shipping-logistics-real.jpg";
 import { Link } from "react-router-dom";
 
 const About = () => {
@@ -82,7 +82,7 @@ const About = () => {
                 <div className="w-full h-64 rounded-lg shadow-lg overflow-hidden">
                   <img 
                     src={shippingLogisticsImage}
-                    alt="Dynamic shipping and logistics network illustration"
+                    alt="Professional shipping port with cargo containers and logistics operations"
                     className="w-full h-full object-cover"
                   />
                 </div>
