@@ -8,6 +8,7 @@ import {
   ArrowRight,
   CheckCircle
 } from "lucide-react";
+import shippingLogisticsImage from "@/assets/shipping-logistics-animated.jpg";
 import { Link } from "react-router-dom";
 
 const About = () => {
@@ -75,19 +76,15 @@ const About = () => {
                 </video>
               </div>
 
-              {/* Shipping & Logistics Video Section */}
+              {/* Shipping & Logistics Image Section */}
               <div className="mt-8">
                 <h3 className="text-xl font-semibold mb-4 text-foreground">Our Shipping & Logistics Network</h3>
-                <div className="w-full h-64 bg-muted rounded-lg shadow-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1m6-4a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <p className="text-foreground font-medium">Shipping & Logistics Video</p>
-                    <p className="text-muted-foreground text-sm mt-2">Coming Soon - Showcasing our global network</p>
-                  </div>
+                <div className="w-full h-64 rounded-lg shadow-lg overflow-hidden">
+                  <img 
+                    src={shippingLogisticsImage}
+                    alt="Dynamic shipping and logistics network illustration"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
               <div className="space-y-3">
