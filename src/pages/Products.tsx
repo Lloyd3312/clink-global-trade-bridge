@@ -8,7 +8,9 @@ import {
   Wrench, 
   Zap,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  Shield,
+  Baby
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -88,6 +90,44 @@ const Products = () => {
         "Water Resistant",
         "Easy Installation",
         "Bulk Order Discounts"
+      ]
+    },
+    {
+      icon: Shield,
+      title: "Security Doors",
+      description: "High-security bulletproof doors and specialized security systems",
+      image: "/lovable-uploads/d631cef6-e297-4184-9668-d02b49daf9f5.png",
+      products: [
+        "Bulletproof Steel Doors",
+        "Fire-Resistant Doors",
+        "Blast-Resistant Doors",
+        "Security Door Frames",
+        "Access Control Systems"
+      ],
+      features: [
+        "Ballistic Protection",
+        "Fire Resistance",
+        "Custom Security Levels",
+        "International Standards"
+      ]
+    },
+    {
+      icon: Baby,
+      title: "Baby Products & Wears",
+      description: "Premium baby clothing, accessories, and childcare products",
+      image: "/lovable-uploads/d98b2527-c629-4dea-a14a-73d94344a8ad.png",
+      products: [
+        "Baby Clothing Sets",
+        "Infant Accessories",
+        "Baby Care Products",
+        "Childcare Equipment",
+        "Organic Baby Wear"
+      ],
+      features: [
+        "Organic Materials",
+        "Safety Certified",
+        "European Standards",
+        "Hypoallergenic"
       ]
     },
     {
