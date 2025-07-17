@@ -55,7 +55,7 @@ const Navigation = () => {
               <Link to="/quote">Get Quote</Link>
             </Button>
             <Button variant="cta" size="sm" asChild>
-              <a href="tel:+905555555555" className="flex items-center gap-1">
+              <a href="tel:+905392607700" className="flex items-center gap-1">
                 <Phone className="h-4 w-4" />
                 Call Now
               </a>
@@ -82,11 +82,11 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`block px-3 py-2 text-base font-medium transition-colors hover:text-primary ${
-                    isActive(item.path)
-                      ? "text-primary bg-accent"
-                      : "text-foreground/70"
-                  }`}
+                 className={`block px-3 py-3 text-base font-medium transition-colors hover:text-primary rounded-md ${
+                   isActive(item.path)
+                     ? "text-primary bg-accent"
+                     : "text-foreground/70"
+                 }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -97,7 +97,7 @@ const Navigation = () => {
                   <Link to="/quote">Get Quote</Link>
                 </Button>
                 <Button variant="cta" className="w-full" asChild>
-                  <a href="tel:+905555555555" className="flex items-center justify-center gap-1">
+                  <a href="tel:+905392607700" className="flex items-center justify-center gap-1">
                     <Phone className="h-4 w-4" />
                     Call Now
                   </a>

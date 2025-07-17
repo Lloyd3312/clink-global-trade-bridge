@@ -28,7 +28,7 @@ const Hero = () => {
   }, [backgroundImages.length]);
 
   return (
-    <section className="relative min-h-[80vh] flex items-center bg-gradient-to-br from-primary/5 via-background to-steel-gray/5">
+    <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-center bg-gradient-to-br from-primary/5 via-background to-steel-gray/5">
       {/* Background Image Overlay with Rotation */}
       <div 
         className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent transition-all duration-1000"
@@ -40,8 +40,8 @@ const Hero = () => {
         }}
       />
       
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Hero Content */}
           <div className="space-y-8">
             {/* Trust Badge */}
@@ -57,29 +57,27 @@ const Hero = () => {
             </div>
 
             {/* Main Heading */}
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight drop-shadow-lg">
-                <span className="drop-shadow-md">Your Reliable</span>
-                <span className="text-primary block drop-shadow-md">Turkish Export Partner</span>
-                <span className="text-foreground drop-shadow-md">for Steel, Machinery, Fabrics & More</span>
+            <div className="space-y-4 md:space-y-6">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight drop-shadow-lg">
+                <span className="drop-shadow-md">Seamless Sourcing & Global Delivery</span>
+                <span className="text-primary block drop-shadow-md">of Turkish Goods</span>
+                <span className="text-foreground drop-shadow-md">With Trusted Quality & Affordable Prices</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl drop-shadow-md bg-background/30 backdrop-blur-sm rounded-lg p-4">
-                Connecting international buyers with the finest Turkish products. 
-                From steel and industrial machinery to furniture and fabrics - 
-                we source, verify, and deliver quality goods worldwide.
+              <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl drop-shadow-md bg-background/30 backdrop-blur-sm rounded-lg p-3 md:p-4">
+                Connecting global importers with verified Turkish manufacturers for steel, machinery, fabrics, furniture, and more.
               </p>
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="cta" size="xl" asChild>
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+              <Button variant="cta" size="lg" className="md:text-base" asChild>
                 <Link to="/quote" className="flex items-center gap-2">
                   Request a Quote
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
-              <Button variant="cta-outline" size="xl" asChild>
+              <Button variant="cta-outline" size="lg" className="md:text-base" asChild>
                 <Link to="/contact">
                   Contact & Quote
                 </Link>

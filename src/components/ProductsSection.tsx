@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { 
   Wrench, 
   Armchair, 
@@ -8,7 +9,9 @@ import {
   Cog,
   ArrowRight,
   Shield,
-  Baby
+  Baby,
+  CheckCircle,
+  Award
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -31,43 +34,57 @@ const ProductsSection = () => {
       icon: Building,
       title: "Steel & Iron",
       description: "High-grade steel bars, sheets, pipes, and structural steel products from leading Turkish mills.",
-      features: ["Construction Grade", "Industrial Quality", "Custom Specifications"]
+      features: ["Construction Grade", "Industrial Quality", "Custom Specifications"],
+      badge: "CE Certified",
+      trustIcon: CheckCircle
     },
     {
       icon: Cog,
       title: "Industrial Machinery",
       description: "Heavy equipment, manufacturing machinery, and precision tools from Turkish manufacturers.",
-      features: ["CE Certified", "Global Warranty", "Technical Support"]
+      features: ["CE Certified", "Global Warranty", "Technical Support"],
+      badge: "ISO Quality",
+      trustIcon: Award
     },
     {
       icon: Armchair,
       title: "Furniture & Fabrics",
       description: "Premium furniture, home textiles, and high-quality fabrics from Turkish artisans.",
-      features: ["Export Quality", "Custom Designs", "Bulk Orders"]
+      features: ["Export Quality", "Custom Designs", "Bulk Orders"],
+      badge: "Export Grade",
+      trustIcon: CheckCircle
     },
     {
       icon: Shield,
       title: "Doors (Bulletproof)",
       description: "High-security bulletproof doors and specialized security door systems from Turkish manufacturers.",
-      features: ["Ballistic Protection", "Fire Resistant", "Custom Security Levels"]
+      features: ["Ballistic Protection", "Fire Resistant", "Custom Security Levels"],
+      badge: "Security Grade",
+      trustIcon: Shield
     },
     {
       icon: Baby,
       title: "Baby Things & Wears",
       description: "Premium baby clothing, accessories, and childcare products from certified Turkish suppliers.",
-      features: ["Organic Materials", "Safety Certified", "European Standards"]
+      features: ["Organic Materials", "Safety Certified", "European Standards"],
+      badge: "Safety Certified",
+      trustIcon: CheckCircle
     },
     {
       icon: Wrench,
       title: "Ceramics & POP",
       description: "Decorative ceramics, tiles, and plaster of Paris materials for construction and design.",
-      features: ["Artistic Designs", "Durable Materials", "Various Sizes"]
+      features: ["Artistic Designs", "Durable Materials", "Various Sizes"],
+      badge: "Quality Assured",
+      trustIcon: Award
     },
     {
       icon: Zap,
       title: "Solar Panels",
       description: "High-efficiency solar panels and renewable energy equipment from Turkish manufacturers.",
-      features: ["EU Standards", "25-Year Warranty", "Installation Support"]
+      features: ["EU Standards", "25-Year Warranty", "Installation Support"],
+      badge: "25-Year Warranty",
+      trustIcon: CheckCircle
     }
   ];
 
@@ -89,10 +106,25 @@ const ProductsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-border/50">
-              <CardHeader>
-                <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <product.icon className="h-6 w-6 text-primary" />
+            <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm hover:bg-card/90 relative overflow-hidden">
+              {/* Trust Badge */}
+              <div className="absolute top-4 right-4 z-10">
+                <Badge variant="secondary" className="bg-success-green/10 text-success-green border-success-green/30 text-xs">
+                  <product.trustIcon className="h-3 w-3 mr-1" />
+                  {product.badge}
+                </Badge>
+              </div>
+              
+              {/* Turkish Supplier Badge */}
+              <div className="absolute top-4 left-4 z-10">
+                <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 text-xs">
+                  Trusted Turkish Supplier
+                </Badge>
+              </div>
+              
+              <CardHeader className="pt-16 pb-4">
+                <div className="h-14 w-14 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors shadow-md">
+                  <product.icon className="h-7 w-7 text-primary" />
                 </div>
                 <CardTitle className="text-xl text-foreground">{product.title}</CardTitle>
                 <CardDescription className="text-muted-foreground">
@@ -108,7 +140,7 @@ const ProductsSection = () => {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors" asChild>
+                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors shadow-sm" asChild>
                   <Link to={getProductLink(product.title)}>
                     Learn More
                     <ArrowRight className="h-4 w-4 ml-2" />

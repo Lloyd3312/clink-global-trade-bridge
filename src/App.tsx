@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import WhatsAppButton from "./components/WhatsAppButton";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
@@ -49,22 +50,23 @@ const App = () => (
               <Route path="/products/security-doors" element={<SecurityDoors />} />
               <Route path="/products/baby-products" element={<BabyProducts />} />
               <Route path="/products/ceramics-pop" element={<CeramicsPOP />} />
-            <Route path="/products/solar-panels" element={<SolarPanels />} />
-            <Route path="/products/white-label-fabrics" element={<WhiteLabelFabrics />} />
-            <Route path="/products/white-label-carpets" element={<WhiteLabelCarpets />} />
-            <Route path="/products/white-label-cottons" element={<WhiteLabelCottons />} />
-            <Route path="/products/white-label-cosmetics" element={<WhiteLabelCosmetics />} />
-            <Route path="/products/white-label-turkish-cloths" element={<WhiteLabelTurkishCloths />} />
-            <Route path="/products/white-label-turkish-oil" element={<WhiteLabelTurkishOil />} />
-            <Route path="/how-it-works" element={<HowItWorksPage />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/quote" element={<Quote />} />
-            <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
-            <Route path="/quote-tracking" element={<QuoteTracking />} />
-            <Route path="*" element={<NotFound />} />
+              <Route path="/products/solar-panels" element={<SolarPanels />} />
+              <Route path="/products/white-label-fabrics" element={<WhiteLabelFabrics />} />
+              <Route path="/products/white-label-carpets" element={<WhiteLabelCarpets />} />
+              <Route path="/products/white-label-cottons" element={<WhiteLabelCottons />} />
+              <Route path="/products/white-label-cosmetics" element={<WhiteLabelCosmetics />} />
+              <Route path="/products/white-label-turkish-cloths" element={<WhiteLabelTurkishCloths />} />
+              <Route path="/products/white-label-turkish-oil" element={<WhiteLabelTurkishOil />} />
+              <Route path="/how-it-works" element={<HowItWorksPage />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/quote" element={<Quote />} />
+              <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
+              <Route path="/quote-tracking" element={<QuoteTracking />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
+          <WhatsAppButton />
         </div>
       </BrowserRouter>
     </TooltipProvider>

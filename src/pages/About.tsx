@@ -61,32 +61,104 @@ const About = () => {
                 ensuring our clients find efficiency.
               </p>
               
-              {/* Company Intro Video Section */}
-              <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-4 text-foreground">Company Introduction</h3>
-                <video 
-                  autoPlay 
-                  muted 
-                  loop 
-                  playsInline
-                  className="w-full h-64 object-cover rounded-lg shadow-lg"
-                >
-                  <source src="/lovable-uploads/clink-intro-video.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              {/* Shipping & Logistics Image Section */}
-              <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-4 text-foreground">Our Shipping & Logistics Network</h3>
-                <div className="w-full h-64 rounded-lg shadow-lg overflow-hidden">
-                  <img 
-                    src={shippingLogisticsImage}
-                    alt="Professional shipping port with cargo containers and logistics operations"
-                    className="w-full h-full object-cover"
-                  />
+      {/* Company Video Section */}
+      <section className="py-20 bg-gradient-to-br from-secondary/30 to-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Company Introduction
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Discover how we connect global importers with Turkey's finest manufacturers
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              className="w-full h-96 object-cover rounded-lg shadow-xl"
+            >
+              <source src="/lovable-uploads/clink-intro-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </section>
+
+      {/* Shipping & Logistics Section */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Shipping & Logistics Network
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Professional logistics operations ensuring your products reach their destination safely
+            </p>
+          </div>
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div className="order-2 lg:order-1">
+              <div className="rounded-lg shadow-xl overflow-hidden">
+                <img 
+                  src={shippingLogisticsImage}
+                  alt="Professional shipping port with cargo containers and logistics operations"
+                  className="w-full h-96 object-cover"
+                />
+              </div>
+            </div>
+            <div className="order-1 lg:order-2 space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-success-green" />
+                  <span className="text-foreground">Established export network in Turkey</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-success-green" />
+                  <span className="text-foreground">Verified supplier partnerships</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-success-green" />
+                  <span className="text-foreground">Global logistics expertise</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-success-green" />
+                  <span className="text-foreground">Real-time shipment tracking</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-success-green" />
+                  <span className="text-foreground">Custom clearance assistance</span>
                 </div>
               </div>
+              <Button variant="cta" size="lg" asChild>
+                <Link to="/contact" className="inline-flex items-center gap-2">
+                  Start Working With Us
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Additional Company Info Section */}
+      <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-ocean-blue/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h2 className="text-3xl font-bold text-foreground">
+                Why Choose Clink Global Services?
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                We understand that international trade requires trust, reliability, and expertise. 
+                Our team has deep knowledge of Turkish manufacturing capabilities and global trade requirements.
+              </p>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="h-5 w-5 text-success-green" />
