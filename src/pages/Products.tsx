@@ -149,6 +149,25 @@ const Products = () => {
         "EU Standard Compliance",
         "Installation Support"
       ]
+    },
+    {
+      icon: Pill,
+      title: "Pharmaceutical Products",
+      description: "GMP-certified medicines, supplements, and medical supplies from Turkish manufacturers",
+      image: "",
+      products: [
+        "Over-the-Counter Medicines",
+        "Prescription Pharmaceuticals",
+        "Vitamins & Supplements",
+        "Medical Devices & Equipment",
+        "Surgical Supplies"
+      ],
+      features: [
+        "GMP Certified Manufacturing",
+        "WHO Prequalified",
+        "EU & FDA Compliance",
+        "Cold Chain Logistics"
+      ]
     }
   ];
 

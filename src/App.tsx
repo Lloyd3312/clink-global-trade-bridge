@@ -58,6 +58,7 @@ const App = () => (
               <Route path="/products/white-label-cosmetics" element={<WhiteLabelCosmetics />} />
               <Route path="/products/white-label-turkish-cloths" element={<WhiteLabelTurkishCloths />} />
               <Route path="/products/white-label-turkish-oil" element={<WhiteLabelTurkishOil />} />
+              <Route path="/products/pharmaceutical-products" element={<PharmaceuticalProducts />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/quote" element={<Quote />} />
