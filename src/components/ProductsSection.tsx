@@ -11,7 +11,8 @@ import {
   Shield,
   Baby,
   CheckCircle,
-  Award
+  Award,
+  Pill
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
