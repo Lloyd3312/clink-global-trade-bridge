@@ -85,6 +85,14 @@ const ProductsSection = () => {
       features: ["EU Standards", "25-Year Warranty", "Installation Support"],
       badge: "25-Year Warranty",
       trustIcon: CheckCircle
+    },
+    {
+      icon: Pill,
+      title: "Pharmaceutical Products",
+      description: "GMP-certified medicines, supplements, and medical supplies from Turkish pharmaceutical manufacturers.",
+      features: ["GMP Certified", "WHO Prequalified", "Cold Chain Logistics"],
+      badge: "GMP Certified",
+      trustIcon: Award
     }
   ];
 
