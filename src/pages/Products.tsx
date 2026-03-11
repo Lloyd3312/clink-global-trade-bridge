@@ -155,7 +155,7 @@ const Products = () => {
       icon: Pill,
       title: "Pharmaceutical Products",
       description: "GMP-certified medicines, supplements, and medical supplies from Turkish manufacturers",
-      image: "",
+      image: pharmaImage,
       products: [
         "Over-the-Counter Medicines",
         "Prescription Pharmaceuticals",
