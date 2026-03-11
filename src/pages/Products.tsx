@@ -1,3 +1,4 @@
+import pharmaImage from "@/assets/pharmaceutical-products.jpg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +11,8 @@ import {
   ArrowRight,
   CheckCircle,
   Shield,
-  Baby
+  Baby,
+  Pill
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -147,6 +149,25 @@ const Products = () => {
         "25-Year Warranty",
         "EU Standard Compliance",
         "Installation Support"
+      ]
+    },
+    {
+      icon: Pill,
+      title: "Pharmaceutical Products",
+      description: "GMP-certified medicines, supplements, and medical supplies from Turkish manufacturers",
+      image: pharmaImage,
+      products: [
+        "Over-the-Counter Medicines",
+        "Prescription Pharmaceuticals",
+        "Vitamins & Supplements",
+        "Medical Devices & Equipment",
+        "Surgical Supplies"
+      ],
+      features: [
+        "GMP Certified Manufacturing",
+        "WHO Prequalified",
+        "EU & FDA Compliance",
+        "Cold Chain Logistics"
       ]
     }
   ];

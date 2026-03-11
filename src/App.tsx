@@ -28,6 +28,7 @@ import WhiteLabelCottons from "./pages/products/WhiteLabelCottons";
 import WhiteLabelCosmetics from "./pages/products/WhiteLabelCosmetics";
 import WhiteLabelTurkishCloths from "./pages/products/WhiteLabelTurkishCloths";
 import WhiteLabelTurkishOil from "./pages/products/WhiteLabelTurkishOil";
+import PharmaceuticalProducts from "./pages/products/PharmaceuticalProducts";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,7 @@ const App = () => (
               <Route path="/products/white-label-cosmetics" element={<WhiteLabelCosmetics />} />
               <Route path="/products/white-label-turkish-cloths" element={<WhiteLabelTurkishCloths />} />
               <Route path="/products/white-label-turkish-oil" element={<WhiteLabelTurkishOil />} />
+              <Route path="/products/pharmaceutical-products" element={<PharmaceuticalProducts />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/quote" element={<Quote />} />

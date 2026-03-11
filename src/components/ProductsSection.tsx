@@ -11,7 +11,8 @@ import {
   Shield,
   Baby,
   CheckCircle,
-  Award
+  Award,
+  Pill
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -25,6 +26,7 @@ const ProductsSection = () => {
       case "Baby Things & Wears": return "/products/baby-products";
       case "Ceramics & POP": return "/products/ceramics-pop";
       case "Solar Panels": return "/products/solar-panels";
+      case "Pharmaceutical Products": return "/products/pharmaceutical-products";
       default: return "/products";
     }
   };
@@ -85,6 +87,14 @@ const ProductsSection = () => {
       features: ["EU Standards", "25-Year Warranty", "Installation Support"],
       badge: "25-Year Warranty",
       trustIcon: CheckCircle
+    },
+    {
+      icon: Pill,
+      title: "Pharmaceutical Products",
+      description: "GMP-certified medicines, supplements, and medical supplies from Turkish pharmaceutical manufacturers.",
+      features: ["GMP Certified", "WHO Prequalified", "Cold Chain Logistics"],
+      badge: "GMP Certified",
+      trustIcon: Award
     }
   ];
 
