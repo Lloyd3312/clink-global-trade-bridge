@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: lovable-app
+  labels:
+    app: lovable-app
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: lovable-app
+
+  template:
+    metadata:
+      labels:
+        app: lovable-app
+
+    spec:
+      containers:
+      - name: lovable-app
+        image: lloyd03/lovable-app:latest
+
+        ports:
+        - containerPort: 4173
+
+
+
+---
+
+
+
+##########SERVICE.YAML#########
+
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: lovable-service
+  labels:
+    app: lovable-app
+    release: prometheus
+spec:
+  selector:
+    app: lovable-app
+
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 4173
+  type: ClusterIP
