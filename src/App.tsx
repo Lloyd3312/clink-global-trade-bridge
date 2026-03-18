@@ -65,6 +65,7 @@ const App = () => (
               <Route path="/quote" element={<Quote />} />
               <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
               <Route path="/quote-tracking" element={<QuoteTracking />} />
+              <Route path="/admin" element={<AdminDashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
