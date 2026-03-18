@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import Quote from "./pages/Quote";
 import QuoteConfirmation from "./pages/QuoteConfirmation";
 import QuoteTracking from "./pages/QuoteTracking";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 import SteelIron from "./pages/products/SteelIron";
 import IndustrialMachinery from "./pages/products/IndustrialMachinery";
@@ -64,6 +65,7 @@ const App = () => (
               <Route path="/quote" element={<Quote />} />
               <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
               <Route path="/quote-tracking" element={<QuoteTracking />} />
+              <Route path="/admin" element={<AdminDashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

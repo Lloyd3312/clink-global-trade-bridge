@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -83,10 +85,11 @@ const Quote = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
     if (!formData.name || !formData.email || !formData.company || (formData.products.length === 0 && !formData.customProduct)) {
       toast({
         title: "Please fill in all required fields",
@@ -96,28 +99,40 @@ const Quote = () => {
       return;
     }
 
-    // Generate reference number
     const refNumber = `CG${Date.now().toString().slice(-6)}${Math.random().toString(36).substr(2, 3).toUpperCase()}`;
     
-    // Store quote data in localStorage (in a real app, this would be sent to a backend)
-    const quoteData = {
-      ...formData,
-      referenceNumber: refNumber,
+    const { error } = await supabase.from('quotes').insert({
+      reference_number: refNumber,
+      name: formData.name,
+      company: formData.company,
+      email: formData.email,
+      phone: formData.phone || null,
+      country: formData.country || null,
+      products: formData.products,
+      custom_product: formData.customProduct || null,
+      quantity: formData.quantity || null,
+      specifications: formData.specifications || null,
+      delivery_timeline: formData.deliveryTimeline || null,
+      budget: formData.budget || null,
+      additional_info: formData.additionalInfo || null,
       status: 'enquiry',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
-    
-    localStorage.setItem(`quote_${refNumber}`, JSON.stringify(quoteData));
-    
-    // Show success message with reference number
+    });
+
+    if (error) {
+      toast({
+        title: "Error submitting quote",
+        description: "Please try again or contact us directly.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     toast({
       title: "Quote request submitted successfully!",
       description: `Reference Number: ${refNumber}. We'll get back to you within 24 hours.`,
     });
 
-    // Redirect to quote confirmation page
-    window.location.href = `/quote-confirmation?ref=${refNumber}`;
+    navigate(`/quote-confirmation?ref=${refNumber}`);
   };
 
   return (

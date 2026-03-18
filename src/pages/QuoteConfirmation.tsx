@@ -13,38 +13,25 @@ import {
   Send
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-
-interface QuoteData {
-  referenceNumber: string;
-  name: string;
-  company: string;
-  email: string;
-  phone: string;
-  country: string;
-  products: string[];
-  customProduct: string;
-  quantity: string;
-  specifications: string;
-  deliveryTimeline: string;
-  budget: string;
-  additionalInfo: string;
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
 const QuoteConfirmation = () => {
   const [searchParams] = useSearchParams();
-  const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
+  const [quoteData, setQuoteData] = useState<Tables<'quotes'> | null>(null);
   const { toast } = useToast();
   const refNumber = searchParams.get('ref');
 
   useEffect(() => {
     if (refNumber) {
-      const storedData = localStorage.getItem(`quote_${refNumber}`);
-      if (storedData) {
-        setQuoteData(JSON.parse(storedData));
-      }
+      supabase
+        .from('quotes')
+        .select('*')
+        .eq('reference_number', refNumber)
+        .single()
+        .then(({ data }) => {
+          if (data) setQuoteData(data);
+        });
     }
   }, [refNumber]);
 
@@ -79,7 +66,6 @@ const QuoteConfirmation = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-ocean-blue/5">
-      {/* Success Header */}
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
@@ -92,14 +78,13 @@ const QuoteConfirmation = () => {
             </p>
           </div>
 
-          {/* Reference Number */}
           <Card className="inline-block mb-8">
             <CardContent className="pt-6">
               <div className="text-center">
                 <p className="text-sm text-muted-foreground mb-2">Your Reference Number</p>
                 <div className="flex items-center gap-2 justify-center">
                   <Badge variant="outline" className="text-lg font-mono px-4 py-2">
-                    {quoteData.referenceNumber}
+                    {quoteData.reference_number}
                   </Badge>
                   <Button variant="ghost" size="sm" onClick={copyReferenceNumber}>
                     <Copy className="h-4 w-4" />
@@ -114,11 +99,9 @@ const QuoteConfirmation = () => {
         </div>
       </section>
 
-      {/* Quote Details */}
       <section className="pb-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Quote Summary */}
             <Card>
               <CardHeader>
                 <CardTitle>Quote Summary</CardTitle>
@@ -158,7 +141,6 @@ const QuoteConfirmation = () => {
               </CardContent>
             </Card>
 
-            {/* Next Steps */}
             <Card>
               <CardHeader>
                 <CardTitle>What Happens Next?</CardTitle>
@@ -178,7 +160,6 @@ const QuoteConfirmation = () => {
                       </p>
                     </div>
                   </div>
-                  
                   <div className="flex gap-3">
                     <div className="flex-shrink-0">
                       <div className="h-8 w-8 bg-muted rounded-full flex items-center justify-center">
@@ -192,7 +173,6 @@ const QuoteConfirmation = () => {
                       </p>
                     </div>
                   </div>
-                  
                   <div className="flex gap-3">
                     <div className="flex-shrink-0">
                       <div className="h-8 w-8 bg-muted rounded-full flex items-center justify-center">
@@ -211,11 +191,10 @@ const QuoteConfirmation = () => {
             </Card>
           </div>
 
-          {/* Action Buttons */}
           <div className="text-center mt-12 space-y-4">
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="cta" size="lg" asChild>
-                <Link to={`/quote-tracking?ref=${quoteData.referenceNumber}`}>
+                <Link to={`/quote-tracking?ref=${quoteData.reference_number}`}>
                   Track Quote Status
                   <ArrowRight className="h-5 w-5 ml-2" />
                 </Link>
