@@ -5,8 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { 
   CheckCircle, 
   Clock, 
@@ -15,63 +13,42 @@ import {
   Search,
   MessageCircle,
   Phone,
-  ArrowRight,
   AlertCircle
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
-interface QuoteData {
-  referenceNumber: string;
-  name: string;
-  company: string;
-  email: string;
-  phone: string;
-  country: string;
-  products: string[];
-  customProduct: string;
-  quantity: string;
-  specifications: string;
-  deliveryTimeline: string;
-  budget: string;
-  additionalInfo: string;
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-  statusHistory?: Array<{
-    status: string;
-    timestamp: string;
-    notes?: string;
-  }>;
-}
+const statusSteps = [
+  { id: 'enquiry', label: 'Enquiry Received', icon: Clock, description: 'Your quote request has been received' },
+  { id: 'requirements', label: 'Share Requirements', icon: CheckCircle, description: 'Detailed requirements gathering' },
+  { id: 'logistics', label: 'Arrange Logistics & Shipping', icon: Package, description: 'Planning shipping and logistics' },
+  { id: 'delivery', label: 'Delivery Confirmation', icon: Truck, description: 'Final delivery confirmation' }
+];
 
 const QuoteTracking = () => {
   const [searchParams] = useSearchParams();
-  const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
+  const [quoteData, setQuoteData] = useState<Tables<'quotes'> | null>(null);
   const [searchRef, setSearchRef] = useState(searchParams.get('ref') || '');
-  const [newStatus, setNewStatus] = useState('');
-  const [statusNotes, setStatusNotes] = useState('');
-  const { toast } = useToast();
-
-  const statusSteps = [
-    { id: 'enquiry', label: 'Enquiry Received', icon: Clock, description: 'Your quote request has been received' },
-    { id: 'requirements', label: 'Share Requirements', icon: CheckCircle, description: 'Detailed requirements gathering' },
-    { id: 'logistics', label: 'Arrange Logistics & Shipping', icon: Package, description: 'Planning shipping and logistics' },
-    { id: 'delivery', label: 'Delivery Confirmation', icon: Truck, description: 'Final delivery confirmation' }
-  ];
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (searchRef) {
-      loadQuoteData(searchRef);
+    const ref = searchParams.get('ref');
+    if (ref) {
+      setSearchRef(ref);
+      loadQuoteData(ref);
     }
-  }, [searchRef]);
+  }, [searchParams]);
 
-  const loadQuoteData = (refNumber: string) => {
-    const storedData = localStorage.getItem(`quote_${refNumber}`);
-    if (storedData) {
-      setQuoteData(JSON.parse(storedData));
-    } else {
-      setQuoteData(null);
-    }
+  const loadQuoteData = async (refNumber: string) => {
+    setLoading(true);
+    const { data } = await supabase
+      .from('quotes')
+      .select('*')
+      .eq('reference_number', refNumber)
+      .single();
+    
+    setQuoteData(data);
+    setLoading(false);
   };
 
   const handleSearch = () => {
@@ -85,38 +62,8 @@ const QuoteTracking = () => {
     return statusSteps.findIndex(step => step.id === quoteData.status);
   };
 
-  const updateQuoteStatus = () => {
-    if (!quoteData || !newStatus) return;
-
-    const updatedQuote = {
-      ...quoteData,
-      status: newStatus,
-      updatedAt: new Date().toISOString(),
-      statusHistory: [
-        ...(quoteData.statusHistory || []),
-        {
-          status: newStatus,
-          timestamp: new Date().toISOString(),
-          notes: statusNotes
-        }
-      ]
-    };
-
-    localStorage.setItem(`quote_${quoteData.referenceNumber}`, JSON.stringify(updatedQuote));
-    setQuoteData(updatedQuote);
-    setNewStatus('');
-    setStatusNotes('');
-
-    toast({
-      title: "Status updated successfully",
-      description: `Quote status changed to ${statusSteps.find(s => s.id === newStatus)?.label}`,
-    });
-  };
-
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-ocean-blue/5">
-      {/* Header */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
@@ -128,7 +75,6 @@ const QuoteTracking = () => {
             </p>
           </div>
 
-          {/* Search */}
           <Card className="mb-8">
             <CardContent className="pt-6">
               <div className="flex gap-4">
@@ -140,10 +86,11 @@ const QuoteTracking = () => {
                     onChange={(e) => setSearchRef(e.target.value)}
                     placeholder="Enter your reference number (e.g., CG123456ABC)"
                     className="mt-1"
+                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                   />
                 </div>
                 <div className="flex items-end">
-                  <Button onClick={handleSearch}>
+                  <Button onClick={handleSearch} disabled={loading}>
                     <Search className="h-4 w-4 mr-2" />
                     Search
                   </Button>
@@ -154,18 +101,16 @@ const QuoteTracking = () => {
         </div>
       </section>
 
-      {/* Results */}
-      {searchRef && (
+      {searchRef && !loading && (
         <section className="pb-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {quoteData ? (
               <>
-                {/* Quote Info */}
                 <Card className="mb-8">
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle>Quote #{quoteData.referenceNumber}</CardTitle>
+                        <CardTitle>Quote #{quoteData.reference_number}</CardTitle>
                         <p className="text-muted-foreground">{quoteData.company} - {quoteData.name}</p>
                       </div>
                       <Badge variant="secondary">
@@ -177,11 +122,11 @@ const QuoteTracking = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                       <div>
                         <p className="font-medium text-muted-foreground">Submitted</p>
-                        <p>{new Date(quoteData.createdAt).toLocaleDateString()}</p>
+                        <p>{new Date(quoteData.created_at).toLocaleDateString()}</p>
                       </div>
                       <div>
                         <p className="font-medium text-muted-foreground">Last Updated</p>
-                        <p>{new Date(quoteData.updatedAt).toLocaleDateString()}</p>
+                        <p>{new Date(quoteData.updated_at).toLocaleDateString()}</p>
                       </div>
                       <div>
                         <p className="font-medium text-muted-foreground">Email</p>
@@ -191,7 +136,6 @@ const QuoteTracking = () => {
                   </CardContent>
                 </Card>
 
-                {/* Status Timeline */}
                 <Card className="mb-8">
                   <CardHeader>
                     <CardTitle>Quote Progress</CardTitle>
@@ -202,7 +146,6 @@ const QuoteTracking = () => {
                         const currentStep = getCurrentStepIndex();
                         const isCompleted = index < currentStep;
                         const isCurrent = index === currentStep;
-                        const isPending = index > currentStep;
 
                         return (
                           <div key={step.id} className="flex gap-4">
@@ -221,9 +164,7 @@ const QuoteTracking = () => {
                               }`}>
                                 {step.label}
                               </h4>
-                              <p className="text-sm text-muted-foreground">
-                                {step.description}
-                              </p>
+                              <p className="text-sm text-muted-foreground">{step.description}</p>
                               {isCurrent && (
                                 <Badge variant="secondary" className="mt-1">
                                   <Clock className="h-3 w-3 mr-1" />
@@ -238,48 +179,6 @@ const QuoteTracking = () => {
                   </CardContent>
                 </Card>
 
-                {/* Admin Panel */}
-                <Card className="mb-8">
-                  <CardHeader>
-                    <CardTitle>Update Status (Admin)</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="status">New Status</Label>
-                        <Select value={newStatus} onValueChange={setNewStatus}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select new status" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {statusSteps.map((step) => (
-                              <SelectItem key={step.id} value={step.id}>
-                                {step.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label htmlFor="notes">Status Notes (Optional)</Label>
-                        <Textarea
-                          id="notes"
-                          value={statusNotes}
-                          onChange={(e) => setStatusNotes(e.target.value)}
-                          placeholder="Add any notes about this status change..."
-                          className="mt-1"
-                        />
-                      </div>
-                      <Button onClick={updateQuoteStatus} disabled={!newStatus}>
-                        <ArrowRight className="h-4 w-4 mr-2" />
-                        Update Status
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-
-                {/* Contact Options */}
                 <Card>
                   <CardHeader>
                     <CardTitle>Need Help?</CardTitle>
@@ -287,11 +186,7 @@ const QuoteTracking = () => {
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <Button variant="outline" size="lg" asChild>
-                        <a 
-                          href="https://wa.me/905395815283" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                        >
+                        <a href="https://wa.me/905395815283" target="_blank" rel="noopener noreferrer">
                           <MessageCircle className="h-5 w-5 mr-2" />
                           WhatsApp Support
                         </a>
@@ -306,7 +201,7 @@ const QuoteTracking = () => {
                   </CardContent>
                 </Card>
               </>
-            ) : searchRef ? (
+            ) : (
               <Card>
                 <CardContent className="pt-6 text-center">
                   <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
@@ -320,7 +215,7 @@ const QuoteTracking = () => {
                   </Button>
                 </CardContent>
               </Card>
-            ) : null}
+            )}
           </div>
         </section>
       )}
