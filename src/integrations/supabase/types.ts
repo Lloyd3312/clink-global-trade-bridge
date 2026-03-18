@@ -14,7 +14,98 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      quote_status_history: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          quote_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          quote_id: string
+          status: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          quote_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_status_history_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quotes: {
+        Row: {
+          additional_info: string | null
+          budget: string | null
+          company: string
+          country: string | null
+          created_at: string
+          custom_product: string | null
+          delivery_timeline: string | null
+          email: string
+          id: string
+          name: string
+          phone: string | null
+          products: string[] | null
+          quantity: string | null
+          reference_number: string
+          specifications: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          additional_info?: string | null
+          budget?: string | null
+          company: string
+          country?: string | null
+          created_at?: string
+          custom_product?: string | null
+          delivery_timeline?: string | null
+          email: string
+          id?: string
+          name: string
+          phone?: string | null
+          products?: string[] | null
+          quantity?: string | null
+          reference_number: string
+          specifications?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          additional_info?: string | null
+          budget?: string | null
+          company?: string
+          country?: string | null
+          created_at?: string
+          custom_product?: string | null
+          delivery_timeline?: string | null
+          email?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          products?: string[] | null
+          quantity?: string | null
+          reference_number?: string
+          specifications?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
