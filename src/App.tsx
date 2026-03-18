@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import Quote from "./pages/Quote";
 import QuoteConfirmation from "./pages/QuoteConfirmation";
 import QuoteTracking from "./pages/QuoteTracking";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 import SteelIron from "./pages/products/SteelIron";
 import IndustrialMachinery from "./pages/products/IndustrialMachinery";
