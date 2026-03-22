@@ -28,6 +28,7 @@ const ProductsSection = () => {
       case "Ceramics & POP": return "/products/ceramics-pop";
       case "Solar Panels": return "/products/solar-panels";
       case "Pharmaceutical Products": return "/products/pharmaceutical-products";
+      case "Fashion & Accessories": return "/products/fashion-accessories";
       default: return "/products";
     }
   };
