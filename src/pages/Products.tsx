@@ -175,6 +175,28 @@ const Products = () => {
         "EU & FDA Compliance",
         "Cold Chain Logistics"
       ]
+    },
+    {
+      icon: ShoppingBag,
+      title: "Fashion & Accessories",
+      description: "Premium Turkish fashion for men and women — bags, shoes, watches, and custom apparel",
+      image: fashionImage,
+      products: [
+        "Designer Leather Bags",
+        "Men's & Women's Shoes",
+        "Luxury Clutch Purses",
+        "Designer Sunglasses & Glasses",
+        "Wristwatches & Hand Bands",
+        "Stylish Hats & Caps",
+        "Cloth Materials",
+        "Customized T-Shirts"
+      ],
+      features: [
+        "Premium Craftsmanship",
+        "Custom Branding Available",
+        "Genuine Leather",
+        "Men's & Women's Collections"
+      ]
     }
   ];
 
