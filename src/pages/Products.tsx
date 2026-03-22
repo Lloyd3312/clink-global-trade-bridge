@@ -121,7 +121,7 @@ const Products = () => {
       icon: Baby,
       title: "Baby Products & Wears",
       description: "Premium baby clothing, accessories, and childcare products",
-      image: "/lovable-uploads/d98b2527-c629-4dea-a14a-73d94344a8ad.png",
+      image: babyProductsImage,
       products: [
         "Baby Clothing Sets",
         "Infant Accessories",
