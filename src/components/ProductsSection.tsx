@@ -97,6 +97,14 @@ const ProductsSection = () => {
       features: ["GMP Certified", "WHO Prequalified", "Cold Chain Logistics"],
       badge: "GMP Certified",
       trustIcon: Award
+    },
+    {
+      icon: ShoppingBag,
+      title: "Fashion & Accessories",
+      description: "Premium Turkish fashion for men & women — bags, shoes, watches, sunglasses, hats, and custom T-shirts.",
+      features: ["Men's & Women's", "Custom Branding", "Genuine Leather"],
+      badge: "Premium Quality",
+      trustIcon: CheckCircle
     }
   ];
 
