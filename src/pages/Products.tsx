@@ -140,7 +140,7 @@ const Products = () => {
       icon: Zap,
       title: "Solar Panels & Renewable Energy",
       description: "Clean energy solutions and solar equipment",
-      image: "/lovable-uploads/9e93a678-ad69-40d1-9f97-b4fc9e6a1e36.png",
+      image: solarPanelsImage,
       products: [
         "Monocrystalline Solar Panels",
         "Polycrystalline Solar Panels",
