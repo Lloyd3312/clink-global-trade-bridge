@@ -12,7 +12,8 @@ import {
   Baby,
   CheckCircle,
   Award,
-  Pill
+  Pill,
+  ShoppingBag
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
