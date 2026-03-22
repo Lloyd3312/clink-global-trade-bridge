@@ -3,18 +3,25 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Shield, Truck, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import heroCollage1 from "@/assets/hero-products-collage-1.jpg";
+import heroCollage2 from "@/assets/hero-products-collage-2.jpg";
+import heroFashion from "@/assets/hero-fashion.jpg";
+import fashionImage from "@/assets/fashion-accessories.jpg";
+import ceramicsImage from "@/assets/ceramics-pop.jpg";
+import solarPanelsImage from "@/assets/solar-panels.jpg";
+import securityDoorsImage from "@/assets/security-doors.jpg";
 
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const backgroundImages = [
-    '/lovable-uploads/bf677d37-467e-40a8-9074-58b9ac0be463.png',
-    '/lovable-uploads/bac6ff00-3b61-4a84-b07c-31042dcf5684.png',
-    '/lovable-uploads/9e93a678-ad69-40d1-9f97-b4fc9e6a1e36.png',
-    '/lovable-uploads/38216ba6-7de2-4cd6-a498-aaec379242e0.png',
-    '/lovable-uploads/b81098cd-482f-499f-b723-468ab7d7bef3.png',
-    '/lovable-uploads/7834c249-e488-42b6-aa9a-421411f82576.png',
-    '/lovable-uploads/fde866d3-9681-4917-995f-6596ab25307b.png'
+    heroCollage1,
+    heroCollage2,
+    heroFashion,
+    fashionImage,
+    ceramicsImage,
+    solarPanelsImage,
+    securityDoorsImage
   ];
 
   useEffect(() => {

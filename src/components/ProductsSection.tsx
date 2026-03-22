@@ -12,7 +12,8 @@ import {
   Baby,
   CheckCircle,
   Award,
-  Pill
+  Pill,
+  ShoppingBag
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -27,6 +28,7 @@ const ProductsSection = () => {
       case "Ceramics & POP": return "/products/ceramics-pop";
       case "Solar Panels": return "/products/solar-panels";
       case "Pharmaceutical Products": return "/products/pharmaceutical-products";
+      case "Fashion & Accessories": return "/products/fashion-accessories";
       default: return "/products";
     }
   };
@@ -95,6 +97,14 @@ const ProductsSection = () => {
       features: ["GMP Certified", "WHO Prequalified", "Cold Chain Logistics"],
       badge: "GMP Certified",
       trustIcon: Award
+    },
+    {
+      icon: ShoppingBag,
+      title: "Fashion & Accessories",
+      description: "Premium Turkish fashion for men & women — bags, shoes, watches, sunglasses, hats, and custom T-shirts.",
+      features: ["Men's & Women's", "Custom Branding", "Genuine Leather"],
+      badge: "Premium Quality",
+      trustIcon: CheckCircle
     }
   ];
 
