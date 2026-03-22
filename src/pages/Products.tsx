@@ -83,7 +83,7 @@ const Products = () => {
       icon: Wrench,
       title: "Ceramics & POP Materials",
       description: "Decorative and functional ceramic products and plaster materials",
-      image: "/lovable-uploads/bac6ff00-3b61-4a84-b07c-31042dcf5684.png",
+      image: ceramicsImage,
       products: [
         "Ceramic Tiles",
         "Decorative Ceramics",
