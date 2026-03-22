@@ -3,6 +3,7 @@ import ceramicsImage from "@/assets/ceramics-pop.jpg";
 import securityDoorsImage from "@/assets/security-doors.jpg";
 import babyProductsImage from "@/assets/baby-products.jpg";
 import solarPanelsImage from "@/assets/solar-panels.jpg";
+import fashionImage from "@/assets/fashion-accessories.jpg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
