@@ -1,4 +1,8 @@
 import pharmaImage from "@/assets/pharmaceutical-products.jpg";
+import ceramicsImage from "@/assets/ceramics-pop.jpg";
+import securityDoorsImage from "@/assets/security-doors.jpg";
+import babyProductsImage from "@/assets/baby-products.jpg";
+import solarPanelsImage from "@/assets/solar-panels.jpg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -79,7 +83,7 @@ const Products = () => {
       icon: Wrench,
       title: "Ceramics & POP Materials",
       description: "Decorative and functional ceramic products and plaster materials",
-      image: "/lovable-uploads/bac6ff00-3b61-4a84-b07c-31042dcf5684.png",
+      image: ceramicsImage,
       products: [
         "Ceramic Tiles",
         "Decorative Ceramics",
@@ -98,7 +102,7 @@ const Products = () => {
       icon: Shield,
       title: "Security Doors",
       description: "High-security bulletproof doors and specialized security systems",
-      image: "/lovable-uploads/d631cef6-e297-4184-9668-d02b49daf9f5.png",
+      image: securityDoorsImage,
       products: [
         "Bulletproof Steel Doors",
         "Fire-Resistant Doors",
@@ -117,7 +121,7 @@ const Products = () => {
       icon: Baby,
       title: "Baby Products & Wears",
       description: "Premium baby clothing, accessories, and childcare products",
-      image: "/lovable-uploads/d98b2527-c629-4dea-a14a-73d94344a8ad.png",
+      image: babyProductsImage,
       products: [
         "Baby Clothing Sets",
         "Infant Accessories",
@@ -136,7 +140,7 @@ const Products = () => {
       icon: Zap,
       title: "Solar Panels & Renewable Energy",
       description: "Clean energy solutions and solar equipment",
-      image: "/lovable-uploads/9e93a678-ad69-40d1-9f97-b4fc9e6a1e36.png",
+      image: solarPanelsImage,
       products: [
         "Monocrystalline Solar Panels",
         "Polycrystalline Solar Panels",
