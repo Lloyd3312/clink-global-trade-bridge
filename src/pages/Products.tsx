@@ -17,7 +17,8 @@ import {
   CheckCircle,
   Shield,
   Baby,
-  Pill
+  Pill,
+  ShoppingBag
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
