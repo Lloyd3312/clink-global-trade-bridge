@@ -102,7 +102,7 @@ const Products = () => {
       icon: Shield,
       title: "Security Doors",
       description: "High-security bulletproof doors and specialized security systems",
-      image: "/lovable-uploads/d631cef6-e297-4184-9668-d02b49daf9f5.png",
+      image: securityDoorsImage,
       products: [
         "Bulletproof Steel Doors",
         "Fire-Resistant Doors",
