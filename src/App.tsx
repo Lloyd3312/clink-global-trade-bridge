@@ -30,6 +30,7 @@ import WhiteLabelCosmetics from "./pages/products/WhiteLabelCosmetics";
 import WhiteLabelTurkishCloths from "./pages/products/WhiteLabelTurkishCloths";
 import WhiteLabelTurkishOil from "./pages/products/WhiteLabelTurkishOil";
 import PharmaceuticalProducts from "./pages/products/PharmaceuticalProducts";
+import FashionAccessories from "./pages/products/FashionAccessories";
 
 const queryClient = new QueryClient();
 
