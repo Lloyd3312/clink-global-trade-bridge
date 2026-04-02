@@ -60,7 +60,7 @@ const HowItWorksPage = () => {
     },
     {
       number: "4",
-      icon: Truck,
+      image: howLogistics,
       title: "Logistics & Delivery",
       description: "We handle all shipping and ensure safe delivery to your destination",
       details: [
