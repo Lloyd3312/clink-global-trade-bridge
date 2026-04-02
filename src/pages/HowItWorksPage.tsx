@@ -170,8 +170,8 @@ const HowItWorksPage = () => {
             {benefits.map((benefit, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-all duration-300">
                 <CardHeader>
-                  <div className="h-16 w-16 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="h-8 w-8 text-primary" />
+                  <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 shadow-md border-2 border-primary/20">
+                    <img src={benefit.image} alt={benefit.title} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-xl">{benefit.title}</CardTitle>
                 </CardHeader>
