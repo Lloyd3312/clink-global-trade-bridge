@@ -34,7 +34,7 @@ const HowItWorksPage = () => {
     },
     {
       number: "2", 
-      icon: Search,
+      image: howSourceVerify,
       title: "Sourcing & Verification",
       description: "We identify the best suppliers and verify their credentials",
       details: [
