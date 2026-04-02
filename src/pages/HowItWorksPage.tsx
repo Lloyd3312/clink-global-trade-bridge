@@ -2,10 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
-  MessageSquare, 
-  Search, 
-  Handshake, 
-  Truck,
   ArrowRight,
   Clock,
   Shield,
@@ -13,6 +9,13 @@ import {
   CheckCircle
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import howSubmitRequest from "@/assets/how-submit-request.jpg";
+import howSourceVerify from "@/assets/how-source-verify.jpg";
+import howNegotiate from "@/assets/how-negotiate.jpg";
+import howLogistics from "@/assets/how-logistics.jpg";
+import valueQuality from "@/assets/value-quality.jpg";
+import valueTeam from "@/assets/value-team.jpg";
+import valueGlobal from "@/assets/value-global.jpg";
 
 const HowItWorksPage = () => {
   const detailedSteps = [
