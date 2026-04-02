@@ -21,7 +21,7 @@ const HowItWorksPage = () => {
   const detailedSteps = [
     {
       number: "1",
-      icon: MessageSquare,
+      image: howSubmitRequest,
       title: "Share Your Requirements",
       description: "Tell us exactly what you need and we'll guide you through the process",
       details: [
