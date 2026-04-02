@@ -2,10 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
-  MessageSquare, 
-  Search, 
-  Handshake, 
-  Truck,
   ArrowRight,
   Clock,
   Shield,
@@ -13,12 +9,19 @@ import {
   CheckCircle
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import howSubmitRequest from "@/assets/how-submit-request.jpg";
+import howSourceVerify from "@/assets/how-source-verify.jpg";
+import howNegotiate from "@/assets/how-negotiate.jpg";
+import howLogistics from "@/assets/how-logistics.jpg";
+import valueQuality from "@/assets/value-quality.jpg";
+import valueTeam from "@/assets/value-team.jpg";
+import valueGlobal from "@/assets/value-global.jpg";
 
 const HowItWorksPage = () => {
   const detailedSteps = [
     {
       number: "1",
-      icon: MessageSquare,
+      image: howSubmitRequest,
       title: "Share Your Requirements",
       description: "Tell us exactly what you need and we'll guide you through the process",
       details: [
@@ -31,7 +34,7 @@ const HowItWorksPage = () => {
     },
     {
       number: "2", 
-      icon: Search,
+      image: howSourceVerify,
       title: "Sourcing & Verification",
       description: "We identify the best suppliers and verify their credentials",
       details: [
@@ -44,7 +47,7 @@ const HowItWorksPage = () => {
     },
     {
       number: "3",
-      icon: Handshake,
+      image: howNegotiate,
       title: "Negotiation & Finalization",
       description: "We secure the best terms and finalize all agreements",
       details: [
@@ -57,7 +60,7 @@ const HowItWorksPage = () => {
     },
     {
       number: "4",
-      icon: Truck,
+      image: howLogistics,
       title: "Logistics & Delivery",
       description: "We handle all shipping and ensure safe delivery to your destination",
       details: [
@@ -72,17 +75,17 @@ const HowItWorksPage = () => {
 
   const benefits = [
     {
-      icon: Clock,
+      image: valueQuality,
       title: "Time Efficient",
       description: "Save weeks of research and verification with our established network"
     },
     {
-      icon: Shield,
+      image: valueTeam,
       title: "Risk Mitigation",
       description: "Verified suppliers and quality checks reduce your business risks"
     },
     {
-      icon: Globe,
+      image: valueGlobal,
       title: "Global Expertise",
       description: "Handle international trade complexities with experienced professionals"
     }
@@ -141,8 +144,8 @@ const HowItWorksPage = () => {
                 </div>
 
                 <div className={`${index % 2 === 1 ? 'lg:order-1' : ''} flex items-center justify-center`}>
-                  <div className="h-64 w-64 bg-primary/10 rounded-full flex items-center justify-center">
-                    <step.icon className="h-24 w-24 text-primary" />
+                  <div className="h-64 w-64 rounded-full overflow-hidden shadow-xl border-4 border-primary/20">
+                    <img src={step.image} alt={step.title} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                 </div>
               </div>
@@ -167,8 +170,8 @@ const HowItWorksPage = () => {
             {benefits.map((benefit, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-all duration-300">
                 <CardHeader>
-                  <div className="h-16 w-16 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="h-8 w-8 text-primary" />
+                  <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 shadow-md border-2 border-primary/20">
+                    <img src={benefit.image} alt={benefit.title} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-xl">{benefit.title}</CardTitle>
                 </CardHeader>

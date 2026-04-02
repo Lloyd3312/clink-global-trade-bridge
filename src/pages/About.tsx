@@ -1,35 +1,35 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
-  Globe, 
-  Users, 
-  Award, 
-  Target,
   ArrowRight,
   CheckCircle
 } from "lucide-react";
 import shippingLogisticsImage from "@/assets/shipping-logistics-real.jpg";
+import valueQuality from "@/assets/value-quality.jpg";
+import valueTeam from "@/assets/value-team.jpg";
+import valueGlobal from "@/assets/value-global.jpg";
+import valueResults from "@/assets/value-results.jpg";
 import { Link } from "react-router-dom";
 
 const About = () => {
   const values = [
     {
-      icon: Award,
+      image: valueQuality,
       title: "Quality First",
       description: "We partner only with verified Turkish manufacturers who meet international quality standards."
     },
     {
-      icon: Users,
+      image: valueTeam,
       title: "Expert Team",
       description: "Our experienced team understands both Turkish manufacturing and global trade requirements."
     },
     {
-      icon: Globe,
+      image: valueGlobal,
       title: "Global Reach",
       description: "Serving clients worldwide with reliable shipping and logistics solutions."
     },
     {
-      icon: Target,
+      image: valueResults,
       title: "Results Driven",
       description: "Committed to delivering on time, within budget, and exceeding expectations."
     }
@@ -207,8 +207,8 @@ const About = () => {
             {values.map((value, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-all duration-300">
                 <CardHeader>
-                  <div className="h-16 w-16 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <value.icon className="h-8 w-8 text-primary" />
+                  <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 shadow-md border-2 border-primary/20">
+                    <img src={value.image} alt={value.title} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-xl">{value.title}</CardTitle>
                 </CardHeader>
