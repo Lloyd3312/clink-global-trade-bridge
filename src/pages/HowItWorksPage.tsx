@@ -47,7 +47,7 @@ const HowItWorksPage = () => {
     },
     {
       number: "3",
-      icon: Handshake,
+      image: howNegotiate,
       title: "Negotiation & Finalization",
       description: "We secure the best terms and finalize all agreements",
       details: [
