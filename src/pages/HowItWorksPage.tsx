@@ -75,17 +75,17 @@ const HowItWorksPage = () => {
 
   const benefits = [
     {
-      icon: Clock,
+      image: valueQuality,
       title: "Time Efficient",
       description: "Save weeks of research and verification with our established network"
     },
     {
-      icon: Shield,
+      image: valueTeam,
       title: "Risk Mitigation",
       description: "Verified suppliers and quality checks reduce your business risks"
     },
     {
-      icon: Globe,
+      image: valueGlobal,
       title: "Global Expertise",
       description: "Handle international trade complexities with experienced professionals"
     }
