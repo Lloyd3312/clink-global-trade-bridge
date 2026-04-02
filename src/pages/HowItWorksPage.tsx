@@ -144,8 +144,8 @@ const HowItWorksPage = () => {
                 </div>
 
                 <div className={`${index % 2 === 1 ? 'lg:order-1' : ''} flex items-center justify-center`}>
-                  <div className="h-64 w-64 bg-primary/10 rounded-full flex items-center justify-center">
-                    <step.icon className="h-24 w-24 text-primary" />
+                  <div className="h-64 w-64 rounded-full overflow-hidden shadow-xl border-4 border-primary/20">
+                    <img src={step.image} alt={step.title} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                 </div>
               </div>
