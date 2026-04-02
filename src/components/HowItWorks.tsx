@@ -1,45 +1,44 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  MessageSquare, 
-  Search, 
-  Handshake, 
-  Truck,
-  ArrowRight 
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import howSubmitRequest from "@/assets/how-submit-request.jpg";
+import howSourceVerify from "@/assets/how-source-verify.jpg";
+import howNegotiate from "@/assets/how-negotiate.jpg";
+import howLogistics from "@/assets/how-logistics.jpg";
+import howDelivery from "@/assets/how-delivery.jpg";
 
 const HowItWorks = () => {
   const steps = [
     {
       number: "1",
-      icon: MessageSquare,
+      image: howSubmitRequest,
       title: "Submit Request",
       description: "Tell us what products you need, quantities, specifications, and delivery destination.",
       color: "bg-primary"
     },
     {
       number: "2", 
-      icon: Search,
+      image: howSourceVerify,
       title: "We Source & Verify",
       description: "Our team identifies the best Turkish suppliers and verifies product quality and certifications.",
       color: "bg-ocean-blue"
     },
     {
       number: "3",
-      icon: Handshake,
+      image: howNegotiate,
       title: "Negotiate & Confirm",
       description: "We negotiate the best prices and terms, then finalize contracts with transparent pricing.",
       color: "bg-success-green"
     },
     {
       number: "4",
-      icon: Truck,
+      image: howLogistics,
       title: "Logistics & Shipping",
       description: "We handle all export documentation, shipping arrangements, and track your goods to destination.",
       color: "bg-warning-orange"
     },
     {
       number: "5",
-      icon: ArrowRight,
+      image: howDelivery,
       title: "Delivery to Destination",
       description: "Your products arrive safely at your destination with full tracking and delivery confirmation.",
       color: "bg-deep-green"
@@ -62,16 +61,21 @@ const HowItWorks = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
           {steps.map((step, index) => (
             <div key={index} className="relative">
-              <Card className="text-center h-full hover:shadow-lg transition-all duration-300 border-border/50 bg-gradient-to-br from-card to-card/80">
+              <Card className="text-center h-full hover:shadow-lg transition-all duration-300 border-border/50 bg-gradient-to-br from-card to-card/80 overflow-hidden">
                 <CardContent className="p-4 md:p-6">
                   {/* Step Number */}
-                  <div className={`${step.color} text-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-lg md:text-xl font-bold mx-auto mb-4 shadow-lg`}>
+                  <div className={`${step.color} text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-base md:text-lg font-bold mx-auto mb-4 shadow-lg relative z-10`}>
                     {step.number}
                   </div>
                   
-                  {/* Icon */}
-                  <div className="h-12 w-12 md:h-14 md:w-14 bg-secondary rounded-lg flex items-center justify-center mx-auto mb-4 shadow-md">
-                    <step.icon className="h-6 w-6 md:h-7 md:w-7 text-primary" />
+                  {/* Image */}
+                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden mx-auto mb-4 shadow-md border-2 border-primary/20">
+                    <img 
+                      src={step.image} 
+                      alt={step.title} 
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   
                   {/* Content */}
@@ -84,7 +88,7 @@ const HowItWorks = () => {
                 </CardContent>
               </Card>
               
-              {/* Arrow between steps - hidden on mobile and last item */}
+              {/* Arrow between steps */}
               {index < steps.length - 1 && (
                 <div className="hidden lg:flex absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
                   <div className="bg-white rounded-full p-2 shadow-md">
