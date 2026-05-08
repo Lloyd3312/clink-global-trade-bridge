@@ -360,6 +360,7 @@ const Products = () => {
           </div>
         </div>
       </section>
+      <MarketplaceProducts />
     </div>
   );
 };
