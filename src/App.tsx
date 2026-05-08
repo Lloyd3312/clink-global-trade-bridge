@@ -31,6 +31,11 @@ import WhiteLabelTurkishCloths from "./pages/products/WhiteLabelTurkishCloths";
 import WhiteLabelTurkishOil from "./pages/products/WhiteLabelTurkishOil";
 import PharmaceuticalProducts from "./pages/products/PharmaceuticalProducts";
 import FashionAccessories from "./pages/products/FashionAccessories";
+import Auth from "./pages/Auth";
+import ProductUpload from "./pages/ProductUpload";
+import SellerApply from "./pages/SellerApply";
+import AdminCatalog from "./pages/AdminCatalog";
+import { AuthProvider } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
 
