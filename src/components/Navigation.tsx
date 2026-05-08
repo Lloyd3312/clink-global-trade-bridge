@@ -57,12 +57,23 @@ const Navigation = () => {
             <Button variant="cta-outline" size="sm" asChild>
               <Link to="/quote">Get Quote</Link>
             </Button>
-            <Button variant="cta" size="sm" asChild>
-              <a href="tel:+905392607700" className="flex items-center gap-1">
-                <Phone className="h-4 w-4" />
-                Call Now
-              </a>
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="gap-2"><User className="h-4 w-4" />Account</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-background z-50">
+                  {isSeller && <DropdownMenuItem asChild><Link to="/seller/products"><LayoutDashboard className="h-4 w-4 mr-2" />Upload Products</Link></DropdownMenuItem>}
+                  {!isSeller && <DropdownMenuItem asChild><Link to="/seller/apply">Become a Seller</Link></DropdownMenuItem>}
+                  {isAdmin && <DropdownMenuItem asChild><Link to="/admin">Admin · Quotes</Link></DropdownMenuItem>}
+                  {isAdmin && <DropdownMenuItem asChild><Link to="/admin/catalog">Admin · Catalog</Link></DropdownMenuItem>}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={signOut}><LogOut className="h-4 w-4 mr-2" />Sign Out</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button variant="ghost" size="sm" asChild><Link to="/auth">Sign In</Link></Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
