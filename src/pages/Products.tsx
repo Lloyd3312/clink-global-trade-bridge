@@ -21,6 +21,7 @@ import {
   ShoppingBag
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import MarketplaceProducts from "@/components/MarketplaceProducts";
 
 const Products = () => {
   const productCategories = [
