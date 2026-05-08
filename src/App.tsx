@@ -45,40 +45,47 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col">
-          <Navigation />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/steel-iron" element={<SteelIron />} />
-              <Route path="/products/industrial-machinery" element={<IndustrialMachinery />} />
-              <Route path="/products/furniture-fabrics" element={<FurnitureFabrics />} />
-              <Route path="/products/security-doors" element={<SecurityDoors />} />
-              <Route path="/products/baby-products" element={<BabyProducts />} />
-              <Route path="/products/ceramics-pop" element={<CeramicsPOP />} />
-              <Route path="/products/solar-panels" element={<SolarPanels />} />
-              <Route path="/products/white-label-fabrics" element={<WhiteLabelFabrics />} />
-              <Route path="/products/white-label-carpets" element={<WhiteLabelCarpets />} />
-              <Route path="/products/white-label-cottons" element={<WhiteLabelCottons />} />
-              <Route path="/products/white-label-cosmetics" element={<WhiteLabelCosmetics />} />
-              <Route path="/products/white-label-turkish-cloths" element={<WhiteLabelTurkishCloths />} />
-              <Route path="/products/white-label-turkish-oil" element={<WhiteLabelTurkishOil />} />
-              <Route path="/products/pharmaceutical-products" element={<PharmaceuticalProducts />} />
-              <Route path="/products/fashion-accessories" element={<FashionAccessories />} />
-              <Route path="/how-it-works" element={<HowItWorksPage />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/quote" element={<Quote />} />
-              <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
-              <Route path="/quote-tracking" element={<QuoteTracking />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-          <WhatsAppButton />
-        </div>
+        <AuthProvider>
+          <div className="min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/steel-iron" element={<SteelIron />} />
+                <Route path="/products/industrial-machinery" element={<IndustrialMachinery />} />
+                <Route path="/products/furniture-fabrics" element={<FurnitureFabrics />} />
+                <Route path="/products/security-doors" element={<SecurityDoors />} />
+                <Route path="/products/baby-products" element={<BabyProducts />} />
+                <Route path="/products/ceramics-pop" element={<CeramicsPOP />} />
+                <Route path="/products/solar-panels" element={<SolarPanels />} />
+                <Route path="/products/white-label-fabrics" element={<WhiteLabelFabrics />} />
+                <Route path="/products/white-label-carpets" element={<WhiteLabelCarpets />} />
+                <Route path="/products/white-label-cottons" element={<WhiteLabelCottons />} />
+                <Route path="/products/white-label-cosmetics" element={<WhiteLabelCosmetics />} />
+                <Route path="/products/white-label-turkish-cloths" element={<WhiteLabelTurkishCloths />} />
+                <Route path="/products/white-label-turkish-oil" element={<WhiteLabelTurkishOil />} />
+                <Route path="/products/pharmaceutical-products" element={<PharmaceuticalProducts />} />
+                <Route path="/products/fashion-accessories" element={<FashionAccessories />} />
+                <Route path="/how-it-works" element={<HowItWorksPage />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/quote" element={<Quote />} />
+                <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
+                <Route path="/quote-tracking" element={<QuoteTracking />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/seller/apply" element={<SellerApply />} />
+                <Route path="/seller/products" element={<ProductUpload />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin/products" element={<ProductUpload />} />
+                <Route path="/admin/catalog" element={<AdminCatalog />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+            <WhatsAppButton />
+          </div>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
