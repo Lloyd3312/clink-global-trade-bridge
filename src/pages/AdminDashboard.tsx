@@ -17,6 +17,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import type { Tables } from "@/integrations/supabase/types";
 import QuoteAttachmentUploader from "@/components/QuoteAttachmentUploader";
+import SampleRequestsAdmin from "@/components/SampleRequestsAdmin";
 
 const statusSteps = [
   { id: 'enquiry', label: 'Enquiry Received', icon: Clock },
