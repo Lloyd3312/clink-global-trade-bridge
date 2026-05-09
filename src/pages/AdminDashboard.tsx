@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { Tables } from "@/integrations/supabase/types";
+import QuoteAttachmentUploader from "@/components/QuoteAttachmentUploader";
 
 const statusSteps = [
   { id: 'enquiry', label: 'Enquiry Received', icon: Clock },
@@ -321,6 +322,8 @@ const AdminDashboard = () => {
                                 <ArrowRight className="h-4 w-4 mr-2" /> Update Status
                               </Button>
                             </div>
+                            <hr />
+                            <QuoteAttachmentUploader quoteId={quote.id} />
                           </div>
                         </DialogContent>
                       </Dialog>
