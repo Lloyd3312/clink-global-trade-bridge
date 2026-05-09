@@ -13,7 +13,9 @@ import {
   Search,
   MessageCircle,
   Phone,
-  AlertCircle
+  AlertCircle,
+  FileText,
+  Download
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -28,6 +30,8 @@ const statusSteps = [
 const QuoteTracking = () => {
   const [searchParams] = useSearchParams();
   const [quoteData, setQuoteData] = useState<Tables<'quotes'> | null>(null);
+  const [attachments, setAttachments] = useState<any[]>([]);
+  const [history, setHistory] = useState<any[]>([]);
   const [searchRef, setSearchRef] = useState(searchParams.get('ref') || '');
   const [loading, setLoading] = useState(false);
 
@@ -45,9 +49,19 @@ const QuoteTracking = () => {
       .from('quotes')
       .select('*')
       .eq('reference_number', refNumber)
-      .single();
-    
+      .maybeSingle();
     setQuoteData(data);
+    if (data) {
+      const [{ data: atts }, { data: hist }] = await Promise.all([
+        supabase.from('quote_attachments').select('*').eq('quote_id', data.id).order('created_at', { ascending: false }),
+        supabase.from('quote_status_history').select('*').eq('quote_id', data.id).order('created_at', { ascending: true }),
+      ]);
+      setAttachments(atts ?? []);
+      setHistory(hist ?? []);
+    } else {
+      setAttachments([]);
+      setHistory([]);
+    }
     setLoading(false);
   };
 
