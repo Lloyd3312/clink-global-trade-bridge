@@ -200,6 +200,47 @@ export type Database = {
         }
         Relationships: []
       }
+      quote_attachments: {
+        Row: {
+          created_at: string
+          file_name: string | null
+          id: string
+          mime_type: string | null
+          notes: string | null
+          quote_id: string
+          uploaded_by: string | null
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          file_name?: string | null
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          quote_id: string
+          uploaded_by?: string | null
+          url: string
+        }
+        Update: {
+          created_at?: string
+          file_name?: string | null
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          quote_id?: string
+          uploaded_by?: string | null
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_attachments_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       quote_status_history: {
         Row: {
           created_at: string
@@ -291,6 +332,65 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      sample_requests: {
+        Row: {
+          company: string | null
+          country: string | null
+          created_at: string
+          email: string
+          id: string
+          name: string
+          notes: string | null
+          phone: string | null
+          product_id: string | null
+          product_title: string | null
+          reference_number: string
+          shipping_address: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          company?: string | null
+          country?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          product_id?: string | null
+          product_title?: string | null
+          reference_number?: string
+          shipping_address: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          company?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          product_id?: string | null
+          product_title?: string | null
+          reference_number?: string
+          shipping_address?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sample_requests_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       seller_applications: {
         Row: {

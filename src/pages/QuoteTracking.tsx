@@ -13,7 +13,9 @@ import {
   Search,
   MessageCircle,
   Phone,
-  AlertCircle
+  AlertCircle,
+  FileText,
+  Download
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -28,6 +30,8 @@ const statusSteps = [
 const QuoteTracking = () => {
   const [searchParams] = useSearchParams();
   const [quoteData, setQuoteData] = useState<Tables<'quotes'> | null>(null);
+  const [attachments, setAttachments] = useState<any[]>([]);
+  const [history, setHistory] = useState<any[]>([]);
   const [searchRef, setSearchRef] = useState(searchParams.get('ref') || '');
   const [loading, setLoading] = useState(false);
 
@@ -45,9 +49,19 @@ const QuoteTracking = () => {
       .from('quotes')
       .select('*')
       .eq('reference_number', refNumber)
-      .single();
-    
+      .maybeSingle();
     setQuoteData(data);
+    if (data) {
+      const [{ data: atts }, { data: hist }] = await Promise.all([
+        supabase.from('quote_attachments').select('*').eq('quote_id', data.id).order('created_at', { ascending: false }),
+        supabase.from('quote_status_history').select('*').eq('quote_id', data.id).order('created_at', { ascending: true }),
+      ]);
+      setAttachments(atts ?? []);
+      setHistory(hist ?? []);
+    } else {
+      setAttachments([]);
+      setHistory([]);
+    }
     setLoading(false);
   };
 
@@ -178,6 +192,49 @@ const QuoteTracking = () => {
                     </div>
                   </CardContent>
                 </Card>
+
+                {attachments.length > 0 && (
+                  <Card className="mb-8">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2"><FileText className="h-5 w-5" />Quotation Documents</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                      {attachments.map((a) => (
+                        <a key={a.id} href={a.url} target="_blank" rel="noopener noreferrer"
+                           className="flex items-center justify-between p-3 border rounded-lg hover:bg-secondary/50 transition">
+                          <div className="flex items-center gap-3">
+                            <FileText className="h-5 w-5 text-primary" />
+                            <div>
+                              <p className="font-medium text-sm">{a.file_name || "Quotation"}</p>
+                              {a.notes && <p className="text-xs text-muted-foreground">{a.notes}</p>}
+                              <p className="text-xs text-muted-foreground">{new Date(a.created_at).toLocaleString()}</p>
+                            </div>
+                          </div>
+                          <Download className="h-4 w-4 text-muted-foreground" />
+                        </a>
+                      ))}
+                    </CardContent>
+                  </Card>
+                )}
+
+                {history.length > 0 && (
+                  <Card className="mb-8">
+                    <CardHeader>
+                      <CardTitle>Updates from our team</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {history.map((h) => (
+                        <div key={h.id} className="border-l-2 border-primary pl-4 py-1">
+                          <div className="flex items-center gap-2">
+                            <Badge variant="secondary" className="text-xs">{statusSteps.find(s => s.id === h.status)?.label || h.status}</Badge>
+                            <span className="text-xs text-muted-foreground">{new Date(h.created_at).toLocaleString()}</span>
+                          </div>
+                          {h.notes && <p className="text-sm mt-1">{h.notes}</p>}
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                )}
 
                 <Card>
                   <CardHeader>

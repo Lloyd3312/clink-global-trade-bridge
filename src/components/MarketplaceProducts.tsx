@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Package } from "lucide-react";
+import SampleRequestDialog from "./SampleRequestDialog";
 
 interface Product {
   id: string;
@@ -68,9 +69,14 @@ export default function MarketplaceProducts() {
                     {p.price_min && `$${p.price_min}`}{p.price_min && p.price_max && " – "}{p.price_max && `$${p.price_max}`}
                   </p>
                 )}
-                <Button variant="outline" size="sm" className="w-full" asChild>
-                  <Link to="/quote">Request Quote<ArrowRight className="h-3 w-3 ml-1" /></Link>
-                </Button>
+                <div className="flex gap-2">
+                  <SampleRequestDialog productId={p.id} productTitle={p.title} trigger={
+                    <Button variant="outline" size="sm" className="flex-1"><Package className="h-3 w-3 mr-1" />Sample</Button>
+                  } />
+                  <Button size="sm" className="flex-1" asChild>
+                    <Link to="/quote">Quote<ArrowRight className="h-3 w-3 ml-1" /></Link>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}
