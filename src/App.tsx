@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import AIAssistant from "./components/AIAssistant";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
@@ -84,6 +85,7 @@ const App = () => (
             </main>
             <Footer />
             <WhatsAppButton />
+            <AIAssistant />
           </div>
         </AuthProvider>
       </BrowserRouter>
