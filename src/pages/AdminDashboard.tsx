@@ -342,6 +342,8 @@ const AdminDashboard = () => {
             </Table>
           </CardContent>
         </Card>
+
+        <SampleRequestsAdmin />
       </div>
     </div>
   );
