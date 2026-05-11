@@ -16,6 +16,7 @@ const Navigation = () => {
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about" },
     { name: "Products", path: "/products" },
+    { name: "Real Estate", path: "/real-estate" },
     { name: "How It Works", path: "/how-it-works" },
     { name: "Contact", path: "/contact" },
   ];
@@ -64,6 +65,7 @@ const Navigation = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-background z-50">
                   {isSeller && <DropdownMenuItem asChild><Link to="/seller/products"><LayoutDashboard className="h-4 w-4 mr-2" />Upload Products</Link></DropdownMenuItem>}
+                  {isSeller && <DropdownMenuItem asChild><Link to="/seller/properties">Upload Property</Link></DropdownMenuItem>}
                   {!isSeller && <DropdownMenuItem asChild><Link to="/seller/apply">Become a Seller</Link></DropdownMenuItem>}
                   {isAdmin && <DropdownMenuItem asChild><Link to="/admin">Admin · Quotes</Link></DropdownMenuItem>}
                   {isAdmin && <DropdownMenuItem asChild><Link to="/admin/catalog">Admin · Catalog</Link></DropdownMenuItem>}
