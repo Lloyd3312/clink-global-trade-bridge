@@ -200,6 +200,111 @@ export type Database = {
         }
         Relationships: []
       }
+      properties: {
+        Row: {
+          amenities: string[] | null
+          area_sqm: number | null
+          badge: string | null
+          bathrooms: number | null
+          bedrooms: number | null
+          category_id: string | null
+          city: string | null
+          country: string | null
+          cover_image: string | null
+          created_at: string
+          currency: string | null
+          description: string | null
+          id: string
+          listing_type: string
+          location: string | null
+          price: number | null
+          reference_number: string
+          seller_id: string | null
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          amenities?: string[] | null
+          area_sqm?: number | null
+          badge?: string | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          category_id?: string | null
+          city?: string | null
+          country?: string | null
+          cover_image?: string | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          id?: string
+          listing_type?: string
+          location?: string | null
+          price?: number | null
+          reference_number?: string
+          seller_id?: string | null
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          amenities?: string[] | null
+          area_sqm?: number | null
+          badge?: string | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          category_id?: string | null
+          city?: string | null
+          country?: string | null
+          cover_image?: string | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          id?: string
+          listing_type?: string
+          location?: string | null
+          price?: number | null
+          reference_number?: string
+          seller_id?: string | null
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      property_media: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          media_type: string
+          property_id: string
+          sort_order: number
+          url: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          media_type?: string
+          property_id: string
+          sort_order?: number
+          url: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          media_type?: string
+          property_id?: string
+          sort_order?: number
+          url?: string
+        }
+        Relationships: []
+      }
       quote_attachments: {
         Row: {
           created_at: string
