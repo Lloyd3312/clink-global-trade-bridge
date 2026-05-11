@@ -46,6 +46,8 @@ export default function PropertyDetail() {
   const videos = media.filter((m) => m.media_type === "video");
   const panoramas = media.filter((m) => m.media_type === "panorama");
   const vrEmbeds = media.filter((m) => m.media_type === "vr_embed");
+  const tourSteps = media.filter((m) => m.media_type === "tour_step");
+  const hasImmersive = panoramas.length > 0 || vrEmbeds.length > 0 || tourSteps.length > 0;
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-8">
