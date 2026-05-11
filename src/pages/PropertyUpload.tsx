@@ -26,6 +26,7 @@ export default function PropertyUpload() {
   const [videos, setVideos] = useState<File[]>([]);
   const [panoramas, setPanoramas] = useState<File[]>([]);
   const [vrEmbedUrl, setVrEmbedUrl] = useState("");
+  const [tourSteps, setTourSteps] = useState<{ file: File; caption: string }[]>([]);
   const [form, setForm] = useState({
     title: "", description: "", category_id: "", listing_type: "sale",
     price: "", currency: "USD", city: "", country: "Türkiye", location: "",
