@@ -86,6 +86,14 @@ export default function PropertyUpload() {
       for (const f of photos) await upload(f, "image");
       for (const f of videos) await upload(f, "video");
       for (const f of panoramas) await upload(f, "panorama");
+      // Photo-tour steps with captions
+      for (const step of tourSteps) {
+        const path = `${user.id}/${prop.id}/tour-${Date.now()}-${order}-${step.file.name}`;
+        const { error: up } = await supabase.storage.from("property-media").upload(path, step.file);
+        if (up) { toast.error(up.message); continue; }
+        const { data: { publicUrl } } = supabase.storage.from("property-media").getPublicUrl(path);
+        mediaRows.push({ property_id: prop.id, url: publicUrl, media_type: "tour_step", caption: step.caption || null, sort_order: order++ });
+      }
       if (vrEmbedUrl.trim()) mediaRows.push({ property_id: prop.id, url: vrEmbedUrl.trim(), media_type: "vr_embed", sort_order: order++ });
 
       if (mediaRows.length) await supabase.from("property_media").insert(mediaRows);
@@ -93,7 +101,7 @@ export default function PropertyUpload() {
 
       toast.success("Property published");
       setForm({ title: "", description: "", category_id: "", listing_type: "sale", price: "", currency: "USD", city: "", country: "Türkiye", location: "", bedrooms: "", bathrooms: "", area_sqm: "", amenities: "", badge: "", status: "published" });
-      setPhotos([]); setVideos([]); setPanoramas([]); setVrEmbedUrl("");
+      setPhotos([]); setVideos([]); setPanoramas([]); setVrEmbedUrl(""); setTourSteps([]);
       reload();
     } catch (err: any) {
       toast.error(err.message ?? "Failed");
