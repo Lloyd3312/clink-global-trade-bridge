@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Bed, Bath, Maximize, MapPin, Loader2, Check } from "lucide-react";
 import PanoramaViewer from "@/components/PanoramaViewer";
+import PhotoTourViewer from "@/components/PhotoTourViewer";
 
 interface Media { id: string; url: string; media_type: string; caption: string | null }
 interface Property {
@@ -45,6 +46,8 @@ export default function PropertyDetail() {
   const videos = media.filter((m) => m.media_type === "video");
   const panoramas = media.filter((m) => m.media_type === "panorama");
   const vrEmbeds = media.filter((m) => m.media_type === "vr_embed");
+  const tourSteps = media.filter((m) => m.media_type === "tour_step");
+  const hasImmersive = panoramas.length > 0 || vrEmbeds.length > 0 || tourSteps.length > 0;
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-8">
@@ -68,12 +71,18 @@ export default function PropertyDetail() {
             </div>
           )}
 
-          {(panoramas.length > 0 || vrEmbeds.length > 0) && (
-            <Tabs defaultValue={panoramas.length ? "pano" : "vr"} className="mt-6">
+          {hasImmersive && (
+            <Tabs defaultValue={tourSteps.length ? "tour" : panoramas.length ? "pano" : "vr"} className="mt-6">
               <TabsList>
+                {tourSteps.length > 0 && <TabsTrigger value="tour">Guided Tour</TabsTrigger>}
                 {panoramas.length > 0 && <TabsTrigger value="pano">360° Tour</TabsTrigger>}
                 {vrEmbeds.length > 0 && <TabsTrigger value="vr">Virtual Tour</TabsTrigger>}
               </TabsList>
+              {tourSteps.length > 0 && (
+                <TabsContent value="tour">
+                  <PhotoTourViewer steps={tourSteps.map((s) => ({ url: s.url, caption: s.caption }))} />
+                </TabsContent>
+              )}
               {panoramas.length > 0 && (
                 <TabsContent value="pano" className="space-y-3">
                   {panoramas.map((p) => <div key={p.id}><PanoramaViewer src={p.url} />{p.caption && <p className="text-sm text-muted-foreground mt-1">{p.caption}</p>}</div>)}

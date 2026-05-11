@@ -26,6 +26,7 @@ export default function PropertyUpload() {
   const [videos, setVideos] = useState<File[]>([]);
   const [panoramas, setPanoramas] = useState<File[]>([]);
   const [vrEmbedUrl, setVrEmbedUrl] = useState("");
+  const [tourSteps, setTourSteps] = useState<{ file: File; caption: string }[]>([]);
   const [form, setForm] = useState({
     title: "", description: "", category_id: "", listing_type: "sale",
     price: "", currency: "USD", city: "", country: "Türkiye", location: "",
@@ -85,6 +86,14 @@ export default function PropertyUpload() {
       for (const f of photos) await upload(f, "image");
       for (const f of videos) await upload(f, "video");
       for (const f of panoramas) await upload(f, "panorama");
+      // Photo-tour steps with captions
+      for (const step of tourSteps) {
+        const path = `${user.id}/${prop.id}/tour-${Date.now()}-${order}-${step.file.name}`;
+        const { error: up } = await supabase.storage.from("property-media").upload(path, step.file);
+        if (up) { toast.error(up.message); continue; }
+        const { data: { publicUrl } } = supabase.storage.from("property-media").getPublicUrl(path);
+        mediaRows.push({ property_id: prop.id, url: publicUrl, media_type: "tour_step", caption: step.caption || null, sort_order: order++ });
+      }
       if (vrEmbedUrl.trim()) mediaRows.push({ property_id: prop.id, url: vrEmbedUrl.trim(), media_type: "vr_embed", sort_order: order++ });
 
       if (mediaRows.length) await supabase.from("property_media").insert(mediaRows);
@@ -92,7 +101,7 @@ export default function PropertyUpload() {
 
       toast.success("Property published");
       setForm({ title: "", description: "", category_id: "", listing_type: "sale", price: "", currency: "USD", city: "", country: "Türkiye", location: "", bedrooms: "", bathrooms: "", area_sqm: "", amenities: "", badge: "", status: "published" });
-      setPhotos([]); setVideos([]); setPanoramas([]); setVrEmbedUrl("");
+      setPhotos([]); setVideos([]); setPanoramas([]); setVrEmbedUrl(""); setTourSteps([]);
       reload();
     } catch (err: any) {
       toast.error(err.message ?? "Failed");
@@ -179,6 +188,31 @@ export default function PropertyUpload() {
                 <Label>360° Panorama Photos (equirectangular)</Label>
                 <Input type="file" multiple accept="image/*" onChange={(e) => setPanoramas(Array.from(e.target.files ?? []))} />
                 <p className="text-xs text-muted-foreground mt-1">Use a 360° camera or Google Street View app to capture equirectangular images.</p>
+              </div>
+              <div className="space-y-2 border rounded-lg p-3">
+                <Label>Guided Photo-Tour Builder</Label>
+                <p className="text-xs text-muted-foreground">Pick 5–20 regular photos in the order a visitor should "walk" through. Add a caption per step (e.g. "Living room", "Kitchen with sea view").</p>
+                <Input type="file" multiple accept="image/*" onChange={(e) => {
+                  const files = Array.from(e.target.files ?? []);
+                  setTourSteps((prev) => [...prev, ...files.map((f) => ({ file: f, caption: "" }))]);
+                  e.target.value = "";
+                }} />
+                {tourSteps.length > 0 && (
+                  <div className="space-y-2 mt-2">
+                    {tourSteps.map((s, idx) => (
+                      <div key={idx} className="flex items-center gap-2 bg-muted/40 p-2 rounded">
+                        <img src={URL.createObjectURL(s.file)} alt="" className="w-12 h-12 object-cover rounded" />
+                        <span className="text-xs font-mono">{idx + 1}</span>
+                        <Input className="flex-1 h-8" placeholder="Caption (optional)" value={s.caption} onChange={(e) => setTourSteps((prev) => prev.map((p, i) => i === idx ? { ...p, caption: e.target.value } : p))} />
+                        <Button type="button" size="icon" variant="ghost" className="h-8 w-8" onClick={() => setTourSteps((prev) => prev.filter((_, i) => i !== idx))}><Trash2 className="h-3 w-3 text-destructive" /></Button>
+                        <div className="flex flex-col">
+                          <button type="button" className="text-xs px-1" disabled={idx === 0} onClick={() => setTourSteps((prev) => { const a = [...prev]; [a[idx-1], a[idx]] = [a[idx], a[idx-1]]; return a; })}>▲</button>
+                          <button type="button" className="text-xs px-1" disabled={idx === tourSteps.length - 1} onClick={() => setTourSteps((prev) => { const a = [...prev]; [a[idx+1], a[idx]] = [a[idx], a[idx+1]]; return a; })}>▼</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div>
                 <Label>VR Tour Embed URL (Matterport / Kuula)</Label>
