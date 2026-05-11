@@ -71,12 +71,18 @@ export default function PropertyDetail() {
             </div>
           )}
 
-          {(panoramas.length > 0 || vrEmbeds.length > 0) && (
-            <Tabs defaultValue={panoramas.length ? "pano" : "vr"} className="mt-6">
+          {hasImmersive && (
+            <Tabs defaultValue={tourSteps.length ? "tour" : panoramas.length ? "pano" : "vr"} className="mt-6">
               <TabsList>
+                {tourSteps.length > 0 && <TabsTrigger value="tour">Guided Tour</TabsTrigger>}
                 {panoramas.length > 0 && <TabsTrigger value="pano">360° Tour</TabsTrigger>}
                 {vrEmbeds.length > 0 && <TabsTrigger value="vr">Virtual Tour</TabsTrigger>}
               </TabsList>
+              {tourSteps.length > 0 && (
+                <TabsContent value="tour">
+                  <PhotoTourViewer steps={tourSteps.map((s) => ({ url: s.url, caption: s.caption }))} />
+                </TabsContent>
+              )}
               {panoramas.length > 0 && (
                 <TabsContent value="pano" className="space-y-3">
                   {panoramas.map((p) => <div key={p.id}><PanoramaViewer src={p.url} />{p.caption && <p className="text-sm text-muted-foreground mt-1">{p.caption}</p>}</div>)}
