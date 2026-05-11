@@ -83,6 +83,10 @@ const App = () => (
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/admin/products" element={<ProductUpload />} />
                 <Route path="/admin/catalog" element={<AdminCatalog />} />
+                <Route path="/real-estate" element={<RealEstate />} />
+                <Route path="/real-estate/:slug" element={<PropertyDetail />} />
+                <Route path="/seller/properties" element={<PropertyUpload />} />
+                <Route path="/admin/properties" element={<PropertyUpload />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
