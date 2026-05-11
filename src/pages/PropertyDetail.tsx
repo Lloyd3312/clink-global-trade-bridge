@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Bed, Bath, Maximize, MapPin, Loader2, Check } from "lucide-react";
 import PanoramaViewer from "@/components/PanoramaViewer";
+import PhotoTourViewer from "@/components/PhotoTourViewer";
 
 interface Media { id: string; url: string; media_type: string; caption: string | null }
 interface Property {
