@@ -346,6 +346,60 @@ export type Database = {
           },
         ]
       }
+      quote_invoices: {
+        Row: {
+          amount: number
+          created_at: string
+          created_by: string | null
+          crypto_payment_id: string | null
+          currency: string
+          id: string
+          notes: string | null
+          paid_at: string | null
+          payment_method: string | null
+          pdf_name: string | null
+          pdf_url: string | null
+          quote_id: string
+          status: string
+          stripe_session_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by?: string | null
+          crypto_payment_id?: string | null
+          currency?: string
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          payment_method?: string | null
+          pdf_name?: string | null
+          pdf_url?: string | null
+          quote_id: string
+          status?: string
+          stripe_session_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          crypto_payment_id?: string | null
+          currency?: string
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          payment_method?: string | null
+          pdf_name?: string | null
+          pdf_url?: string | null
+          quote_id?: string
+          status?: string
+          stripe_session_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       quote_status_history: {
         Row: {
           created_at: string
