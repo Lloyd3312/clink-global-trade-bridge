@@ -1,186 +1,103 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Wrench, 
-  Armchair, 
-  Zap, 
-  Building, 
-  Cog,
-  ArrowRight,
-  Shield,
-  Baby,
-  CheckCircle,
-  Award,
-  Pill,
-  ShoppingBag
-} from "lucide-react";
+import { ArrowRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import steelImage from "@/assets/steel-iron.jpg";
+import machineryImage from "@/assets/industrial-machinery.jpg";
+import furnitureImage from "@/assets/furniture-fabrics.jpg";
+import securityDoorsImage from "@/assets/security-doors.jpg";
+import babyImage from "@/assets/baby-products.jpg";
+import ceramicsImage from "@/assets/ceramics-pop.jpg";
+import solarImage from "@/assets/solar-panels.jpg";
+import pharmaImage from "@/assets/pharmaceutical-products.jpg";
+import fashionImage from "@/assets/fashion-accessories.jpg";
+
+const products = [
+  { title: "Steel & Iron", image: steelImage, badge: "CE Certified", link: "/products/steel-iron",
+    description: "Construction-grade steel bars, sheets, pipes & structural beams from leading Turkish mills." },
+  { title: "Industrial Machinery", image: machineryImage, badge: "ISO Quality", link: "/products/industrial-machinery",
+    description: "Heavy equipment, manufacturing lines and precision tools — CE-certified, warranty included." },
+  { title: "Furniture & Fabrics", image: furnitureImage, badge: "Export Grade", link: "/products/furniture-fabrics",
+    description: "Premium furniture, home textiles and curated fabrics from skilled Turkish artisans." },
+  { title: "Security Doors", image: securityDoorsImage, badge: "Bulletproof", link: "/products/security-doors",
+    description: "High-security bulletproof, blast and fire-resistant doors with custom security levels." },
+  { title: "Baby Products & Wears", image: babyImage, badge: "Safety Certified", link: "/products/baby-products",
+    description: "Organic baby clothing, accessories and childcare goods meeting European safety standards." },
+  { title: "Ceramics & POP", image: ceramicsImage, badge: "Quality Assured", link: "/products/ceramics-pop",
+    description: "Decorative tiles, sanitary ceramics and plaster of Paris in a wide range of finishes." },
+  { title: "Solar Panels", image: solarImage, badge: "25-Year Warranty", link: "/products/solar-panels",
+    description: "High-efficiency mono & polycrystalline panels, inverters and complete renewable systems." },
+  { title: "Pharmaceuticals", image: pharmaImage, badge: "GMP Certified", link: "/products/pharmaceutical-products",
+    description: "GMP-certified medicines, supplements and medical supplies with cold-chain logistics." },
+  { title: "Fashion & Accessories", image: fashionImage, badge: "Premium Quality", link: "/products/fashion-accessories",
+    description: "Designer leather bags, shoes, watches, eyewear and custom branded apparel — men & women." },
+];
 
 const ProductsSection = () => {
-  const getProductLink = (title: string) => {
-    switch(title) {
-      case "Steel & Iron": return "/products/steel-iron";
-      case "Industrial Machinery": return "/products/industrial-machinery";
-      case "Furniture & Fabrics": return "/products/furniture-fabrics";
-      case "Doors (Bulletproof)": return "/products/security-doors";
-      case "Baby Things & Wears": return "/products/baby-products";
-      case "Ceramics & POP": return "/products/ceramics-pop";
-      case "Solar Panels": return "/products/solar-panels";
-      case "Pharmaceutical Products": return "/products/pharmaceutical-products";
-      case "Fashion & Accessories": return "/products/fashion-accessories";
-      default: return "/products";
-    }
-  };
-
-  const products = [
-    {
-      icon: Building,
-      title: "Steel & Iron",
-      description: "High-grade steel bars, sheets, pipes, and structural steel products from leading Turkish mills.",
-      features: ["Construction Grade", "Industrial Quality", "Custom Specifications"],
-      badge: "CE Certified",
-      trustIcon: CheckCircle
-    },
-    {
-      icon: Cog,
-      title: "Industrial Machinery",
-      description: "Heavy equipment, manufacturing machinery, and precision tools from Turkish manufacturers.",
-      features: ["CE Certified", "Global Warranty", "Technical Support"],
-      badge: "ISO Quality",
-      trustIcon: Award
-    },
-    {
-      icon: Armchair,
-      title: "Furniture & Fabrics",
-      description: "Premium furniture, home textiles, and high-quality fabrics from Turkish artisans.",
-      features: ["Export Quality", "Custom Designs", "Bulk Orders"],
-      badge: "Export Grade",
-      trustIcon: CheckCircle
-    },
-    {
-      icon: Shield,
-      title: "Doors (Bulletproof)",
-      description: "High-security bulletproof doors and specialized security door systems from Turkish manufacturers.",
-      features: ["Ballistic Protection", "Fire Resistant", "Custom Security Levels"],
-      badge: "Security Grade",
-      trustIcon: Shield
-    },
-    {
-      icon: Baby,
-      title: "Baby Things & Wears",
-      description: "Premium baby clothing, accessories, and childcare products from certified Turkish suppliers.",
-      features: ["Organic Materials", "Safety Certified", "European Standards"],
-      badge: "Safety Certified",
-      trustIcon: CheckCircle
-    },
-    {
-      icon: Wrench,
-      title: "Ceramics & POP",
-      description: "Decorative ceramics, tiles, and plaster of Paris materials for construction and design.",
-      features: ["Artistic Designs", "Durable Materials", "Various Sizes"],
-      badge: "Quality Assured",
-      trustIcon: Award
-    },
-    {
-      icon: Zap,
-      title: "Solar Panels",
-      description: "High-efficiency solar panels and renewable energy equipment from Turkish manufacturers.",
-      features: ["EU Standards", "25-Year Warranty", "Installation Support"],
-      badge: "25-Year Warranty",
-      trustIcon: CheckCircle
-    },
-    {
-      icon: Pill,
-      title: "Pharmaceutical Products",
-      description: "GMP-certified medicines, supplements, and medical supplies from Turkish pharmaceutical manufacturers.",
-      features: ["GMP Certified", "WHO Prequalified", "Cold Chain Logistics"],
-      badge: "GMP Certified",
-      trustIcon: Award
-    },
-    {
-      icon: ShoppingBag,
-      title: "Fashion & Accessories",
-      description: "Premium Turkish fashion for men & women — bags, shoes, watches, sunglasses, hats, and custom T-shirts.",
-      features: ["Men's & Women's", "Custom Branding", "Genuine Leather"],
-      badge: "Premium Quality",
-      trustIcon: CheckCircle
-    }
-  ];
-
   return (
-    <section className="py-20 bg-secondary/30 relative">
-      {/* Deep Green Lower Third */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-deep-green/10"></div>
-      <div className="relative z-10">
+    <section className="py-24 bg-gradient-to-b from-background via-secondary/30 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+        <div className="text-center mb-14 max-w-3xl mx-auto">
+          <Badge variant="outline" className="mb-4 bg-primary/5 text-primary border-primary/20">
+            Curated Catalogue
+          </Badge>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-display">
             Premium Turkish Products
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Discover our comprehensive range of high-quality Turkish goods, 
-            carefully sourced from verified manufacturers and suppliers.
+          <p className="text-lg text-muted-foreground">
+            Handpicked from verified manufacturers across Turkey — delivered to your door, anywhere in the world.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product, index) => (
-            <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm hover:bg-card/90 relative overflow-hidden">
-              {/* Trust Badge */}
-              <div className="absolute top-4 right-4 z-10">
-                <Badge variant="secondary" className="bg-success-green/10 text-success-green border-success-green/30 text-xs">
-                  <product.trustIcon className="h-3 w-3 mr-1" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <Link
+              key={product.title}
+              to={product.link}
+              className="group relative overflow-hidden rounded-2xl bg-card border border-border/60 shadow-[0_1px_2px_hsla(0_0%_0%/0.04),0_4px_16px_hsla(0_0%_0%/0.05)] hover:shadow-[0_8px_28px_hsla(14_72%_52%/0.18)] transition-all duration-500 hover:-translate-y-1"
+            >
+              {/* Image */}
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-transparent" />
+                <Badge className="absolute top-4 left-4 bg-background/90 text-foreground hover:bg-background border-0 backdrop-blur-sm">
+                  <CheckCircle className="h-3 w-3 mr-1 text-success-green" />
                   {product.badge}
                 </Badge>
-              </div>
-              
-              {/* Turkish Supplier Badge */}
-              <div className="absolute top-4 left-4 z-10">
-                <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 text-xs">
-                  Trusted Turkish Supplier
+                <Badge className="absolute top-4 right-4 bg-primary/90 text-primary-foreground border-0 backdrop-blur-sm text-[10px]">
+                  Made in Türkiye
                 </Badge>
+                {/* Title sits over image */}
+                <h3 className="absolute bottom-4 left-5 right-5 text-2xl font-bold text-white font-display leading-tight">
+                  {product.title}
+                </h3>
               </div>
-              
-              <CardHeader className="pt-16 pb-4">
-                <div className="h-14 w-14 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors shadow-md">
-                  <product.icon className="h-7 w-7 text-primary" />
+
+              {/* Body */}
+              <div className="p-5">
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{product.description}</p>
+                <div className="flex items-center justify-between text-primary text-sm font-medium">
+                  <span>Explore category</span>
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <CardTitle className="text-xl text-foreground">{product.title}</CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  {product.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6">
-                  {product.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
-                      <div className="h-1.5 w-1.5 bg-primary rounded-full mr-3" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors shadow-sm" asChild>
-                  <Link to={getProductLink(product.title)}>
-                    Learn More
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </Link>
           ))}
         </div>
 
-        {/* View All Products CTA */}
-        <div className="text-center mt-12">
-          <Button variant="cta" size="lg" asChild>
+        <div className="text-center mt-14">
+          <Button variant="cta" size="xl" asChild>
             <Link to="/products" className="inline-flex items-center gap-2">
-              View All Products
+              Browse Full Catalogue
               <ArrowRight className="h-5 w-5" />
             </Link>
           </Button>
         </div>
-      </div>
       </div>
     </section>
   );
