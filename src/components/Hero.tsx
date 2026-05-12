@@ -65,14 +65,16 @@ const Hero = () => {
 
             {/* Main Heading */}
             <div className="space-y-4 md:space-y-6">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight drop-shadow-lg">
-                <span className="drop-shadow-md">Seamless Sourcing & Global Delivery</span>
-                <span className="text-primary block drop-shadow-md">of Turkish Goods</span>
-                <span className="text-foreground drop-shadow-md">With Trusted Quality & Affordable Prices</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] drop-shadow-lg font-display">
+                <span className="text-foreground drop-shadow-md">From Türkiye,</span>{" "}
+                <span className="text-primary drop-shadow-md italic">to your doorstep.</span>
+                <span className="block text-foreground/90 text-2xl md:text-3xl lg:text-4xl mt-3 font-medium">
+                  Premium goods. Verified suppliers. Worldwide delivery.
+                </span>
               </h1>
-              
-              <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl drop-shadow-md bg-background/30 backdrop-blur-sm rounded-lg p-3 md:p-4">
-                Connecting global importers with verified Turkish manufacturers for steel, machinery, fabrics, furniture, and more.
+
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl drop-shadow-md bg-background/40 backdrop-blur-sm rounded-xl p-4 border border-border/40">
+                Whether you're sourcing steel, importing fashion, or investing in Turkish real estate — Clink Global is your trusted bridge.
               </p>
             </div>
 
