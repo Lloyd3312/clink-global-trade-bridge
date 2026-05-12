@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import ProductsSection from "@/components/ProductsSection";
+import FeaturedProperties from "@/components/FeaturedProperties";
 import HowItWorks from "@/components/HowItWorks";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
     <div className="min-h-screen">
       <Hero />
       <ProductsSection />
+      <FeaturedProperties />
       <HowItWorks />
     </div>
   );
