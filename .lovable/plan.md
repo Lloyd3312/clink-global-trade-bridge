@@ -1,65 +1,72 @@
-# Clink Global Services — Major Upgrade Plan
+# Plan: Visual Refresh + Consultation Payments
 
-This is a large scope, so I've broken it into 5 phases you can approve one at a time. Each phase ships something usable on its own. After you approve, I'll build Phase 1 and pause for your feedback before moving on.
+## Part 1 — Visual refresh (ecommerce ambiance)
 
----
+Goal: lift the look without redesigning page-by-page. Done by upgrading the design system tokens — affects every page automatically.
 
-## Phase 1 — Foundation: Lighter UI + Auth Roles + Dynamic Catalog
+- **Refresh `index.css` palette**: move to a warmer, more premium ecommerce palette
+  - Background: soft ivory/cream (instead of near-white)
+  - Primary: refined terracotta/burnt-orange (less saturated than current)
+  - Accent: deep teal as secondary accent for buttons/highlights
+  - Typography accents: serif display font (Playfair / DM Serif) for H1/H2, keep sans for body
+- Add subtle grain/gradient to hero sections via existing `--gradient-hero` token
+- Tighten card shadows, increase border-radius, add soft hover lift
+- Update `Navigation` and `Footer` to use the new palette
+- Add Google Fonts link in `index.html`
 
-**Goal:** Move products from hardcoded files into the database so you (and verified sellers) can upload without a developer. Lighten the visual feel.
+No structural/page changes — purely tokens + 2-3 component polish passes.
 
-- **Visual refresh**: more whitespace, lighter card shadows, softer orange tint, brighter background, larger trust badges, cleaner typography. Keep the brand (orange/white/gray/deep-green).
-- **Auth + roles**: add a `user_roles` table (`admin`, `seller`, `user`) with secure server-side checks. Sellers must apply and be approved by admin before they can upload.
-- **Categories table**: dynamic categories (Steel, Fashion, Real Estate, etc.) with an automatic "Other" bucket for anything uncategorised. Admin can add/rename/hide categories from `/admin`.
-- **Products table**: title, description, specs, price range, MOQ, category, gallery images, seller, status (draft/published).
-- **Admin & seller upload UI**: form with image uploads (drag-drop, multiple files) at `/admin/products` and `/seller/products`.
-- **Public Products page rebuilt** to read from the database instead of hardcoded arrays. Existing categories migrated.
+## Part 2 — Consultation invoices & payments
 
-## Phase 2 — AI Assistant (Full Concierge)
+### Database
+New table `quote_invoices`:
+- `id`, `quote_id` (FK), `amount` (numeric), `currency` (default USD)
+- `pdf_url` (existing storage bucket)
+- `status` ('pending' | 'paid_card' | 'paid_crypto' | 'cancelled')
+- `stripe_session_id`, `crypto_payment_id`, `paid_at`
+- RLS: public read, admin write
 
-- Floating chat bubble on every page powered by Lovable AI (`google/gemini-3-flash-preview`, no API key needed).
-- Streamed responses, markdown rendering, conversation memory per session.
-- Capabilities: recommend products, explain Turkish goods, search the live catalog, help fill the quote form, look up a quote by reference number, suggest properties matching budget/location.
-- Backend: a single `ai-assistant` edge function with tool-calling so the AI can query the database safely.
+### Admin side (in `AdminDashboard`)
+- New "Invoice" panel per quote: upload PDF + enter amount/currency → creates `quote_invoices` row
+- Shows payment status once paid
 
-## Phase 3 — E-commerce Touches: Related Products + Samples + Quote Replies
+### Client side (`QuoteTracking`)
+- If invoice exists & unpaid → shows invoice card with PDF download + two buttons:
+  - **Pay with Card** → calls `create-stripe-checkout` edge function
+  - **Pay with Crypto** → calls `create-crypto-invoice` edge function (NOWPayments)
+- If paid → shows ✓ Paid badge + method + date
 
-- **Related products** carousel on every product detail page (same category, then cross-category).
-- **"Request a Sample"** button on product pages → new `sample_requests` table with shipping address; admin sees it in dashboard.
-- **Quote reply uploads**: admin can attach a PDF/image quotation to a client's enquiry; client sees it on the tracking page and gets notified.
-- **Wishlist/compare** (lightweight, localStorage) so visitors can shortlist items before requesting a quote.
+### Payment rails
 
-## Phase 4 — Real Estate Phase
+**Card (Stripe)** — use Lovable's seamless Stripe Payments integration
+- `enable_stripe_payments` (no Stripe account needed for the user)
+- Edge functions: `create-stripe-checkout`, `stripe-webhook`
 
-- New top-level section `/real-estate` with its own landing page and category filters (Apartments, Villas, Commercial, Land, Off-plan, etc. — categories editable like products).
-- **Property listings** with: title, description, location, price, bedrooms/bathrooms, area, amenities, status (for sale / for rent / sold).
-- **Media per property**: unlimited photos, video uploads, plus 360° panorama uploads and external VR embed URLs (Matterport/Kuula links).
-- Same upload flow: admin and verified sellers (re-used from Phase 1).
-- Quote/inquiry form pre-filled with property reference.
+**Crypto (NOWPayments)** — requires user's own account
+- User creates free account at nowpayments.io, generates API key + IPN secret
+- Funds settle to user's chosen wallet (BTC/USDT/etc.) — direct to crypto, not converted from fiat
+- Edge functions: `create-crypto-invoice`, `nowpayments-webhook`
+- Secrets needed: `NOWPAYMENTS_API_KEY`, `NOWPAYMENTS_IPN_SECRET`
 
-## Phase 5 — Virtual Tours (the two approaches you picked)
+### Notifications
+On successful payment (either rail), webhook:
+1. Updates `quote_invoices.status` and `paid_at`
+2. Inserts row into `quote_status_history` ("Payment received via card/crypto") so it appears in the existing tracking timeline
+3. Updates quote status to next step
 
-- **360° panorama viewer**: upload an equirectangular photo (taken with a 360° camera or phone app like Google Street View), viewer renders interactive pan/zoom using `pannellum` or `react-photo-sphere-viewer`.
-- **Photo-tour builder**: select 5–20 regular photos, arrange them in order, add captions and "next room" hotspots → renders as an immersive guided slideshow that feels like a walkthrough.
-- Both viewers embed inside the property detail page; clients can fullscreen and (on mobile) use gyroscope.
+## Technical notes
+- "Pay direct to bank" = Stripe (settles to your bank in your country). Shopify isn't needed since these are services, not goods.
+- "Pay in crypto" = NOWPayments pays you directly in crypto. There is no automatic fiat→crypto conversion — Stripe sends fiat to your bank, NOWPayments sends crypto to your wallet. The two rails coexist on the invoice page.
+- All RLS preserved. Webhooks use service-role.
 
-> Note on AI-generated true 3D VR from photos: real photogrammetry needs heavy GPU services (Matterport, Polycam, etc.) and is out of scope for what Lovable can build natively. The two methods above give a very convincing tour experience without paid services. If later you want true 3D VR, we'd integrate Matterport via embed and you'd subscribe to their service.
+## Order of execution
+1. Visual refresh (tokens + fonts)
+2. DB migration for invoices
+3. Enable Stripe payments + edge functions + webhook
+4. Crypto edge functions (after you provide NOWPayments keys)
+5. Admin invoice uploader UI
+6. QuoteTracking invoice + pay buttons UI
 
----
-
-## Technical details
-
-- **Backend**: Lovable Cloud (Supabase). New tables: `categories`, `products`, `product_media`, `properties`, `property_media`, `sample_requests`, `quote_attachments`, `user_roles`, `seller_applications`. All with RLS.
-- **Storage**: Lovable Cloud storage buckets `product-media`, `property-media`, `quote-attachments`. Public read, authenticated write with role check.
-- **Auth**: Email/password + Google sign-in. Sellers go through application + admin approval.
-- **AI**: Lovable AI Gateway (no API key) with tool-calling for catalog queries.
-- **VR libs**: `@photo-sphere-viewer/core` for 360° panoramas (lightweight, MIT licensed).
-- **Migration**: existing hardcoded categories seeded into the new `categories` table on first deploy so nothing visually disappears.
-
----
-
-## What I'll do right now if you approve
-
-Build **Phase 1** end-to-end (lighter UI + auth/roles + dynamic categories + admin/seller product upload). After you confirm it looks and works the way you want, I'll proceed to Phase 2.
-
-Reply **"go"** to start Phase 1, or tell me which phase to start with / what to adjust.
+## Things I need from you
+- Confirm to enable Stripe (one-click, no account setup needed)
+- A NOWPayments account + API key + IPN secret (for crypto). I'll prompt you when we get to that step. Free signup at nowpayments.io.
