@@ -32,20 +32,40 @@ const statusSteps = [
 ];
 
 const QuoteTracking = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [quoteData, setQuoteData] = useState<Tables<'quotes'> | null>(null);
   const [attachments, setAttachments] = useState<any[]>([]);
   const [history, setHistory] = useState<any[]>([]);
+  const [invoices, setInvoices] = useState<any[]>([]);
   const [searchRef, setSearchRef] = useState(searchParams.get('ref') || '');
   const [loading, setLoading] = useState(false);
+  const [payingId, setPayingId] = useState<string | null>(null);
 
   useEffect(() => {
     const ref = searchParams.get('ref');
+    const sessionId = searchParams.get('session_id');
     if (ref) {
       setSearchRef(ref);
-      loadQuoteData(ref);
+      loadQuoteData(ref).then(() => {
+        if (sessionId) verifyPayment(sessionId, ref);
+      });
     }
+    if (searchParams.get('payment') === 'cancelled') {
+      toast.info("Payment cancelled");
+    }
+    // eslint-disable-next-line
   }, [searchParams]);
+
+  const verifyPayment = async (session_id: string, ref: string) => {
+    const { data, error } = await supabase.functions.invoke('verify-stripe-payment', { body: { session_id } });
+    if (!error && data?.paid) {
+      toast.success("Payment received — thank you!");
+      loadQuoteData(ref);
+      const next = new URLSearchParams(searchParams);
+      next.delete('session_id');
+      setSearchParams(next, { replace: true });
+    }
+  };
 
   const loadQuoteData = async (refNumber: string) => {
     setLoading(true);
@@ -56,17 +76,32 @@ const QuoteTracking = () => {
       .maybeSingle();
     setQuoteData(data);
     if (data) {
-      const [{ data: atts }, { data: hist }] = await Promise.all([
+      const [{ data: atts }, { data: hist }, { data: invs }] = await Promise.all([
         supabase.from('quote_attachments').select('*').eq('quote_id', data.id).order('created_at', { ascending: false }),
         supabase.from('quote_status_history').select('*').eq('quote_id', data.id).order('created_at', { ascending: true }),
+        supabase.from('quote_invoices').select('*').eq('quote_id', data.id).order('created_at', { ascending: false }),
       ]);
       setAttachments(atts ?? []);
       setHistory(hist ?? []);
+      setInvoices(invs ?? []);
     } else {
-      setAttachments([]);
-      setHistory([]);
+      setAttachments([]); setHistory([]); setInvoices([]);
     }
     setLoading(false);
+  };
+
+  const payWithCard = async (invoiceId: string) => {
+    setPayingId(invoiceId);
+    try {
+      const { data, error } = await supabase.functions.invoke('create-stripe-checkout', {
+        body: { invoice_id: invoiceId, origin: window.location.origin },
+      });
+      if (error || !data?.url) throw new Error(error?.message || 'Failed to start checkout');
+      window.location.href = data.url;
+    } catch (e: any) {
+      toast.error(e.message);
+      setPayingId(null);
+    }
   };
 
   const handleSearch = () => {
