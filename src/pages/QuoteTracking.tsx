@@ -15,9 +15,13 @@ import {
   Phone,
   AlertCircle,
   FileText,
-  Download
+  Download,
+  CreditCard,
+  CheckCircle2,
+  Loader2
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 
 const statusSteps = [

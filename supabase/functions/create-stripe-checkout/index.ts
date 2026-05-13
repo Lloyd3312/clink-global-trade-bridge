@@ -52,8 +52,8 @@ Deno.serve(async (req) => {
         },
         quantity: 1,
       }],
-      success_url: `${baseUrl}/track?ref=${ref}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/track?ref=${ref}&payment=cancelled`,
+      success_url: `${baseUrl}/quote-tracking?ref=${ref}&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/quote-tracking?ref=${ref}&payment=cancelled`,
       metadata: { invoice_id: invoice.id, quote_id: invoice.quote_id, ref },
     });
 
