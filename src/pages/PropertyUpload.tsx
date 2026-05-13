@@ -18,7 +18,7 @@ interface Property { id: string; title: string; status: string; cover_image: str
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80);
 
 export default function PropertyUpload() {
-  const { user, loading, isSeller, isAdmin } = useAuth();
+  const { user, loading, isAdmin } = useAuth();
   const [categories, setCategories] = useState<Category[]>([]);
   const [properties, setProperties] = useState<Property[]>([]);
   const [busy, setBusy] = useState(false);
@@ -44,11 +44,11 @@ export default function PropertyUpload() {
 
   if (loading) return <div className="p-12 text-center"><Loader2 className="h-6 w-6 animate-spin mx-auto" /></div>;
   if (!user) return <Navigate to="/auth" replace />;
-  if (!isSeller) return (
+  if (!isAdmin) return (
     <div className="max-w-xl mx-auto p-8 text-center space-y-4">
-      <h2 className="text-2xl font-bold">Seller access required</h2>
-      <p className="text-muted-foreground">Apply to become a verified seller to upload properties.</p>
-      <Button asChild variant="cta"><Link to="/seller/apply">Apply as Seller</Link></Button>
+      <h2 className="text-2xl font-bold">Admin access required</h2>
+      <p className="text-muted-foreground">Only administrators can upload properties.</p>
+      <Button asChild variant="cta"><Link to="/">Back to Home</Link></Button>
     </div>
   );
 
