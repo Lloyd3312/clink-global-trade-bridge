@@ -18,6 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 import type { Tables } from "@/integrations/supabase/types";
 import QuoteAttachmentUploader from "@/components/QuoteAttachmentUploader";
 import SampleRequestsAdmin from "@/components/SampleRequestsAdmin";
+import InvoiceUploader from "@/components/InvoiceUploader";
 
 const statusSteps = [
   { id: 'enquiry', label: 'Enquiry Received', icon: Clock },
@@ -325,6 +326,8 @@ const AdminDashboard = () => {
                             </div>
                             <hr />
                             <QuoteAttachmentUploader quoteId={quote.id} />
+                            <hr />
+                            <InvoiceUploader quoteId={quote.id} />
                           </div>
                         </DialogContent>
                       </Dialog>

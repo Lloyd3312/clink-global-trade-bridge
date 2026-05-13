@@ -15,9 +15,13 @@ import {
   Phone,
   AlertCircle,
   FileText,
-  Download
+  Download,
+  CreditCard,
+  CheckCircle2,
+  Loader2
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 
 const statusSteps = [
@@ -28,20 +32,40 @@ const statusSteps = [
 ];
 
 const QuoteTracking = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [quoteData, setQuoteData] = useState<Tables<'quotes'> | null>(null);
   const [attachments, setAttachments] = useState<any[]>([]);
   const [history, setHistory] = useState<any[]>([]);
+  const [invoices, setInvoices] = useState<any[]>([]);
   const [searchRef, setSearchRef] = useState(searchParams.get('ref') || '');
   const [loading, setLoading] = useState(false);
+  const [payingId, setPayingId] = useState<string | null>(null);
 
   useEffect(() => {
     const ref = searchParams.get('ref');
+    const sessionId = searchParams.get('session_id');
     if (ref) {
       setSearchRef(ref);
-      loadQuoteData(ref);
+      loadQuoteData(ref).then(() => {
+        if (sessionId) verifyPayment(sessionId, ref);
+      });
     }
+    if (searchParams.get('payment') === 'cancelled') {
+      toast.info("Payment cancelled");
+    }
+    // eslint-disable-next-line
   }, [searchParams]);
+
+  const verifyPayment = async (session_id: string, ref: string) => {
+    const { data, error } = await supabase.functions.invoke('verify-stripe-payment', { body: { session_id } });
+    if (!error && data?.paid) {
+      toast.success("Payment received — thank you!");
+      loadQuoteData(ref);
+      const next = new URLSearchParams(searchParams);
+      next.delete('session_id');
+      setSearchParams(next, { replace: true });
+    }
+  };
 
   const loadQuoteData = async (refNumber: string) => {
     setLoading(true);
@@ -52,17 +76,32 @@ const QuoteTracking = () => {
       .maybeSingle();
     setQuoteData(data);
     if (data) {
-      const [{ data: atts }, { data: hist }] = await Promise.all([
+      const [{ data: atts }, { data: hist }, { data: invs }] = await Promise.all([
         supabase.from('quote_attachments').select('*').eq('quote_id', data.id).order('created_at', { ascending: false }),
         supabase.from('quote_status_history').select('*').eq('quote_id', data.id).order('created_at', { ascending: true }),
+        supabase.from('quote_invoices').select('*').eq('quote_id', data.id).order('created_at', { ascending: false }),
       ]);
       setAttachments(atts ?? []);
       setHistory(hist ?? []);
+      setInvoices(invs ?? []);
     } else {
-      setAttachments([]);
-      setHistory([]);
+      setAttachments([]); setHistory([]); setInvoices([]);
     }
     setLoading(false);
+  };
+
+  const payWithCard = async (invoiceId: string) => {
+    setPayingId(invoiceId);
+    try {
+      const { data, error } = await supabase.functions.invoke('create-stripe-checkout', {
+        body: { invoice_id: invoiceId, origin: window.location.origin },
+      });
+      if (error || !data?.url) throw new Error(error?.message || 'Failed to start checkout');
+      window.location.href = data.url;
+    } catch (e: any) {
+      toast.error(e.message);
+      setPayingId(null);
+    }
   };
 
   const handleSearch = () => {
@@ -192,6 +231,54 @@ const QuoteTracking = () => {
                     </div>
                   </CardContent>
                 </Card>
+
+                {invoices.length > 0 && (
+                  <Card className="mb-8 border-primary/30">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2"><CreditCard className="h-5 w-5 text-primary" />Consultation Invoices</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {invoices.map((inv) => {
+                        const paid = inv.status !== 'pending';
+                        return (
+                          <div key={inv.id} className="p-4 border rounded-lg space-y-3">
+                            <div className="flex items-start justify-between gap-3">
+                              <div>
+                                <p className="text-2xl font-bold">{inv.currency} {Number(inv.amount).toFixed(2)}</p>
+                                {inv.notes && <p className="text-sm text-muted-foreground mt-1">{inv.notes}</p>}
+                                <p className="text-xs text-muted-foreground mt-1">Issued {new Date(inv.created_at).toLocaleDateString()}</p>
+                              </div>
+                              {paid ? (
+                                <Badge className="bg-success-green text-white">
+                                  <CheckCircle2 className="h-3 w-3 mr-1" />Paid
+                                </Badge>
+                              ) : (
+                                <Badge variant="secondary">Pending payment</Badge>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {inv.pdf_url && (
+                                <Button variant="outline" size="sm" asChild>
+                                  <a href={inv.pdf_url} target="_blank" rel="noopener noreferrer">
+                                    <Download className="h-4 w-4 mr-1" />Invoice PDF
+                                  </a>
+                                </Button>
+                              )}
+                              {!paid && (
+                                <Button size="sm" onClick={() => payWithCard(inv.id)} disabled={payingId === inv.id}>
+                                  {payingId === inv.id
+                                    ? <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                                    : <CreditCard className="h-4 w-4 mr-1" />}
+                                  Pay with Card
+                                </Button>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </CardContent>
+                  </Card>
+                )}
 
                 {attachments.length > 0 && (
                   <Card className="mb-8">
