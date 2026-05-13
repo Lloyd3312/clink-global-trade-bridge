@@ -232,6 +232,54 @@ const QuoteTracking = () => {
                   </CardContent>
                 </Card>
 
+                {invoices.length > 0 && (
+                  <Card className="mb-8 border-primary/30">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2"><CreditCard className="h-5 w-5 text-primary" />Consultation Invoices</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {invoices.map((inv) => {
+                        const paid = inv.status !== 'pending';
+                        return (
+                          <div key={inv.id} className="p-4 border rounded-lg space-y-3">
+                            <div className="flex items-start justify-between gap-3">
+                              <div>
+                                <p className="text-2xl font-bold">{inv.currency} {Number(inv.amount).toFixed(2)}</p>
+                                {inv.notes && <p className="text-sm text-muted-foreground mt-1">{inv.notes}</p>}
+                                <p className="text-xs text-muted-foreground mt-1">Issued {new Date(inv.created_at).toLocaleDateString()}</p>
+                              </div>
+                              {paid ? (
+                                <Badge className="bg-success-green text-white">
+                                  <CheckCircle2 className="h-3 w-3 mr-1" />Paid
+                                </Badge>
+                              ) : (
+                                <Badge variant="secondary">Pending payment</Badge>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {inv.pdf_url && (
+                                <Button variant="outline" size="sm" asChild>
+                                  <a href={inv.pdf_url} target="_blank" rel="noopener noreferrer">
+                                    <Download className="h-4 w-4 mr-1" />Invoice PDF
+                                  </a>
+                                </Button>
+                              )}
+                              {!paid && (
+                                <Button size="sm" onClick={() => payWithCard(inv.id)} disabled={payingId === inv.id}>
+                                  {payingId === inv.id
+                                    ? <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                                    : <CreditCard className="h-4 w-4 mr-1" />}
+                                  Pay with Card
+                                </Button>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </CardContent>
+                  </Card>
+                )}
+
                 {attachments.length > 0 && (
                   <Card className="mb-8">
                     <CardHeader>
