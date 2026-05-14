@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://clink-global-trade-bridge.lovable.app/sitemap.xml
