@@ -1,0 +1,34 @@
+# Clink Global Services
+
+> Trusted bridge for sourcing premium Turkish products and Istanbul real estate for international buyers.
+
+Clink Global Services helps importers and investors worldwide source quality goods from Turkey — steel, machinery, textiles, cosmetics, security doors, pharmaceuticals and more — and connects buyers with curated Istanbul real estate opportunities. Operations are based in Istanbul, Turkey.
+
+## Pages
+
+- [Home](/): Overview of services, featured products, and real estate.
+- [About](/about): Company story, team, and Istanbul operations.
+- [Products](/products): Full catalog of premium Turkish export categories.
+- [How It Works](/how-it-works): Five-step export process from enquiry to delivery.
+- [Real Estate](/real-estate): Istanbul property listings for international buyers.
+- [Quote](/quote): Request a custom export quote.
+- [Quote Tracking](/quote-tracking): Track an existing quote and pay invoices.
+- [Contact](/contact): Reach the team via WhatsApp, phone, or email.
+
+## Product Categories
+
+- [Steel & Iron](/products/steel-iron): Coils, rebars, I-beams.
+- [Industrial Machinery](/products/industrial-machinery): Manufacturing and processing equipment.
+- [Furniture & Fabrics](/products/furniture-fabrics): Turkish furniture and upholstery.
+- [Security Doors](/products/security-doors): Armored and bulletproof Turkish doors.
+- [Baby Products](/products/baby-products): Care, clothing, and accessories.
+- [Ceramics & POP](/products/ceramics-pop): Tiles, sanitaryware, plaster.
+- [Solar Panels](/products/solar-panels): Renewable energy hardware.
+- [White Label Fabrics](/products/white-label-fabrics): OEM textile sourcing.
+- [White Label Carpets](/products/white-label-carpets): Turkish carpet manufacturing.
+- [White Label Cottons](/products/white-label-cottons): Cotton bedding and towels.
+- [White Label Cosmetics](/products/white-label-cosmetics): Private-label beauty.
+- [White Label Turkish Cloths](/products/white-label-turkish-cloths): Traditional Turkish textiles.
+- [White Label Turkish Oil](/products/white-label-turkish-oil): Olive and specialty oils.
+- [Pharmaceutical Products](/products/pharmaceutical-products): Regulated medical exports.
+- [Fashion Accessories](/products/fashion-accessories): Apparel and accessories.
