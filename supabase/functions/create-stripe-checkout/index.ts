@@ -13,18 +13,31 @@ Deno.serve(async (req) => {
       });
     }
 
+    const stripeKey = Deno.env.get('STRIPE_SECRET_KEY');
+    if (!stripeKey) {
+      return new Response(JSON.stringify({ error: 'Stripe is not configured (missing STRIPE_SECRET_KEY)' }), {
+        status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const sb = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
     );
 
-    const { data: invoice, error } = await sb
+    const { data: invoice, error: invErr } = await sb
       .from('quote_invoices')
-      .select('id, amount, currency, status, quote_id, quotes:quote_id(reference_number, email, name)')
+      .select('id, amount, currency, status, quote_id')
       .eq('id', invoice_id)
       .maybeSingle();
 
-    if (error || !invoice) {
+    if (invErr) {
+      console.error('Invoice lookup error:', invErr);
+      return new Response(JSON.stringify({ error: `Invoice lookup failed: ${invErr.message}` }), {
+        status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+    if (!invoice) {
       return new Response(JSON.stringify({ error: 'Invoice not found' }), {
         status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
@@ -35,15 +48,20 @@ Deno.serve(async (req) => {
       });
     }
 
-    const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY')!, { apiVersion: '2024-12-18.acacia' as any });
-    const quote: any = invoice.quotes;
+    const { data: quote } = await sb
+      .from('quotes')
+      .select('reference_number, email, name')
+      .eq('id', invoice.quote_id)
+      .maybeSingle();
+
+    const stripe = new Stripe(stripeKey, { apiVersion: '2024-12-18.acacia' as any });
     const ref = quote?.reference_number ?? invoice.quote_id;
     const baseUrl = origin || 'https://example.com';
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
-      customer_email: quote?.email,
+      customer_email: quote?.email ?? undefined,
       line_items: [{
         price_data: {
           currency: (invoice.currency || 'USD').toLowerCase(),
@@ -54,7 +72,7 @@ Deno.serve(async (req) => {
       }],
       success_url: `${baseUrl}/quote-tracking?ref=${ref}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/quote-tracking?ref=${ref}&payment=cancelled`,
-      metadata: { invoice_id: invoice.id, quote_id: invoice.quote_id, ref },
+      metadata: { invoice_id: invoice.id, quote_id: invoice.quote_id, ref: String(ref) },
     });
 
     await sb.from('quote_invoices').update({ stripe_session_id: session.id }).eq('id', invoice.id);
@@ -63,6 +81,7 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (e) {
+    console.error('Checkout error:', e);
     return new Response(JSON.stringify({ error: (e as Error).message }), {
       status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
