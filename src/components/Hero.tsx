@@ -50,7 +50,7 @@ const Hero = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Hero Content */}
-          <div className="space-y-8">
+          <div className="space-y-8 bg-background/80 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-border/60 shadow-2xl">
             {/* Trust Badge */}
             <div className="flex flex-wrap gap-2">
               <Badge variant="outline" className="bg-success-green/20 text-success-green border-success-green/30 backdrop-blur-sm drop-shadow-md">
