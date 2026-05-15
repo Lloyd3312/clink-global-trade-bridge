@@ -49,8 +49,7 @@ const Auth = () => {
       },
     });
     if (!error && data.user) {
-      // also save to profiles for richer data collection
-      await supabase.from("profiles").update({ display_name: name }).eq("user_id", data.user.id);
+      await supabase.from("profiles").update({ display_name: name, phone, company }).eq("user_id", data.user.id);
     }
     setBusy(false);
     if (error) return toast.error(error.message);
