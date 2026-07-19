@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "sdk_version": "0.23.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://sonmoefmcwnbqikjosom.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "clink-global-mcp",
+      "version": "0.1.0",
+      "title": "Clink Global Services"
+    },
+    "tools": [
+      {
+        "name": "search_products",
+        "title": "Search products",
+        "description": "Search the published Clink Global product catalog by keyword in title or description.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Keyword to search product titles/descriptions."
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "description": "Max results (default 10)."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_properties",
+        "title": "List properties",
+        "description": "List Clink Global real-estate listings, optionally filtered by listing type (sale or rent) or city.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "listing_type": {
+              "type": "string",
+              "enum": [
+                "sale",
+                "rent"
+              ]
+            },
+            "city": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_quotes",
+        "title": "List my quotes",
+        "description": "List quote requests submitted by the signed-in user (matched by their account email).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_quote",
+        "title": "Get quote by reference",
+        "description": "Look up a quote by its reference number (e.g. CLK-2026-XXXX) and return its status and history. Only returns quotes belonging to the signed-in user.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "reference": {
+              "type": "string",
+              "minLength": 3,
+              "description": "Quote reference number, e.g. CLK-2026-1234."
+            }
+          },
+          "required": [
+            "reference"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_quote",
+        "title": "Create quote request",
+        "description": "Submit a new quote/sourcing request on behalf of the signed-in user. Returns the reference number for tracking.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "company": {
+              "type": "string",
+              "minLength": 1
+            },
+            "country": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "products": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Category slugs or product names of interest."
+            },
+            "custom_product": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": "string"
+            },
+            "delivery_timeline": {
+              "type": "string"
+            },
+            "budget": {
+              "type": "string"
+            },
+            "specifications": {
+              "type": "string"
+            },
+            "additional_info": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "company"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
