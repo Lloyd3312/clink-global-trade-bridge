@@ -22,19 +22,25 @@ const Auth = () => {
   const [company, setCompany] = useState("");
   const [country, setCountry] = useState("");
 
-  if (!loading && user) return <Navigate to="/" replace />;
+  // Preserve the intended return target across sign-in, sign-up, and Google OAuth.
+  // Only accept same-origin relative paths.
+  const rawNext = new URLSearchParams(window.location.search).get("next");
+  const nextPath = rawNext && rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/";
+  const returnUrl = `${window.location.origin}${nextPath}`;
+
+  if (!loading && user) return <Navigate to={nextPath} replace />;
 
   const handleGoogle = async () => {
     setBusy(true);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+      redirect_uri: returnUrl,
     });
     if (result.error) {
       setBusy(false);
       return toast.error(result.error.message ?? "Google sign-in failed");
     }
     if (result.redirected) return;
-    navigate("/");
+    navigate(nextPath);
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -44,7 +50,7 @@ const Auth = () => {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/`,
+        emailRedirectTo: returnUrl,
         data: { display_name: name, phone, company, country },
       },
     });
@@ -63,7 +69,7 @@ const Auth = () => {
     setBusy(false);
     if (error) return toast.error(error.message);
     toast.success("Signed in");
-    navigate("/");
+    navigate(nextPath);
   };
 
   return (
