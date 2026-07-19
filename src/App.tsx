@@ -40,6 +40,7 @@ import AdminCatalog from "./pages/AdminCatalog";
 import RealEstate from "./pages/RealEstate";
 import PropertyDetail from "./pages/PropertyDetail";
 import PropertyUpload from "./pages/PropertyUpload";
+import StudyInTurkiye from "./pages/StudyInTurkiye";
 import { AuthProvider } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
@@ -88,6 +89,7 @@ const App = () => (
                 <Route path="/real-estate" element={<RealEstate />} />
                 <Route path="/real-estate/:slug" element={<PropertyDetail />} />
                 <Route path="/seller/properties" element={<PropertyUpload />} />
+                <Route path="/study-in-turkiye" element={<StudyInTurkiye />} />
                 <Route path="/admin/properties" element={<PropertyUpload />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
