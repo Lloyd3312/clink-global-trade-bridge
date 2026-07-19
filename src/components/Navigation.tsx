@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe, Phone, User, LogOut, LayoutDashboard, Home, Info, Package, Building2, HelpCircle, Mail, FileText } from "lucide-react";
+import { Menu, X, Globe, Phone, User, LogOut, LayoutDashboard, Home, Info, Package, Building2, HelpCircle, Mail, FileText, GraduationCap } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
