@@ -40,6 +40,7 @@ import AdminCatalog from "./pages/AdminCatalog";
 import RealEstate from "./pages/RealEstate";
 import PropertyDetail from "./pages/PropertyDetail";
 import PropertyUpload from "./pages/PropertyUpload";
+import StudyInTurkiye from "./pages/StudyInTurkiye";
 import { AuthProvider } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
