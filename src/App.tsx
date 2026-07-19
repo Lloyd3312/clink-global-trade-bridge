@@ -33,6 +33,7 @@ import WhiteLabelTurkishOil from "./pages/products/WhiteLabelTurkishOil";
 import PharmaceuticalProducts from "./pages/products/PharmaceuticalProducts";
 import FashionAccessories from "./pages/products/FashionAccessories";
 import Auth from "./pages/Auth";
+import OAuthConsent from "./pages/OAuthConsent";
 import ProductUpload from "./pages/ProductUpload";
 import SellerApply from "./pages/SellerApply";
 import AdminCatalog from "./pages/AdminCatalog";
@@ -78,6 +79,7 @@ const App = () => (
                 <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
                 <Route path="/quote-tracking" element={<QuoteTracking />} />
                 <Route path="/auth" element={<Auth />} />
+                <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
                 <Route path="/seller/apply" element={<SellerApply />} />
                 <Route path="/seller/products" element={<ProductUpload />} />
                 <Route path="/admin" element={<AdminDashboard />} />
