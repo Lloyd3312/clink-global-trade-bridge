@@ -19,6 +19,7 @@ const Navigation = () => {
     { name: "About Us", path: "/about", icon: Info },
     { name: "Products", path: "/products", icon: Package },
     { name: "Real Estate", path: "/real-estate", icon: Building2 },
+    { name: "Study in Türkiye", path: "/study-in-turkiye", icon: GraduationCap },
     { name: "How It Works", path: "/how-it-works", icon: HelpCircle },
     { name: "Contact", path: "/contact", icon: Mail },
     { name: "Get Quote", path: "/quote", icon: FileText },
