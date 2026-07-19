@@ -93,7 +93,7 @@ const Navigation = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              {navItems.slice(0, 6).map((item) => (
+              {navItems.slice(0, 7).map((item) => (
                 <Link
                   key={item.name}
                   to={item.path}
