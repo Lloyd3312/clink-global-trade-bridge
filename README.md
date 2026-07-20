@@ -10,7 +10,7 @@ The platform provides product sourcing, supplier connections, trade consultation
 
 - **Live website:** To be added after production deployment
 - **GitHub repository:** https://github.com/Lloyd3312/clink-global-trade-bridge
-- **Docker image:** Add your Docker Hub image link here
+
 
 ---
 
@@ -133,7 +133,7 @@ Project ownership, business requirements, DevOps implementation, Docker containe
 
 ## Application Architecture
 
-```text
+**Raymond Juwon Faromoh**
 Project Owner / Developer
           |
           v
