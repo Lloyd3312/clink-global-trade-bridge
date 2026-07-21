@@ -42,6 +42,7 @@ import PropertyDetail from "./pages/PropertyDetail";
 import PropertyUpload from "./pages/PropertyUpload";
 import StudyInTurkiye from "./pages/StudyInTurkiye";
 import { AuthProvider } from "./hooks/useAuth";
+import { ThemeProvider } from "./hooks/useTheme";
 
 const queryClient = new QueryClient();
 
