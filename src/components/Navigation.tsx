@@ -109,6 +109,7 @@ const Navigation = () => {
 
             {/* Right CTA */}
             <div className="flex items-center gap-2">
+              <ThemeToggle />
               <Button variant="cta-outline" size="sm" asChild className="hidden sm:inline-flex">
                 <Link to="/quote">Get Quote</Link>
               </Button>
