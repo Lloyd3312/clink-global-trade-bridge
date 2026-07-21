@@ -42,16 +42,18 @@ import PropertyDetail from "./pages/PropertyDetail";
 import PropertyUpload from "./pages/PropertyUpload";
 import StudyInTurkiye from "./pages/StudyInTurkiye";
 import { AuthProvider } from "./hooks/useAuth";
+import { ThemeProvider } from "./hooks/useTheme";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
           <div className="min-h-screen flex flex-col">
             <Navigation />
             <main className="flex-1">
@@ -101,6 +103,7 @@ const App = () => (
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

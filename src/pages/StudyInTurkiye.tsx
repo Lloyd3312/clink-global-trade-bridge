@@ -299,27 +299,9 @@ const StudyInTurkiye = () => {
                 asChild
                 className="bg-white/10 backdrop-blur border-white/40 text-white hover:bg-white/20"
               >
-                <a
-                  href="https://injazportal.qk-dev.com/dashboard/universities"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2"
-                >
-                  Browse Universities & Programmes <ArrowRight className="h-4 w-4" />
-                </a>
-              </Button>
-              <Button
-                variant="cta-outline"
-                size="lg"
-                asChild
-                className="bg-white/10 backdrop-blur border-white/40 text-white hover:bg-white/20"
-              >
                 <a href="#our-services">View Our Services</a>
               </Button>
             </div>
-            <p className="text-xs text-white/70 mt-3">
-              University catalogue is powered by our partner portal (Injaz). Opens in a new tab.
-            </p>
           </div>
         </div>
       </section>
