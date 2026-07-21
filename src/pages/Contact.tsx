@@ -31,7 +31,7 @@ const Contact = () => {
       icon: MessageCircle,
       title: "WhatsApp",
       description: "Quick chat for instant responses",
-      contact: "+905395815283",
+      contact: "Chat with us on WhatsApp",
       action: "https://wa.me/905395815283",
       available: "Available for instant messaging"
     },
