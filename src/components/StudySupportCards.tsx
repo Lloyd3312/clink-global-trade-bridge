@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import scholarshipGraduate from "@/assets/scholarship-graduate.jpg";
 
 const cards = [
   {
@@ -34,8 +35,7 @@ const cards = [
     description:
       "Explore available scholarship opportunities, tuition discounts, and merit-based funding options.",
     href: "/study-in-turkiye#scholarships",
-    image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=70",
+    image: scholarshipGraduate,
     alt: "Graduating student holding a certificate",
   },
   {
