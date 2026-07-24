@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import scholarshipGraduate from "@/assets/scholarship-graduate.jpg";
 
 const cards = [
   {
