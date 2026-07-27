@@ -11,8 +11,11 @@ type Msg = { role: "user" | "assistant"; content: string };
 const STARTER: Msg = {
   role: "assistant",
   content:
-    "Hi! I'm Clink's AI concierge 👋\n\nHere's everything we offer:\n\n**Turkish Product Sourcing & Export**\n- Steel & Iron\n- Solar Panels & Renewable Energy\n- Security & Bulletproof Doors\n- Industrial Machinery\n- Pharmaceutical Products\n- Baby Products & Wear\n- Furniture & Fabrics\n- Turkish Ceramics & POP Materials\n- Fashion & Accessories (bags, shoes, watches, glasses, hats, clothing)\n- White-Label Cosmetics, Cottons, Carpets, Turkish Cloths & Turkish Oil\n\n**Real Estate in Türkiye**\n- Property listings with photos, videos, 360° panoramas & guided VR tours\n\n**Study in Türkiye (Free Guidance)**\n- University & programme selection, application support, scholarships, deposit & visa guidance\n\n**Client Services**\n- Request a quote & track its status by reference number\n- Order product samples\n- Secure card payments for consultation invoices\n\nWhat can I help you with today?",
+    "Hi, I'm **Kaya** 👋 — your Clink assistant.\n\nI can help with Turkish product sourcing, real estate, studying in Türkiye, quotes & samples.\n\nWhat are you looking for today?",
 };
+
+const QUICK = ["Source a product", "Real estate", "Study in Türkiye", "Track my quote"];
+
 
 const AIAssistant = () => {
   const [open, setOpen] = useState(false);
