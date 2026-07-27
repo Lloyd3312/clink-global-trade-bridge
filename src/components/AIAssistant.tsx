@@ -72,8 +72,8 @@ const AIAssistant = () => {
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5" />
               <div>
-                <div className="font-semibold text-sm">Clink AI Concierge</div>
-                <div className="text-xs opacity-90">Always here to help</div>
+                <div className="font-semibold text-sm">Kaya</div>
+                <div className="text-xs opacity-90">Clink AI assistant</div>
               </div>
             </div>
             <button onClick={() => setOpen(false)} className="hover:opacity-80" aria-label="Close">
