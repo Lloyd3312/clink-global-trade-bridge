@@ -97,6 +97,19 @@ const AIAssistant = () => {
                 </div>
               </div>
             ))}
+            {messages.length === 1 && !loading && (
+              <div className="flex flex-wrap gap-2 pt-1">
+                {QUICK.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => send(q)}
+                    className="rounded-full border bg-card px-3 py-1.5 text-xs font-medium hover:bg-secondary transition-colors"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
             {loading && (
               <div className="flex justify-start">
                 <div className="bg-card border rounded-2xl rounded-bl-sm px-3 py-2">
