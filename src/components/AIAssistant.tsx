@@ -11,8 +11,11 @@ type Msg = { role: "user" | "assistant"; content: string };
 const STARTER: Msg = {
   role: "assistant",
   content:
-    "Hi! I'm Clink's AI concierge 👋\n\nHere's everything we offer:\n\n**Turkish Product Sourcing & Export**\n- Steel & Iron\n- Solar Panels & Renewable Energy\n- Security & Bulletproof Doors\n- Industrial Machinery\n- Pharmaceutical Products\n- Baby Products & Wear\n- Furniture & Fabrics\n- Turkish Ceramics & POP Materials\n- Fashion & Accessories (bags, shoes, watches, glasses, hats, clothing)\n- White-Label Cosmetics, Cottons, Carpets, Turkish Cloths & Turkish Oil\n\n**Real Estate in Türkiye**\n- Property listings with photos, videos, 360° panoramas & guided VR tours\n\n**Study in Türkiye (Free Guidance)**\n- University & programme selection, application support, scholarships, deposit & visa guidance\n\n**Client Services**\n- Request a quote & track its status by reference number\n- Order product samples\n- Secure card payments for consultation invoices\n\nWhat can I help you with today?",
+    "Hi, I'm **Kaya** 👋 — your Clink assistant.\n\nI can help with Turkish product sourcing, real estate, studying in Türkiye, quotes & samples.\n\nWhat are you looking for today?",
 };
+
+const QUICK = ["Source a product", "Real estate", "Study in Türkiye", "Track my quote"];
+
 
 const AIAssistant = () => {
   const [open, setOpen] = useState(false);
@@ -25,8 +28,8 @@ const AIAssistant = () => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, open]);
 
-  const send = async () => {
-    const text = input.trim();
+  const send = async (preset?: string) => {
+    const text = (preset ?? input).trim();
     if (!text || loading) return;
     const next = [...messages, { role: "user" as const, content: text }];
     setMessages(next);
@@ -69,8 +72,8 @@ const AIAssistant = () => {
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5" />
               <div>
-                <div className="font-semibold text-sm">Clink AI Concierge</div>
-                <div className="text-xs opacity-90">Always here to help</div>
+                <div className="font-semibold text-sm">Kaya</div>
+                <div className="text-xs opacity-90">Clink AI assistant</div>
               </div>
             </div>
             <button onClick={() => setOpen(false)} className="hover:opacity-80" aria-label="Close">
@@ -94,6 +97,19 @@ const AIAssistant = () => {
                 </div>
               </div>
             ))}
+            {messages.length === 1 && !loading && (
+              <div className="flex flex-wrap gap-2 pt-1">
+                {QUICK.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => send(q)}
+                    className="rounded-full border bg-card px-3 py-1.5 text-xs font-medium hover:bg-secondary transition-colors"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
             {loading && (
               <div className="flex justify-start">
                 <div className="bg-card border rounded-2xl rounded-bl-sm px-3 py-2">
