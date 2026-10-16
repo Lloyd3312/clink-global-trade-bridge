@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Package } from "lucide-react";
 import SampleRequestDialog from "./SampleRequestDialog";
+import { useWebMCP } from "use-webmcp-tool";
+import { runWebMCPTool } from "@/lib/webmcp-telemetry";
 
 interface Product {
   id: string;
@@ -35,6 +37,14 @@ export default function MarketplaceProducts() {
         setLoading(false);
       });
   }, []);
+
+  useWebMCP({
+    name: "read_visible_products",
+    description: "Read the published marketplace products currently displayed on this page.",
+    enabled: !loading && products.length > 0,
+    annotations: { readOnlyHint: true, untrustedContentHint: true },
+    execute: () => runWebMCPTool("read_visible_products", () => products.map((p) => `${p.id}: ${p.title}${p.category ? ` — ${p.category.name}` : ""}`).join("\n")),
+  });
 
   if (loading) return null;
   if (products.length === 0) return null;
