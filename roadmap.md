@@ -1,5 +1,6 @@
 # Agent integrations
-- [ ] Repair existing MCP configuration and shared caller-scoped client.
-- [ ] Validate OAuth consent and safe sign-in returns.
-- [ ] Add non-consequential browser tools for visible products and properties.
-- [ ] Extract manifest and verify the website; explain publication requirement.
+- [x] Repair existing MCP configuration and shared caller-scoped client.
+- [x] Validate safe sign-in returns and missing-request consent handling.
+- [x] Add non-consequential browser tools for visible products and properties.
+- [x] Extract manifest and verify public website flows; explain publication requirement.
+- [ ] Verify signed-in OAuth approval and denial end-to-end — blocked by account service shutdown during session preparation.
