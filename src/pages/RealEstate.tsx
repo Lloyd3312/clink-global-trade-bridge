@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Bed, Bath, Maximize, MapPin, Home as HomeIcon, Loader2 } from "lucide-react";
+import { useWebMCP } from "use-webmcp-tool";
+import { runWebMCPTool } from "@/lib/webmcp-telemetry";
 
 interface Property {
   id: string; reference_number: string; title: string; slug: string; description: string | null;
@@ -44,6 +46,32 @@ export default function RealEstate() {
     return true;
   });
 
+  function changeSearch(value: string) {
+    if (typeof value !== "string") throw new Error("Search must be text.");
+    setSearch(value);
+  }
+
+  useWebMCP({
+    name: "read_visible_properties",
+    description: "Read properties shown on this screen, respecting its search and filters.",
+    annotations: { readOnlyHint: true, untrustedContentHint: true },
+    execute: () => runWebMCPTool("read_visible_properties", () => loading ? "Properties are loading." : filtered.length === 0 ? "No properties match the current filters." : filtered.map((p) => `${p.id}: ${p.title} — ${p.city ?? "Türkiye"} — ${p.listing_type}`).join("\n")),
+  });
+  useWebMCP({
+    name: "search_visible_properties",
+    description: "Update the visible property search field; category and listing-type filters stay unchanged.",
+    inputSchema: {
+      type: "object",
+      properties: { search: { type: "string", description: "Text to put in the search field; empty text clears search." } },
+      required: ["search"],
+      additionalProperties: false,
+    },
+    execute: ({ search }: { search: string }) => runWebMCPTool("search_visible_properties", () => {
+      changeSearch(search);
+      return "Property search updated.";
+    }),
+  });
+
   return (
     <div>
       <section className="bg-gradient-to-br from-primary/10 via-background to-ocean-blue/10 py-16">
@@ -57,7 +85,7 @@ export default function RealEstate() {
 
       <section className="max-w-7xl mx-auto px-4 py-10">
         <div className="grid md:grid-cols-4 gap-3 mb-8">
-          <Input placeholder="Search city, name…" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <Input placeholder="Search city, name…" value={search} onChange={(e) => changeSearch(e.target.value)} />
           <Select value={cat} onValueChange={setCat}>
             <SelectTrigger><SelectValue placeholder="Category" /></SelectTrigger>
             <SelectContent>

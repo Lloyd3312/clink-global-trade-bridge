@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabaseForUser } from "../supabase";
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
 
@@ -11,8 +11,9 @@ export default defineTool({
     limit: z.number().int().min(1).max(50).optional().describe("Max results (default 10)."),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
-  handler: async ({ query, limit }) => {
-    const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!);
+  handler: async ({ query, limit }, ctx) => {
+    if (!ctx.isAuthenticated()) return { content: [{ type: "text", text: "Not authenticated" }], isError: true };
+    const supabase = await supabaseForUser(ctx);
     const { data, error } = await supabase
       .from("products")
       .select("id, slug, title, description, price_min, price_max, currency, moq, cover_image")

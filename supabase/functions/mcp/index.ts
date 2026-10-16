@@ -5,8 +5,52 @@
 // src/lib/mcp/index.ts
 import { auth, defineMcp } from "npm:@lovable.dev/mcp-js@0.23.0";
 
-// src/lib/mcp/tools/search-products.ts
+// src/lib/mcp/supabase.ts
 import { createClient } from "npm:@supabase/supabase-js@^2.99.2";
+function runtimeEnv(name) {
+  const runtime = globalThis;
+  return runtime.Deno?.env?.get?.(name) ?? runtime.process?.env?.[name];
+}
+function configuredEnv(names) {
+  for (const name of names) {
+    const value = runtimeEnv(name)?.trim();
+    if (value) return value;
+  }
+}
+function supabaseProjectUrl() {
+  const url = configuredEnv(["SUPABASE_URL", "VITE_SUPABASE_URL"]);
+  if (!url) throw new Error("SUPABASE_URL (or VITE_SUPABASE_URL) is required");
+  return url;
+}
+function supabasePublishableKey() {
+  const direct = configuredEnv(["SUPABASE_PUBLISHABLE_KEY", "VITE_SUPABASE_PUBLISHABLE_KEY"]);
+  if (direct) return direct;
+  const keyset = runtimeEnv("SUPABASE_PUBLISHABLE_KEYS");
+  if (keyset) {
+    try {
+      const parsed = JSON.parse(keyset);
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        const keys = parsed;
+        const key = [keys.default, ...Object.values(keys)].find((v) => typeof v === "string" && v.trim().startsWith("sb_publishable_"))?.trim();
+        if (key) return key;
+      }
+    } catch {
+    }
+  }
+  const legacy = configuredEnv(["SUPABASE_ANON_KEY", "VITE_SUPABASE_ANON_KEY"]);
+  if (legacy) return legacy;
+  throw new Error("A publishable or anonymous key is required");
+}
+function supabaseForUser(ctx) {
+  const token = ctx.getToken();
+  if (!ctx.isAuthenticated() || !token) throw new Error("A verified OAuth token is required");
+  return createClient(supabaseProjectUrl(), supabasePublishableKey(), {
+    global: { headers: { Authorization: `Bearer ${token}` } },
+    auth: { persistSession: false, autoRefreshToken: false }
+  });
+}
+
+// src/lib/mcp/tools/search-products.ts
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.23.0";
 import { z } from "npm:zod@^3.25.76";
 var search_products_default = defineTool({
@@ -18,8 +62,9 @@ var search_products_default = defineTool({
     limit: z.number().int().min(1).max(50).optional().describe("Max results (default 10).")
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
-  handler: async ({ query, limit }) => {
-    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_PUBLISHABLE_KEY);
+  handler: async ({ query, limit }, ctx) => {
+    if (!ctx.isAuthenticated()) return { content: [{ type: "text", text: "Not authenticated" }], isError: true };
+    const supabase = await supabaseForUser(ctx);
     const { data, error } = await supabase.from("products").select("id, slug, title, description, price_min, price_max, currency, moq, cover_image").eq("status", "published").or(`title.ilike.%${query}%,description.ilike.%${query}%`).limit(limit ?? 10);
     if (error) return { content: [{ type: "text", text: error.message }], isError: true };
     return {
@@ -30,7 +75,6 @@ var search_products_default = defineTool({
 });
 
 // src/lib/mcp/tools/list-properties.ts
-import { createClient as createClient2 } from "npm:@supabase/supabase-js@^2.99.2";
 import { defineTool as defineTool2 } from "npm:@lovable.dev/mcp-js@0.23.0";
 import { z as z2 } from "npm:zod@^3.25.76";
 var list_properties_default = defineTool2({
@@ -43,8 +87,9 @@ var list_properties_default = defineTool2({
     limit: z2.number().int().min(1).max(50).optional()
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
-  handler: async ({ listing_type, city, limit }) => {
-    const supabase = createClient2(process.env.SUPABASE_URL, process.env.SUPABASE_PUBLISHABLE_KEY);
+  handler: async ({ listing_type, city, limit }, ctx) => {
+    if (!ctx.isAuthenticated()) return { content: [{ type: "text", text: "Not authenticated" }], isError: true };
+    const supabase = await supabaseForUser(ctx);
     let q = supabase.from("properties").select("id, slug, title, description, listing_type, city, country, bedrooms, bathrooms, area_sqm, price, currency, cover_image").eq("status", "published").limit(limit ?? 10);
     if (listing_type) q = q.eq("listing_type", listing_type);
     if (city) q = q.ilike("city", `%${city}%`);
@@ -58,7 +103,6 @@ var list_properties_default = defineTool2({
 });
 
 // src/lib/mcp/tools/list-my-quotes.ts
-import { createClient as createClient3 } from "npm:@supabase/supabase-js@^2.99.2";
 import { defineTool as defineTool3 } from "npm:@lovable.dev/mcp-js@0.23.0";
 import { z as z3 } from "npm:zod@^3.25.76";
 var list_my_quotes_default = defineTool3({
@@ -77,10 +121,7 @@ var list_my_quotes_default = defineTool3({
     if (!email) {
       return { content: [{ type: "text", text: "No email on token" }], isError: true };
     }
-    const supabase = createClient3(process.env.SUPABASE_URL, process.env.SUPABASE_PUBLISHABLE_KEY, {
-      global: { headers: { Authorization: `Bearer ${ctx.getToken()}` } },
-      auth: { persistSession: false, autoRefreshToken: false }
-    });
+    const supabase = await supabaseForUser(ctx);
     const { data, error } = await supabase.from("quotes").select("reference_number, status, products, custom_product, quantity, country, created_at, updated_at").eq("email", email).order("created_at", { ascending: false }).limit(limit ?? 20);
     if (error) return { content: [{ type: "text", text: error.message }], isError: true };
     return {
@@ -91,7 +132,6 @@ var list_my_quotes_default = defineTool3({
 });
 
 // src/lib/mcp/tools/get-quote.ts
-import { createClient as createClient4 } from "npm:@supabase/supabase-js@^2.99.2";
 import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.23.0";
 import { z as z4 } from "npm:zod@^3.25.76";
 var get_quote_default = defineTool4({
@@ -107,17 +147,16 @@ var get_quote_default = defineTool4({
       return { content: [{ type: "text", text: "Not authenticated" }], isError: true };
     }
     const email = ctx.getUserEmail();
-    const supabase = createClient4(process.env.SUPABASE_URL, process.env.SUPABASE_PUBLISHABLE_KEY, {
-      global: { headers: { Authorization: `Bearer ${ctx.getToken()}` } },
-      auth: { persistSession: false, autoRefreshToken: false }
-    });
+    if (!email) return { content: [{ type: "text", text: "No email on token" }], isError: true };
+    const supabase = await supabaseForUser(ctx);
     const { data: quote, error } = await supabase.from("quotes").select("id, reference_number, status, products, custom_product, quantity, country, email, created_at").eq("reference_number", reference.trim()).maybeSingle();
     if (error) return { content: [{ type: "text", text: error.message }], isError: true };
     if (!quote) return { content: [{ type: "text", text: "Quote not found" }], isError: true };
     if (quote.email !== email) {
       return { content: [{ type: "text", text: "This quote is not associated with your account." }], isError: true };
     }
-    const { data: history } = await supabase.from("quote_status_history").select("status, notes, created_at").eq("quote_id", quote.id).order("created_at", { ascending: true });
+    const { data: history, error: historyError } = await supabase.from("quote_status_history").select("status, notes, created_at").eq("quote_id", quote.id).order("created_at", { ascending: true });
+    if (historyError) return { content: [{ type: "text", text: historyError.message }], isError: true };
     const result = { quote, history: history ?? [] };
     return {
       content: [{ type: "text", text: JSON.stringify(result) }],
@@ -127,7 +166,6 @@ var get_quote_default = defineTool4({
 });
 
 // src/lib/mcp/tools/create-quote.ts
-import { createClient as createClient5 } from "npm:@supabase/supabase-js@^2.99.2";
 import { defineTool as defineTool5 } from "npm:@lovable.dev/mcp-js@0.23.0";
 import { z as z5 } from "npm:zod@^3.25.76";
 var create_quote_default = defineTool5({
@@ -156,10 +194,7 @@ var create_quote_default = defineTool5({
     if (!email) {
       return { content: [{ type: "text", text: "No email on token" }], isError: true };
     }
-    const supabase = createClient5(process.env.SUPABASE_URL, process.env.SUPABASE_PUBLISHABLE_KEY, {
-      global: { headers: { Authorization: `Bearer ${ctx.getToken()}` } },
-      auth: { persistSession: false, autoRefreshToken: false }
-    });
+    const supabase = await supabaseForUser(ctx);
     const reference = `CLK-${(/* @__PURE__ */ new Date()).getFullYear()}-${Math.floor(1e3 + Math.random() * 9e3)}`;
     const { data, error } = await supabase.from("quotes").insert({
       reference_number: reference,
@@ -188,8 +223,8 @@ var create_quote_default = defineTool5({
 // src/lib/mcp/index.ts
 var projectRef = "sonmoefmcwnbqikjosom";
 var mcp_default = defineMcp({
-  name: "clink-global-mcp",
-  title: "Clink Global Services",
+  name: "clink-global-trade-bridge",
+  title: "clink-global-trade-bridge",
   version: "0.1.0",
   instructions: "Tools for Clink Global Services, a Turkish export brokerage. Search the product catalog, browse real-estate listings, and manage the signed-in user's quote requests (list, look up by reference, create a new one).",
   auth: auth.oauth.issuer({

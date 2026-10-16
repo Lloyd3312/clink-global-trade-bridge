@@ -11,9 +11,9 @@
   },
   "mcp": {
     "server": {
-      "name": "clink-global-mcp",
+      "name": "clink-global-trade-bridge",
       "version": "0.1.0",
-      "title": "Clink Global Services"
+      "title": "clink-global-trade-bridge"
     },
     "tools": [
       {

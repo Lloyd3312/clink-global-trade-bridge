@@ -14,6 +14,7 @@ type AuthorizationDetails = {
   scopes?: string[];
   redirect_url?: string;
   redirect_to?: string;
+  redirect_uri?: string;
 };
 type OAuthApi = {
   getAuthorizationDetails: (id: string) => Promise<{ data: AuthorizationDetails | null; error: { message: string } | null }>;
@@ -32,11 +33,15 @@ export default function OAuthConsent() {
 
   useEffect(() => {
     let active = true;
+    setDetails(null);
+    setError(null);
     (async () => {
-      if (!authorizationId) return setError("Missing authorization_id");
+      try {
+      if (!authorizationId) return setError("This connection request is missing or expired. Start again from your assistant.");
       const { data: sess } = await supabase.auth.getSession();
+      if (!active) return;
       if (!sess.session) {
-        const next = window.location.pathname + window.location.search;
+        const next = window.location.pathname + window.location.search + window.location.hash;
         window.location.href = "/auth?next=" + encodeURIComponent(next);
         return;
       }
@@ -49,7 +54,11 @@ export default function OAuthConsent() {
         window.location.href = immediate;
         return;
       }
+      if (!data?.client) return setError("This connection request is invalid. Start again from your assistant.");
       setDetails(data);
+      } catch {
+        if (active) setError("We could not load this connection request. Please try again from your assistant.");
+      }
     })();
     return () => {
       active = false;
@@ -57,7 +66,10 @@ export default function OAuthConsent() {
   }, [authorizationId]);
 
   async function decide(approve: boolean) {
+    if (busy || !details || !authorizationId) return;
     setBusy(true);
+    setError(null);
+    try {
     const { data, error } = approve
       ? await oauthApi.approveAuthorization(authorizationId)
       : await oauthApi.denyAuthorization(authorizationId);
@@ -71,9 +83,14 @@ export default function OAuthConsent() {
       return setError("No redirect returned by the authorization server.");
     }
     window.location.href = target;
+    } catch {
+      setError("We could not save your decision. Please try again.");
+    } finally {
+      setBusy(false);
+    }
   }
 
-  if (error) {
+  if (error && !details) {
     return (
       <div className="min-h-[80vh] flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
@@ -81,7 +98,7 @@ export default function OAuthConsent() {
             <CardTitle>Authorization error</CardTitle>
             <CardDescription>We could not load this authorization request.</CardDescription>
           </CardHeader>
-          <CardContent className="text-sm text-muted-foreground">{error}</CardContent>
+          <CardContent role="alert" className="text-sm text-muted-foreground">{error}</CardContent>
         </Card>
       </div>
     );
@@ -111,6 +128,7 @@ export default function OAuthConsent() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {(details.redirect_uri ?? details.client?.redirect_uri ?? details.client?.redirect_uris?.[0]) && <p className="text-sm text-muted-foreground break-all">Client return address: {details.redirect_uri ?? details.client?.redirect_uri ?? details.client?.redirect_uris?.[0]}</p>}
           <div className="rounded-md border p-4 text-sm space-y-2">
             <div className="font-medium">This will let {clientName}:</div>
             <ul className="list-disc list-inside text-muted-foreground space-y-1">
@@ -119,12 +137,13 @@ export default function OAuthConsent() {
               <li>List, look up, and create quote requests on your behalf</li>
             </ul>
             {scopes.length > 0 && (
-              <div className="text-xs text-muted-foreground pt-2">Requested scopes: {scopes.join(", ")}</div>
+              <ul className="text-xs text-muted-foreground pt-2 space-y-1">{scopes.map((scope) => <li key={scope}>{scope === "email" ? "Share your email address" : scope === "profile" ? "Share your basic profile" : scope === "openid" ? "Confirm your account identity" : `Additional permission requested: ${scope}`}</li>)}</ul>
             )}
             <div className="text-xs text-muted-foreground pt-2">
               This does not bypass this app's permissions or backend policies.
             </div>
           </div>
+          {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
           <div className="flex gap-3 justify-end">
             <Button variant="outline" disabled={busy} onClick={() => decide(false)}>
               Cancel
