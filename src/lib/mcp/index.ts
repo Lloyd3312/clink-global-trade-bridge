@@ -8,8 +8,8 @@ import createQuote from "./tools/create-quote";
 const projectRef = import.meta.env.VITE_SUPABASE_PROJECT_ID ?? "project-ref-unset";
 
 export default defineMcp({
-  name: "clink-global-mcp",
-  title: "Clink Global Services",
+  name: "clink-global-trade-bridge",
+  title: "clink-global-trade-bridge",
   version: "0.1.0",
   instructions:
     "Tools for Clink Global Services, a Turkish export brokerage. Search the product catalog, browse real-estate listings, and manage the signed-in user's quote requests (list, look up by reference, create a new one).",

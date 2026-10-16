@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabaseForUser } from "../supabase";
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
 
@@ -12,8 +12,9 @@ export default defineTool({
     limit: z.number().int().min(1).max(50).optional(),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
-  handler: async ({ listing_type, city, limit }) => {
-    const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!);
+  handler: async ({ listing_type, city, limit }, ctx) => {
+    if (!ctx.isAuthenticated()) return { content: [{ type: "text", text: "Not authenticated" }], isError: true };
+    const supabase = await supabaseForUser(ctx);
     let q = supabase
       .from("properties")
       .select("id, slug, title, description, listing_type, city, country, bedrooms, bathrooms, area_sqm, price, currency, cover_image")

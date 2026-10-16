@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { oauthReturnPath } from "@/lib/oauth-return-path";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -25,8 +26,8 @@ const Auth = () => {
   // Preserve the intended return target across sign-in, sign-up, and Google OAuth.
   // Only accept same-origin relative paths.
   const rawNext = new URLSearchParams(window.location.search).get("next");
-  const nextPath = rawNext && rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/";
-  const returnUrl = `${window.location.origin}${nextPath}`;
+  const nextPath = oauthReturnPath(rawNext);
+  const returnUrl = new URL(nextPath, window.location.origin).href;
 
   if (!loading && user) return <Navigate to={nextPath} replace />;
 

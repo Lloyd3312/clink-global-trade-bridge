@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabaseForUser } from "../supabase";
 import { defineTool, type ToolContext } from "@lovable.dev/mcp-js";
 import { z } from "zod";
 
@@ -28,10 +28,7 @@ export default defineTool({
     if (!email) {
       return { content: [{ type: "text", text: "No email on token" }], isError: true };
     }
-    const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
-      global: { headers: { Authorization: `Bearer ${ctx.getToken()}` } },
-      auth: { persistSession: false, autoRefreshToken: false },
-    });
+    const supabase = await supabaseForUser(ctx);
     const reference = `CLK-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
     const { data, error } = await supabase
       .from("quotes")
