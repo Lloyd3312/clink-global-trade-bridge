@@ -19,9 +19,9 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         // Custom variants for Clink Global Services
-        cta: "bg-gradient-to-r from-primary to-ocean-blue text-primary-foreground hover:shadow-lg hover:scale-105 transition-all duration-300 font-semibold",
+        cta: "bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold",
         "cta-outline": "border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-semibold",
-        "trust-badge": "bg-success-green text-white hover:bg-success-green/90 rounded-full px-4 py-2 text-xs font-medium",
+        "trust-badge": "bg-success-green text-primary-foreground hover:bg-success-green/90 rounded-full px-4 py-2 text-xs font-medium",
       },
       size: {
         default: "h-10 px-4 py-2",

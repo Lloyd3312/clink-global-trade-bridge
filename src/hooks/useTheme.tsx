@@ -18,8 +18,8 @@ const getSystem = (): "light" | "dark" =>
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "system";
-    return (localStorage.getItem(STORAGE_KEY) as Theme) || "system";
+    if (typeof window === "undefined") return "dark";
+    return (localStorage.getItem(STORAGE_KEY) as Theme) || "dark";
   });
   const [resolved, setResolved] = useState<"light" | "dark">(() =>
     theme === "system" ? getSystem() : (theme as "light" | "dark")
@@ -31,6 +31,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       setResolved(r);
       const root = document.documentElement;
       root.classList.toggle("dark", r === "dark");
+      root.dataset.theme = theme;
     };
     apply();
     if (theme === "system") {

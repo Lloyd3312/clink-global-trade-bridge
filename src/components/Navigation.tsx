@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe, Phone, User, LogOut, LayoutDashboard, Home, Info, Package, Building2, HelpCircle, Mail, FileText, GraduationCap } from "lucide-react";
+import { Menu, X, Globe, Phone, User, LogOut, LayoutDashboard, Home, Info, Package, Building2, HelpCircle, Mail, FileText } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -20,7 +20,6 @@ const Navigation = () => {
     { name: "About Us", path: "/about", icon: Info },
     { name: "Products", path: "/products", icon: Package },
     { name: "Real Estate", path: "/real-estate", icon: Building2 },
-    { name: "Study in Türkiye", path: "/study-in-turkiye", icon: GraduationCap },
     { name: "How It Works", path: "/how-it-works", icon: HelpCircle },
     { name: "Contact", path: "/contact", icon: Mail },
     { name: "Get Quote", path: "/quote", icon: FileText },
@@ -30,7 +29,7 @@ const Navigation = () => {
     <>
       <nav className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             {/* Left: Hamburger tray trigger (always visible) + Logo */}
             <div className="flex items-center gap-2">
               <Sheet open={trayOpen} onOpenChange={setTrayOpen}>
@@ -93,8 +92,8 @@ const Navigation = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              {navItems.slice(0, 7).map((item) => (
+            <div className="hidden lg:flex items-center gap-5">
+              {navItems.slice(0, 6).map((item) => (
                 <Link
                   key={item.name}
                   to={item.path}
@@ -110,7 +109,7 @@ const Navigation = () => {
             {/* Right CTA */}
             <div className="flex items-center gap-2">
               <ThemeToggle />
-              <Button variant="cta-outline" size="sm" asChild className="hidden sm:inline-flex">
+              <Button variant="cta" size="sm" asChild className="hidden sm:inline-flex">
                 <Link to="/quote">Get Quote</Link>
               </Button>
               {user ? (

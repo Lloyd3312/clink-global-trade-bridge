@@ -23,6 +23,11 @@ export default {
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
+                'hero-surface': 'hsl(var(--hero-surface))',
+                'hero-ink': 'hsl(var(--hero-ink))',
+                'hero-muted': 'hsl(var(--hero-muted))',
+                'footer-surface': 'hsl(var(--footer-surface))',
+                'footer-ink': 'hsl(var(--footer-ink))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
