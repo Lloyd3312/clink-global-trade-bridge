@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Bed, Bath, Maximize, MapPin, Building2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import propertyImage from "@/assets/istanbul-trade-hero.jpg";
 import type { Tables } from "@/integrations/supabase/types";
 
 const FeaturedProperties = () => {
@@ -34,17 +35,17 @@ const FeaturedProperties = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-background via-accent/5 to-background relative overflow-hidden">
+    <section className="py-14 md:py-20 bg-secondary/20 border-t border-border">
       {/* Decorative ribbon */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
           <div className="max-w-2xl">
-            <Badge variant="outline" className="mb-4 bg-accent/10 text-accent border-accent/30">
+            <Badge variant="outline" className="mb-4 text-primary border-primary/30">
               Real Estate
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-display">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-display">
               Properties for Sale & Rent
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -62,19 +63,13 @@ const FeaturedProperties = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-96 rounded-2xl bg-muted animate-pulse" />
+              <div key={i} className="h-96 rounded-md bg-muted animate-pulse" />
             ))}
           </div>
         ) : properties.length === 0 ? (
-          <div className="text-center py-16 rounded-2xl border border-dashed border-border bg-card/50">
-            <Building2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-foreground mb-2 font-display">Listings Coming Soon</h3>
-            <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              We're curating premium properties. Check back shortly or explore our marketplace.
-            </p>
-            <Button variant="cta" asChild>
-              <Link to="/real-estate">Visit Real Estate Hub</Link>
-            </Button>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <img src={propertyImage} alt="Modern waterfront architecture in Türkiye" loading="lazy" width={768} height={512} className="w-full aspect-[16/9] object-cover rounded-md" />
+            <div><p className="text-primary text-xs uppercase mb-4">Property sourcing</p><h3 className="text-2xl font-semibold mb-4">Find your place in Türkiye.</h3><p className="text-muted-foreground text-sm leading-relaxed mb-6">Explore residential and commercial property opportunities. Contact our team to discuss your location, budget and requirements.</p><Button variant="cta" asChild><Link to="/real-estate">Explore Real Estate <ArrowRight /></Link></Button></div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -82,7 +77,7 @@ const FeaturedProperties = () => {
               <Link
                 key={property.id}
                 to={`/real-estate/${property.slug}`}
-                className="group relative overflow-hidden rounded-2xl bg-card border border-border/60 shadow-[0_1px_2px_hsla(0_0%_0%/0.04),0_4px_16px_hsla(0_0%_0%/0.05)] hover:shadow-[0_8px_28px_hsla(14_72%_52%/0.15)] transition-all duration-500 hover:-translate-y-1"
+                className="group relative overflow-hidden rounded-md bg-card border border-border/60 hover:border-primary/60 transition-all duration-500 hover:-translate-y-1"
               >
                 <div className="relative h-56 overflow-hidden bg-muted">
                   {property.cover_image ? (
