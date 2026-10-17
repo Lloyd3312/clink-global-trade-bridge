@@ -1,8 +1,8 @@
 # Website refresh
-- [ ] Remove education offerings from pages, navigation, assistant and discovery files.
-- [ ] Apply the user's navy/gold reference layout and simplify the homepage.
-- [ ] Replace key product imagery with realistic category-matched photography.
-- [ ] Verify navigation, theme selection, category links and layouts.
+- [x] Remove education offerings from pages, navigation, assistant and discovery files.
+- [x] Apply the user's navy/gold reference layout and simplify the homepage.
+- [x] Replace key product imagery with realistic category-matched photography.
+- [x] Verify navigation, theme selection, category links and layouts.
 
 ## Previous integration verification
 - [x] Repair existing MCP configuration and shared caller-scoped client.
