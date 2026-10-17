@@ -1,8 +1,8 @@
 # Clink Global Trade Bridge
 
-Clink Global Trade Bridge is a responsive business platform connecting individuals, international buyers, businesses, suppliers, investors, and prospective students with opportunities and support services in Türkiye.
+Clink Global Trade Bridge is a responsive business platform connecting individuals, international buyers, businesses, suppliers, investors with opportunities and support services in Türkiye.
 
-The platform provides product sourcing, supplier connections, trade consultation, real-estate guidance, and Study in Türkiye university application support.
+The platform provides product sourcing, supplier connections, trade consultation, real-estate guidance.
 
 ---
 
@@ -16,7 +16,7 @@ The platform provides product sourcing, supplier connections, trade consultation
 
 ## Project Overview
 
-International buyers and prospective students may struggle to find verified suppliers, suitable universities, affordable programmes, and reliable local support in Türkiye.
+International buyers may struggle to find verified suppliers, suitable properties, and reliable local support in Türkiye.
 
 Clink Global Trade Bridge provides a central digital platform where users can request support with:
 
@@ -24,10 +24,7 @@ Clink Global Trade Bridge provides a central digital platform where users can re
 - supplier sourcing;
 - exports from Türkiye;
 - Turkish real estate;
-- university applications;
-- scholarships;
-- tuition-deposit guidance;
-- student-visa preparation.
+
 
 ---
 
@@ -82,17 +79,6 @@ Project ownership, business requirements, DevOps implementation, Docker containe
 - Turkish property consultation
 - Investment-property guidance
 - Initial property sourcing support
-
-### Study in Türkiye
-
-- Free initial university consultation
-- University and programme selection
-- Affordable university searches
-- Scholarship-opportunity searches
-- Application-document support
-- Admission follow-up
-- Tuition-deposit guidance
-- Student-visa preparation support
 
 ---
 
@@ -380,7 +366,7 @@ minikube status
 - Environment files containing sensitive values must not be committed.
 - Production secrets should be provided through the hosting platform.
 - Kubernetes Secrets should be used for sensitive cluster values.
-- Admission, scholarship, payment-processing, and visa results are not presented as guaranteed.
+- Payment-processing and property transaction results are not presented as guaranteed.
 
 ---
 
@@ -442,9 +428,9 @@ Kubernetes infrastructure metrics can still be collected through components such
 
 ## Disclaimer
 
-Clink Global Trade Bridge provides consultation and application-support services.
+Clink Global Trade Bridge provides trade consultation and property-support services.
 
-University admission, scholarship awards, tuition-payment confirmation, property transactions, supplier agreements, and visa decisions remain subject to the rules and decisions of the relevant universities, banks, suppliers, consulates, and government authorities.
+Property transactions, payment confirmation, and supplier agreements remain subject to the rules and decisions of the relevant banks, suppliers, property owners, and government authorities.
 
 ---
 

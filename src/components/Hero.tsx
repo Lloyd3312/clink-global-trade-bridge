@@ -1,160 +1,35 @@
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Shield, Truck, CheckCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import heroCollage1 from "@/assets/hero-products-collage-1.jpg";
-import heroCollage2 from "@/assets/hero-products-collage-2.jpg";
-import heroFashion from "@/assets/hero-fashion.jpg";
-import fashionImage from "@/assets/fashion-accessories.jpg";
-import ceramicsImage from "@/assets/ceramics-pop.jpg";
-import solarPanelsImage from "@/assets/solar-panels.jpg";
-import securityDoorsImage from "@/assets/security-doors.jpg";
+import heroImage from "@/assets/istanbul-trade-hero.jpg";
 
-const Hero = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-  const backgroundImages = [
-    heroCollage1,
-    heroCollage2,
-    heroFashion,
-    fashionImage,
-    ceramicsImage,
-    solarPanelsImage,
-    securityDoorsImage
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        (prevIndex + 1) % backgroundImages.length
-      );
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [backgroundImages.length]);
-
+export default function Hero() {
   return (
-    <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-center bg-gradient-to-br from-primary/5 via-background to-steel-gray/5">
-      {/* Background Image Overlay with Rotation */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent transition-all duration-1000"
-        style={{
-          backgroundImage: `url('${backgroundImages[currentImageIndex]}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
-        }}
-      />
-      
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Hero Content */}
-          <div className="space-y-8 bg-background/80 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-border/60 shadow-2xl">
-            {/* Trust Badge */}
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline" className="bg-success-green/20 text-success-green border-success-green/30 backdrop-blur-sm drop-shadow-md">
-                <CheckCircle className="h-3 w-3 mr-1" />
-                Trusted Export Partner
-              </Badge>
-              <Badge variant="outline" className="bg-trust-blue/20 text-trust-blue border-trust-blue/30 backdrop-blur-sm drop-shadow-md">
-                <Shield className="h-3 w-3 mr-1" />
-                Quality Guaranteed
-              </Badge>
-            </div>
-
-            {/* Main Heading */}
-            <div className="space-y-4 md:space-y-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] drop-shadow-lg font-display">
-                <span className="text-foreground drop-shadow-md">From Türkiye,</span>{" "}
-                <span className="text-primary drop-shadow-md italic">to your doorstep.</span>
-                <span className="block text-foreground/90 text-2xl md:text-3xl lg:text-4xl mt-3 font-medium">
-                  Premium goods. Verified suppliers. Worldwide delivery.
-                </span>
-              </h1>
-
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl drop-shadow-md bg-background/40 backdrop-blur-sm rounded-xl p-4 border border-border/40">
-                Whether you're sourcing steel, importing fashion, or investing in Turkish real estate — Clink Global is your trusted bridge.
-              </p>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-              <Button variant="cta" size="lg" className="md:text-base" asChild>
-                <Link to="/quote" className="flex items-center gap-2">
-                  Request a Quote
-                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
-                </Link>
-              </Button>
-              <Button variant="cta-outline" size="lg" className="md:text-base" asChild>
-                <Link to="/contact">
-                  Contact & Quote
-                </Link>
-              </Button>
-            </div>
-
-            {/* Trust Indicators */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-border bg-background/30 backdrop-blur-sm rounded-lg p-6 drop-shadow-lg">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary drop-shadow-md">250+</div>
-                <div className="text-sm text-muted-foreground drop-shadow-sm">Shipments</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary drop-shadow-md">1M+</div>
-                <div className="text-sm text-muted-foreground drop-shadow-sm">Tons Sourced</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary drop-shadow-md">99%</div>
-                <div className="text-sm text-muted-foreground drop-shadow-sm">Client Satisfaction</div>
-              </div>
-            </div>
+    <section className="relative bg-hero-surface text-hero-ink overflow-hidden">
+      <img src={heroImage} alt="Contemporary waterfront architecture in Istanbul at dusk" width={1536} height={1024} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover object-right" />
+      <div className="absolute inset-0 hero-shade" />
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 pb-20 md:pt-24 md:pb-28">
+        <div className="max-w-xl border-l-2 border-primary pl-5 md:pl-8">
+          <p className="text-xs text-primary font-semibold mb-5 uppercase">Türkiye. Connected to the world.</p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl leading-[1.12] font-semibold mb-6">Clink Global<br /><span className="text-primary">Trade & Property</span></h1>
+          <p className="text-lg text-hero-ink mb-3">Premium Turkish goods.<br />Trusted local connections.</p>
+          <p className="text-sm md:text-base text-hero-muted leading-relaxed max-w-md mb-8">From sourcing the right products to exploring Turkish real estate — a clear path from your first enquiry to your next opportunity.</p>
+          <div className="flex flex-wrap gap-3">
+            <Button variant="cta" size="lg" asChild><Link to="/products">Explore Products <ArrowRight /></Link></Button>
+            <Button variant="outline" size="lg" className="bg-transparent text-hero-ink border-hero-ink/40" asChild><Link to="/quote">Request a Quote</Link></Button>
           </div>
-
-          {/* Hero Visual - Service Highlights */}
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-4">
-              {/* Service Cards */}
-              <div className="bg-card/90 backdrop-blur-md rounded-lg p-6 border border-border/50 hover:shadow-xl transition-all duration-300 drop-shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center drop-shadow-sm">
-                    <Shield className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground drop-shadow-sm">Fast Response</h3>
-                    <p className="text-sm text-muted-foreground drop-shadow-sm">Quick quotes within 24 hours</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-card/90 backdrop-blur-md rounded-lg p-6 border border-border/50 hover:shadow-xl transition-all duration-300 drop-shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 bg-ocean-blue/10 rounded-lg flex items-center justify-center drop-shadow-sm">
-                    <Truck className="h-6 w-6 text-ocean-blue" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground drop-shadow-sm">Global Shipping</h3>
-                    <p className="text-sm text-muted-foreground drop-shadow-sm">Worldwide logistics solutions</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-card/90 backdrop-blur-md rounded-lg p-6 border border-border/50 hover:shadow-xl transition-all duration-300 drop-shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 bg-success-green/10 rounded-lg flex items-center justify-center drop-shadow-sm">
-                    <CheckCircle className="h-6 w-6 text-success-green" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground drop-shadow-sm">Quality Sourcing</h3>
-                    <p className="text-sm text-muted-foreground drop-shadow-sm">Verified Turkish suppliers</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+      </div>
+      <div className="relative border-t border-hero-ink/15 bg-hero-surface/90">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 px-6 sm:px-8 lg:px-12">
+          {[
+            ["01", "Product Sourcing", "Turkish manufacturers & goods", "/products"],
+            ["02", "Private Label", "Products tailored to your brand", "/products/white-label-cosmetics"],
+            ["03", "Real Estate", "Properties for sale & rent", "/real-estate"],
+            ["04", "Export Coordination", "From enquiry to delivery", "/how-it-works"],
+          ].map(([n,title,detail,path]) => <Link key={n} to={path} className="py-6 md:py-8 pr-4 md:pl-6 border-r border-hero-ink/15 last:border-r-0 group"><span className="text-primary text-xs">{n}</span><h2 className="text-sm md:text-base font-semibold mt-2 group-hover:text-primary">{title}</h2><p className="text-xs text-hero-muted mt-2 leading-relaxed">{detail}</p></Link>)}
         </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

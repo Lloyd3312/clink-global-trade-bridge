@@ -11,10 +11,10 @@ type Msg = { role: "user" | "assistant"; content: string };
 const STARTER: Msg = {
   role: "assistant",
   content:
-    "Hi, I'm **Kaya** 👋 — your Clink assistant.\n\nI can help with Turkish product sourcing, real estate, studying in Türkiye, quotes & samples.\n\nWhat are you looking for today?",
+    "Hi, I'm **Kaya** 👋 — your Clink assistant.\n\nI can help with Turkish product sourcing, real estate, quotes & samples.\n\nWhat are you looking for today?",
 };
 
-const QUICK = ["Source a product", "Real estate", "Study in Türkiye", "Track my quote"];
+const QUICK = ["Source a product", "Real estate", "Track my quote"];
 
 
 const AIAssistant = () => {
@@ -58,17 +58,17 @@ const AIAssistant = () => {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-24 right-6 z-40 flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-ocean-blue px-5 py-3 text-primary-foreground shadow-lg hover:scale-105 transition-transform"
+          className="fixed bottom-24 right-6 z-40 flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-primary-foreground shadow-lg hover:scale-105 transition-transform"
           aria-label="Open AI assistant"
         >
           <Sparkles className="h-5 w-5" />
-          <span className="font-semibold hidden sm:inline">AI Assistant</span>
+          <span className="font-semibold hidden sm:inline">Kaya</span>
         </button>
       )}
 
       {open && (
         <div className="fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] sm:w-[400px] h-[600px] max-h-[80vh] bg-card border rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-primary to-ocean-blue text-primary-foreground">
+          <div className="flex items-center justify-between px-4 py-3 bg-primary text-primary-foreground">
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5" />
               <div>
