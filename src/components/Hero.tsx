@@ -6,7 +6,7 @@ import heroImage from "@/assets/istanbul-trade-hero.jpg";
 export default function Hero() {
   return (
     <section className="relative bg-hero-surface text-hero-ink overflow-hidden">
-      <img src={heroImage} alt="Contemporary waterfront architecture in Istanbul at dusk" width={1536} height={1024} fetchpriority="high" className="absolute inset-0 h-full w-full object-cover object-right" />
+      <img src={heroImage} alt="Contemporary waterfront architecture in Istanbul at dusk" width={1536} height={1024} className="absolute inset-0 h-full w-full object-cover object-right" />
       <div className="absolute inset-0 hero-shade" />
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 pb-20 md:pt-24 md:pb-28">
         <div className="max-w-xl border-l-2 border-primary pl-5 md:pl-8">
