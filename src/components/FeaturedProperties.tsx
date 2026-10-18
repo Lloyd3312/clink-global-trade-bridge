@@ -36,26 +36,21 @@ const FeaturedProperties = () => {
 
   return (
     <section className="py-14 md:py-20 bg-secondary/20 border-t border-border">
-      {/* Decorative ribbon */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
           <div className="max-w-2xl">
-            <Badge variant="outline" className="mb-4 text-primary border-primary/30">
-              Real Estate
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-display">
+            <p className="text-xs text-primary uppercase mb-3">Real Estate</p>
+            <h2 className="text-3xl md:text-4xl font-semibold mb-4">
               Properties for Sale & Rent
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-muted-foreground leading-relaxed">
               Verified listings from trusted owners — apartments, villas, commercial spaces and more.
             </p>
           </div>
-          <Button variant="cta-outline" size="lg" asChild>
+          <Button variant="cta-outline" asChild>
             <Link to="/real-estate" className="inline-flex items-center gap-2">
               View All Properties
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </div>
@@ -77,7 +72,7 @@ const FeaturedProperties = () => {
               <Link
                 key={property.id}
                 to={`/real-estate/${property.slug}`}
-                className="group relative overflow-hidden rounded-md bg-card border border-border/60 hover:border-primary/60 transition-all duration-500 hover:-translate-y-1"
+                className="group overflow-hidden rounded-md bg-card border border-border transition-colors hover:border-primary/60"
               >
                 <div className="relative h-56 overflow-hidden bg-muted">
                   {property.cover_image ? (
@@ -85,14 +80,13 @@ const FeaturedProperties = () => {
                       src={property.cover_image}
                       alt={property.title}
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
                       <Building2 className="h-12 w-12" />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent" />
                   <Badge className="absolute top-4 left-4 bg-background/90 text-foreground border-0 backdrop-blur-sm capitalize">
                     For {property.listing_type}
                   </Badge>
@@ -105,7 +99,7 @@ const FeaturedProperties = () => {
 
                 <div className="p-5 space-y-3">
                   <div>
-                    <h3 className="text-xl font-bold text-foreground font-display leading-tight group-hover:text-primary transition-colors line-clamp-1">
+                    <h3 className="text-lg font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-1">
                       {property.title}
                     </h3>
                     {(property.city || property.country) && (
